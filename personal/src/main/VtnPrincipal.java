@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import main.resources.Alerts;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import main.resources.Empleado;
 
@@ -54,8 +55,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtsNombre = new javax.swing.JTextField();
         txtpApellido = new javax.swing.JTextField();
         txtsApellido = new javax.swing.JTextField();
-        txtNcuenta = new javax.swing.JTextField();
-        txtNficha = new javax.swing.JTextField();
+        txtNcuenta = new javax.swing.JFormattedTextField();
+        txtNficha = new javax.swing.JFormattedTextField();
         cmbsupervisor = new javax.swing.JComboBox();
         txtCargo = new javax.swing.JTextField();
         btnIngresarPersona = new javax.swing.JButton();
@@ -65,10 +66,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jTextField2 = new javax.swing.JTextField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        jTextField4 = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -88,7 +91,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 581, Short.MAX_VALUE)
+            .addGap(0, 337, Short.MAX_VALUE)
         );
 
         jTabbedPane1.addTab("tab1", jPanel2);
@@ -116,6 +119,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 txtsNombreActionPerformed(evt);
             }
         });
+
+        txtNcuenta.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("########################"))));
+
+        txtNficha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
 
         cmbsupervisor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N" }));
 
@@ -167,13 +174,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(txtsApellido)
-                                    .addComponent(txtNficha)
-                                    .addComponent(txtCargo)))))
+                                    .addComponent(txtCargo)
+                                    .addComponent(txtNficha)))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(40, 40, 40)
                         .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -197,12 +204,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(txtsApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtNcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8))
-                    .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                        .addComponent(jLabel6)
+                        .addComponent(txtNcuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel7)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -228,7 +236,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel3);
@@ -237,7 +245,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel11.setText("N° ficha:");
 
-        jLabel12.setText("jLabel12");
+        jLabel12.setText("Cedula:");
+
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
 
         jButton1.setText("Listar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -245,6 +255,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jLabel13.setText("Supervisor:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -254,22 +266,27 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel10)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel13)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
+                                .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel12))
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(74, 74, 74)
-                        .addComponent(jButton1)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                                    .addComponent(jFormattedTextField1))
+                                .addGap(74, 74, 74)
+                                .addComponent(jButton1)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +300,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
@@ -291,7 +308,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jButton1)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         );
 
         tblListado.setModel(new javax.swing.table.DefaultTableModel(
@@ -338,11 +358,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("tab3", jPanel4);
+        jTabbedPane1.addTab("Consultas", jPanel4);
 
         jMenu1.setText("File");
         jMenuBar1.add(jMenu1);
@@ -359,7 +379,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 743, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,10 +446,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JComboBox cmbsupervisor;
     private javax.swing.JButton jButton1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -448,13 +470,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtCargo;
-    private javax.swing.JTextField txtNcuenta;
-    private javax.swing.JTextField txtNficha;
+    private javax.swing.JFormattedTextField txtNcuenta;
+    private javax.swing.JFormattedTextField txtNficha;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtpApellido;
     private javax.swing.JTextField txtpNombre;
@@ -469,9 +491,7 @@ private void insercionPersona(){
     String pApellido = txtpApellido.getText().trim();
     String sApellido = txtsApellido.getText().trim();
     String cuenta = txtNcuenta.getText().trim();
-    int nCuenta = Integer.parseInt(cuenta);
     String ficha = txtNficha.getText().trim();
-    int nFicha = Integer.parseInt(ficha);
     String supervisor = cmbsupervisor.getSelectedItem().toString();
     String cargo = txtCargo.getText().trim();
     
@@ -479,24 +499,62 @@ private void insercionPersona(){
         Alerts msj = new Alerts();
         msj.dangermsj("Verifique datos");
     }else{
+        int nFicha;
+        int nCuenta;
+        if(!"".equals(ficha)){
+            nFicha = Integer.parseInt(ficha);
+        }
+        else {
+            nFicha= 0;
+        }
+        if(!"".equals(cuenta)){
+            nCuenta = Integer.parseInt(cuenta);
+        }else{
+            nCuenta = 0;
+        }
+        
         Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, supervisor);
         Appi app = new Appi();
-        app.ingresoPersona(emp);
+        if(app.ingresoPersona(emp))        limpiarinserpersona();
     }
+}
+
+private void limpiarinserpersona(){
+    txtcedula.setText("");
+    txtpNombre.setText("");
+    txtsNombre.setText("");
+    txtpApellido.setText("");
+    txtsApellido.setText("");
+    txtNcuenta.setText("");
+    txtNficha.setText("");
+    cmbsupervisor.setSelectedIndex(0);
+    txtCargo.setText("");
 }
 
 private void listado(){
     DefaultTableModel model = (DefaultTableModel) tblListado.getModel();
     Object [] fila = new Object[4];
     Appi app = new Appi();
-    Object [] consulta = app.listado();
-    fila[0]="nombre";
-    fila[1]="dato2";
-    fila[2]="dato3";
-    fila[3]="dato4";
-        
-    model.addRow(fila);
+    Empleado[] datos = app.listado();
+    int rows = model.getRowCount();
+    for(int i=0; i<rows; i++){
+        model.removeRow(0);
+    }
+    for(int i=0;i<datos.length;i++) {
+        fila[0] = datos[i].getnFicha();
+        fila[1] = datos[i].getCedula();
+        fila[2] = datos[i].getpNombre();
+        fila[3] = datos[i].getSupervisor();
+        model.addRow(fila);
+    }
+    tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    tblListado.getColumnModel().getColumn(0).setPreferredWidth(60);
+    tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);
+    tblListado.getColumnModel().getColumn(2).setPreferredWidth(252);
+    tblListado.getColumnModel().getColumn(3).setPreferredWidth(250);
+    
     tblListado.setModel(model);
+    
 }
     
 }

@@ -7,10 +7,7 @@ package main;
  */
 
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.ArrayList;
 import main.resources.Alerts;
 import main.resources.Empleado;
 import personalVictoria.route.Apidb;
@@ -24,7 +21,8 @@ public class Appi {
     Apidb db = new Apidb();
     
    
-    public void ingresoPersona(Empleado emp){
+    public boolean ingresoPersona(Empleado emp){
+        boolean res;
         Alerts msj = new Alerts();
          
         String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','supervisor') "
@@ -32,18 +30,26 @@ public class Appi {
                 +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getSupervisor()+"');";
         if(db.operacion(sql)){
             msj.aviso("Ingreso exitoso");
+            res = true;
         }else{
             msj.errormsj("Error en operacion");
+            res = false;
         }
         System.out.println(sql);
+        return res;
     }
    
-    public Object[][] listado() {
-        Object[][] datos=null;
-        String sql = "SELECT  nficha, cc, supervisor, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado";
-        //ResultSet res = db.listar(sql);
-        db.listar(sql);
+    public Empleado[] listado() {
         
+        String sql = "SELECT  nficha, cc, supervisor, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado";
+        ArrayList obj = db.listar(sql);
+        System.out.println(obj.size());
+        Empleado[] datos= new Empleado[obj.size()];
+        int i=0;
+        for(Object e:obj ){
+            datos[i]= (Empleado) e;
+            i++;
+        }
         return datos;
     }
 }

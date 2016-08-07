@@ -30,6 +30,17 @@ public class Empleado {
         this.nCuenta = nCuenta;
         this.supervisor = supervisor;
     }
+    
+    public Empleado(int ficha, String cedula, String nombre, String supervisor){
+        this.cedula = cedula;
+        this.pNombre = nombre;
+        //this.sNombre = "";
+        //this.pApellido = pApellido;
+       // this.sApellido = sApellido;
+        this.nFicha = ficha;
+        //this.nCuenta = nCuenta;
+        this.supervisor = supervisor;
+    }
 
     public String getCedula() {
         return cedula;

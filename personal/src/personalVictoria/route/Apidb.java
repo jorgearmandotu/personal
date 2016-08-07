@@ -5,16 +5,19 @@
  */
 package personalVictoria.route;
 
+import java.awt.List;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.Appi;
 import main.resources.Alerts;
+import main.resources.Empleado;
 
 /**
  *
@@ -99,37 +102,29 @@ public class Apidb {
         return res;
     }
     
-    public void listar(String sql){
-        ResultSet res = null;
+    public ArrayList listar(String sql){
+        //ResultSet res = null;
+        ArrayList<Empleado> obj= new ArrayList<>();
         Connection con = connect();
         if(con != null){
-            try{
-                try (Statement st = con.createStatement()) {
-                    res = st.executeQuery(sql);
+            try (Statement st = con.createStatement()) {
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    int ficha = res.getInt("nficha");
+                    String cc = res.getString("cc");
+                    String nombre = res.getString("nombre");
+                    String supervisor = res.getString("supervisor");
+                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+supervisor);
+                    Empleado emp = new Empleado(ficha, cc, nombre, supervisor);
+                    obj.add(emp);
                 }
             }catch(SQLException ex){
                 System.err.println(ex.getMessage());
                 Alerts msj = new Alerts();
                 msj.errormsj("Ocurrio un error al consultar los datos");
             }
-            try {
-                if(res.next()){
-                    
-                        do{
-                            //String ficha = res.getString("nficha");
-                            //String cc = res.getString("cc");
-                            String nombre = res.getString("nombre");
-                            //String supervisor = res.getString("supervisor");
-                            //System.out.println(ficha+' '+cc+' '+nombre+' '+supervisor);
-                            System.out.println(nombre);
-                        }while(res.next());
-                    
-                }   } catch (SQLException ex) {
-                //Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
-                System.err.println(ex);
-            }
             if(close(con)) System.out.println("conexion cerrada");
         }
-        //return res;
+        return obj;
     }
 }
