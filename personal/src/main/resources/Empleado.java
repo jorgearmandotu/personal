@@ -17,10 +17,10 @@ public class Empleado {
     String pApellido;
     String sApellido;
     int nFicha;
-    int nCuenta;
+    long nCuenta;
     String supervisor;
 
-    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, String sApellido, int nFicha, int nCuenta, String supervisor) {
+    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, String sApellido, int nFicha, long nCuenta, String supervisor) {
         this.cedula = cedula;
         this.pNombre = pNombre;
         this.sNombre = sNombre;
@@ -66,7 +66,7 @@ public class Empleado {
         return nFicha;
     }
 
-    public int getnCuenta() {
+    public long getnCuenta() {
         return nCuenta;
     }
 

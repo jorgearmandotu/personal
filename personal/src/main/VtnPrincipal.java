@@ -1,19 +1,12 @@
 package main;
 
 
-import java.sql.SQLException;
 import main.resources.Alerts;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import main.resources.Empleado;
+import main.resources.VtnDefVal;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 
 /**
@@ -92,6 +85,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         tblListado = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        mnuDefOpciones = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -511,6 +505,15 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jTabbedPane1.addTab("Consultas", jPanel4);
 
         jMenu1.setText("File");
+
+        mnuDefOpciones.setText("Ingresar Parametros");
+        mnuDefOpciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuDefOpcionesActionPerformed(evt);
+            }
+        });
+        jMenu1.add(mnuDefOpciones);
+
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Edit");
@@ -567,6 +570,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private void cmbsupervisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbsupervisorActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cmbsupervisorActionPerformed
+
+    private void mnuDefOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDefOpcionesActionPerformed
+        // TODO add your handling code here:
+        VtnDefVal vtnval = new VtnDefVal(this,true);
+        vtnval.setLocationRelativeTo(this);
+        vtnval.setVisible(true);
+    }//GEN-LAST:event_mnuDefOpcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -646,6 +656,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuItem mnuDefOpciones;
     private javax.swing.ButtonGroup rbtnSexo;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtCargo;
@@ -678,7 +689,7 @@ private void insercionPersona(){
         msj.dangermsj("Verifique datos");
     }else{
         int nFicha;
-        int nCuenta;
+        long nCuenta;
         if(!"".equals(ficha)){
             nFicha = Integer.parseInt(ficha);
         }
@@ -686,7 +697,7 @@ private void insercionPersona(){
             nFicha= 0;
         }
         if(!"".equals(cuenta)){
-            nCuenta = Integer.parseInt(cuenta);
+            nCuenta = Long.parseLong(cuenta);
         }else{
             nCuenta = 0;
         }
@@ -756,8 +767,8 @@ private void cmbsupervisor(){
     Empleado[] datos;// = null;
     Appi app = new Appi();
     datos = app.cmbsupervisor();
-    cmbsupervisor.removeAll();
-    //cmbsupervisor.addItem("N");
+    cmbsupervisor.removeAllItems();
+    cmbsupervisor.addItem("N");
         for (Empleado dato : datos) {
             cmbsupervisor.addItem(dato.getpNombre());
         }
