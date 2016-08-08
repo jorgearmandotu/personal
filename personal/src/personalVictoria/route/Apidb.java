@@ -5,7 +5,6 @@
  */
 package personalVictoria.route;
 
-import java.awt.List;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,7 +14,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.Appi;
 import main.resources.Alerts;
 import main.resources.Empleado;
 
