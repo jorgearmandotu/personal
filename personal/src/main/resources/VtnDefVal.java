@@ -19,7 +19,7 @@ public class VtnDefVal extends javax.swing.JDialog {
     public VtnDefVal(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        combosupervisor();
+        llenarcombos();
     }
 
     /**
@@ -433,6 +433,7 @@ public class VtnDefVal extends javax.swing.JDialog {
     private void btnIngGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngGrupoActionPerformed
 // TODO add your handling code here:
         ingresoGrupo();
+        llenarcombos();
     }//GEN-LAST:event_btnIngGrupoActionPerformed
 
     private void txtNomGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomGrupoActionPerformed
@@ -528,15 +529,23 @@ public class VtnDefVal extends javax.swing.JDialog {
     // End of variables declaration//GEN-END:variables
 
 
-    private void combosupervisor(){
+    private void llenarcombos(){
         Empleado[] datos;// = null;
-    Appi app = new Appi();
-    datos = app.supervisores();
-    cmbIngGrupo.removeAllItems();
-    cmbDefSup.removeAllItems();
+        Appi app = new Appi();
+        datos = app.supervisores();
+        cmbIngGrupo.removeAllItems();
+        cmbDefSup.removeAllItems();
         for (Empleado dato : datos) {
             cmbIngGrupo.addItem(dato.getpNombre());
             cmbDefSup.addItem(dato.getpNombre());
+        }
+        
+    //lenar combo 
+        cmbGrupDefSup.removeAllItems();
+        Grupo[] data;
+        data = app.cmbgrupo();
+        for (Grupo dat : data) {
+            cmbGrupDefSup.addItem(dat.getNombre());
         }
     }
     
@@ -568,7 +577,13 @@ public class VtnDefVal extends javax.swing.JDialog {
         }
     }
     
-    private void cmbgrupo(){
-        
-    }
+    /*private void lenarcmb(){
+        cmbGrupDefSup.removeAllItems();
+        Grupo[] datos;
+        Appi app = new Appi();
+        datos = app.cmbgrupo();
+        for (Grupo dato : datos) {
+            cmbGrupDefSup.addItem(dato.getNombre());
+        }
+    }*/
 }
