@@ -1,12 +1,13 @@
-package main;
+package views;
 
 
 import main.resources.Alerts;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import main.Appi;
 import main.resources.Empleado;
 import main.resources.Grupo;
-import main.resources.VtnDefVal;
+import views.VtnDefVal;
 
 
 
