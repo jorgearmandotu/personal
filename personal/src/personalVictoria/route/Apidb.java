@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.resources.Alerts;
 import main.resources.Empleado;
+import main.resources.Grupo;
 
 /**
  *
@@ -111,10 +112,53 @@ public class Apidb {
                     int ficha = res.getInt("nficha");
                     String cc = res.getString("cc");
                     String nombre = res.getString("nombre");
-                    String supervisor = res.getString("supervisor");
-                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+supervisor);
-                    Empleado emp = new Empleado(ficha, cc, nombre, supervisor);
+                    String grupo = res.getString("grupo");
+                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
+                    Empleado emp = new Empleado(ficha, cc, nombre, grupo);
                     obj.add(emp);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
+    
+    public ArrayList listarGrupos(String sql){
+        ArrayList<Grupo> obj = new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String nom = res.getString("nombreGrupo");
+                    String sup = res.getString("supervisor");
+                    String id = res.getString("idGrupo");
+                    Grupo grup= new Grupo(nom, sup, id);
+                    obj.add(grup);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
+    
+    public ArrayList listarCargos(String sql){
+        ArrayList<String> obj = new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String nom = res.getString("nombreCargo");
+                    obj.add(nom);
                 }
             }catch(SQLException ex){
                 System.err.println(ex.getMessage());

@@ -18,9 +18,9 @@ public class Empleado {
     String sApellido;
     int nFicha;
     long nCuenta;
-    String supervisor;
+    String grupo;
 
-    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, String sApellido, int nFicha, long nCuenta, String supervisor) {
+    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, String sApellido, int nFicha, long nCuenta, String grupo) {
         this.cedula = cedula;
         this.pNombre = pNombre;
         this.sNombre = sNombre;
@@ -28,10 +28,10 @@ public class Empleado {
         this.sApellido = sApellido;
         this.nFicha = nFicha;
         this.nCuenta = nCuenta;
-        this.supervisor = supervisor;
+        this.grupo = grupo;
     }
     
-    public Empleado(int ficha, String cedula, String nombre, String supervisor){
+    public Empleado(int ficha, String cedula, String nombre, String grupo){
         this.cedula = cedula;
         this.pNombre = nombre;
         //this.sNombre = "";
@@ -39,7 +39,7 @@ public class Empleado {
        // this.sApellido = sApellido;
         this.nFicha = ficha;
         //this.nCuenta = nCuenta;
-        this.supervisor = supervisor;
+        this.grupo = grupo;
     }
 
     public String getCedula() {
@@ -70,8 +70,8 @@ public class Empleado {
         return nCuenta;
     }
 
-    public String getSupervisor() {
-        return supervisor;
+    public String getGrupo() {
+        return grupo;
     }
     
     

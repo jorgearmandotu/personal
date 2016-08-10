@@ -5,6 +5,7 @@ import main.resources.Alerts;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import main.resources.Empleado;
+import main.resources.Grupo;
 import main.resources.VtnDefVal;
 
 
@@ -20,7 +21,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
      */
     public VtnPrincipal() {
         initComponents();
-        cmbsupervisor();
+        cmbgrupo();
     }
 
     /**
@@ -52,8 +53,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtsApellido = new javax.swing.JTextField();
         txtNcuenta = new javax.swing.JFormattedTextField();
         txtNficha = new javax.swing.JFormattedTextField();
-        cmbsupervisor = new javax.swing.JComboBox();
-        txtCargo = new javax.swing.JTextField();
+        cmbgrupo = new javax.swing.JComboBox();
         btnIngresarPersona = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
@@ -70,6 +70,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jRadioButton2 = new javax.swing.JRadioButton();
         jTextField1 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox();
+        cmbcargo = new javax.swing.JComboBox();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -125,7 +126,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel6.setText("N° cuenta:");
 
-        jLabel7.setText("Supervisor:");
+        jLabel7.setText("Grupo:");
 
         jLabel8.setText("N° ficha:");
 
@@ -139,16 +140,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         txtNficha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("######"))));
 
-        cmbsupervisor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N" }));
-        cmbsupervisor.addActionListener(new java.awt.event.ActionListener() {
+        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N" }));
+        cmbgrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbsupervisorActionPerformed(evt);
-            }
-        });
-
-        txtCargo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCargoActionPerformed(evt);
+                cmbgrupoActionPerformed(evt);
             }
         });
 
@@ -229,6 +224,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -247,17 +244,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(40, 40, 40)
-                                        .addComponent(txtcedula))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel6))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtpApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
-                                            .addComponent(txtpNombre)
-                                            .addComponent(txtNcuenta)))
+                                        .addComponent(txtcedula, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
                                         .addComponent(jLabel14)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -269,9 +256,17 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel5Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(cmbsupervisor, 0, 212, Short.MAX_VALUE)))
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel4)
+                                            .addComponent(jLabel6)
+                                            .addComponent(jLabel7))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cmbgrupo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtpApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
+                                            .addComponent(txtpNombre)
+                                            .addComponent(txtNcuenta))))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -290,8 +285,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtsApellido)
-                                            .addComponent(txtCargo)
-                                            .addComponent(txtNficha))))))))
+                                            .addComponent(txtNficha)
+                                            .addComponent(cmbcargo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -324,15 +319,15 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(16, 16, 16)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(jLabel9)))
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel9)
+                                .addComponent(cmbcargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cmbsupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(cmbgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
@@ -351,7 +346,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnIngresarPersona)
-                .addContainerGap(13, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -368,7 +363,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel3);
@@ -559,23 +554,20 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtListSupervisorActionPerformed
 
-    private void txtCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCargoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCargoActionPerformed
-
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void cmbsupervisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbsupervisorActionPerformed
+    private void cmbgrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbgrupoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cmbsupervisorActionPerformed
+    }//GEN-LAST:event_cmbgrupoActionPerformed
 
     private void mnuDefOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDefOpcionesActionPerformed
         // TODO add your handling code here:
         VtnDefVal vtnval = new VtnDefVal(this,true);
         vtnval.setLocationRelativeTo(this);
         vtnval.setVisible(true);
+        cmbgrupo();
     }//GEN-LAST:event_mnuDefOpcionesActionPerformed
 
     /**
@@ -618,7 +610,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JButton btnListar;
-    private javax.swing.JComboBox cmbsupervisor;
+    private javax.swing.JComboBox cmbcargo;
+    private javax.swing.JComboBox cmbgrupo;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JComboBox jComboBox3;
@@ -659,7 +652,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuDefOpciones;
     private javax.swing.ButtonGroup rbtnSexo;
     private javax.swing.JTable tblListado;
-    private javax.swing.JTextField txtCargo;
     private javax.swing.JTextField txtListCedula;
     private javax.swing.JFormattedTextField txtListFicha;
     private javax.swing.JTextField txtListNombre;
@@ -681,8 +673,8 @@ private void insercionPersona(){
     String sApellido = txtsApellido.getText().trim();
     String cuenta = txtNcuenta.getText().trim();
     String ficha = txtNficha.getText().trim();
-    String supervisor = cmbsupervisor.getSelectedItem().toString();
-    String cargo = txtCargo.getText().trim();
+    String grupo = cmbgrupo.getSelectedItem().toString();
+    String cargo = cmbcargo.getSelectedItem().toString();
     
     if("".equals(cedula) || "".equals(pNombre) || "".equals(pApellido) || "".equals(cargo)){
         Alerts msj = new Alerts();
@@ -702,11 +694,13 @@ private void insercionPersona(){
             nCuenta = 0;
         }
         
-        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, supervisor);
         Appi app = new Appi();
+        if(!"N".equals(grupo))       grupo = app.idGrupo(grupo);
+        
+        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo);
         if(app.ingresoPersona(emp)){
             limpiarinserpersona();
-            cmbsupervisor();
+            cmbgrupo();
         }
     }
 }
@@ -719,8 +713,8 @@ private void limpiarinserpersona(){
     txtsApellido.setText("");
     txtNcuenta.setText("");
     txtNficha.setText("");
-    cmbsupervisor.setSelectedIndex(0);
-    txtCargo.setText("");
+    cmbgrupo.setSelectedIndex(0);
+    cmbcargo.setSelectedIndex(0);
 }
 
 private void listado(){
@@ -750,7 +744,7 @@ private void listado(){
         fila[0] = datos[i].getnFicha();
         fila[1] = datos[i].getCedula();
         fila[2] = datos[i].getpNombre();
-        fila[3] = datos[i].getSupervisor();
+        fila[3] = datos[i].getGrupo();
         model.addRow(fila);
     }
     tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -763,15 +757,24 @@ private void listado(){
     
 }
 
-private void cmbsupervisor(){
-    Empleado[] datos;// = null;
+private void cmbgrupo(){
+    Grupo[] datos;// = null;
     Appi app = new Appi();
-    datos = app.cmbsupervisor();
-    cmbsupervisor.removeAllItems();
-    cmbsupervisor.addItem("N");
-        for (Empleado dato : datos) {
-            cmbsupervisor.addItem(dato.getpNombre());
+    datos = app.cmbgrupo();
+    cmbgrupo.removeAllItems();
+    cmbgrupo.addItem("N");
+        for (Grupo dato : datos) {
+            cmbgrupo.addItem(dato.getNombre());
         }
+    
+    //llenar combo cargos
+    String[] data;
+    data = app.cmbcargos();
+    cmbcargo.removeAllItems();
+    for(String cargo : data) {
+        cmbcargo.addItem(cargo);
+    }
+    
 }
 
 }
