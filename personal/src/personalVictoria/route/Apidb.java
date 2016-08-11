@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import main.resources.Alerts;
+import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
 
@@ -139,6 +140,30 @@ public class Apidb {
                     String id = res.getString("idGrupo");
                     Grupo grup= new Grupo(nom, sup, id);
                     obj.add(grup);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
+    
+    public ArrayList listarEmp(String sql){
+        ArrayList<AportesBonificaciones> obj = new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    int id = res.getInt("idAporte");
+                    String nom = res.getString("nombreAporte");
+                    String tipo = res.getString("tipoAporte");
+                    float val = res.getFloat("valorAporte");
+                    AportesBonificaciones emp = new AportesBonificaciones(id, nom, tipo, val);
+                    obj.add(emp);
                 }
             }catch(SQLException ex){
                 System.err.println(ex.getMessage());

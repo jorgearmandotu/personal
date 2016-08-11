@@ -9,6 +9,7 @@ package main;
 
 import java.util.ArrayList;
 import main.resources.Alerts;
+import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
 import personalVictoria.route.Apidb;
@@ -21,7 +22,7 @@ public class Appi {
     
     Apidb db = new Apidb();
     
-   //Inserciones
+   //Inserciones updates
     
     public boolean ingresoPersona(Empleado emp){
         boolean res;
@@ -61,6 +62,36 @@ public class Appi {
         Alerts msj = new Alerts();
         String sql = "INSERT INTO cargos (nombreCargo)"
                 + "VALUES ('"+nom+"')";
+        if(db.operacion(sql)){
+            msj.aviso("Ingreso Exitoso");
+            res = true;
+        }else{
+            msj.errormsj("Error en operacion");
+            res = false;
+        }
+        return res;
+    }
+    
+    public boolean ingresoprestacionesBonificaciones(String nom, String tipo, float val){
+        boolean res;
+        Alerts msj = new Alerts();
+        String sql = "INSERT INTO aportesbonificaciones (nombreAporte, tipoAporte, valorAporte)"
+                + "VALUES ('"+nom+"', '"+tipo+"', "+val+")";
+        System.out.println(sql);
+        if(db.operacion(sql)){
+            msj.aviso("Ingreso Exitoso");
+            res = true;
+        }else{
+            msj.errormsj("Error en operacion");
+            res = false;
+        }
+        return res;
+    }
+    
+    public boolean updateSupGrupo(String grupo, String supervisor){
+        boolean res;
+        Alerts msj = new Alerts();
+        String sql = "UPDATE grupos SET supervisor = '"+supervisor+"' WHERE nombreGrupo = '"+grupo+"'";
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
             res = true;
@@ -115,6 +146,18 @@ public class Appi {
             i++;
         }
         return datos;
+    }
+    
+    public AportesBonificaciones[] listEmp(){
+        String sql = "SELECT idAporte, nombreAporte, tipoAporte, valorAporte FROM aportesbonificaciones";
+        ArrayList obj = db.listarEmp(sql);
+        AportesBonificaciones[] list = new AportesBonificaciones[obj.size()];
+        int i = 0;
+        for(Object e : obj){
+            list[i] = (AportesBonificaciones) e;
+            i++;
+        }
+        return list;
     }
     
     public String[] cmbcargos(){

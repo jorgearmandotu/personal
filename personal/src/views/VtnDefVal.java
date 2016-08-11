@@ -50,12 +50,12 @@ public class VtnDefVal extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtNomEmpPres = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        cmbTipEmpPres = new javax.swing.JComboBox();
         jLabel7 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        btnIngEmpPres = new javax.swing.JButton();
+        txtVlrEmpPres = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
@@ -71,7 +71,7 @@ public class VtnDefVal extends javax.swing.JDialog {
         jLabel10 = new javax.swing.JLabel();
         cmbDefSup = new javax.swing.JComboBox();
         cmbGrupDefSup = new javax.swing.JComboBox();
-        jButton6 = new javax.swing.JButton();
+        btnDefSup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
@@ -180,17 +180,18 @@ public class VtnDefVal extends javax.swing.JDialog {
 
         jLabel5.setText("Nombre:");
 
-        jTextField3.setText("jTextField3");
-
         jLabel6.setText("Tipo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipEmpPres.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BONIFICACION", "EPS", "ARL", "PENSIONES" }));
 
         jLabel7.setText("Vlr %:");
 
-        jTextField4.setText("jTextField4");
-
-        jButton3.setText("Ingresar");
+        btnIngEmpPres.setText("Ingresar");
+        btnIngEmpPres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIngEmpPresActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -202,18 +203,18 @@ public class VtnDefVal extends javax.swing.JDialog {
                         .addContainerGap()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNomEmpPres, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTipEmpPres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(txtVlrEmpPres, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(272, 272, 272)
-                        .addComponent(jButton3)))
+                        .addComponent(btnIngEmpPres)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -222,14 +223,14 @@ public class VtnDefVal extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNomEmpPres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel6)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(cmbTipEmpPres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel7)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtVlrEmpPres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel5))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnIngEmpPres)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -338,7 +339,12 @@ public class VtnDefVal extends javax.swing.JDialog {
             }
         });
 
-        jButton6.setText("Ingresar");
+        btnDefSup.setText("Ingresar");
+        btnDefSup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDefSupActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -353,7 +359,7 @@ public class VtnDefVal extends javax.swing.JDialog {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
-                        .addComponent(jButton6))
+                        .addComponent(btnDefSup))
                     .addComponent(cmbDefSup, 0, 220, Short.MAX_VALUE)
                     .addComponent(cmbGrupDefSup, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(14, Short.MAX_VALUE))
@@ -370,7 +376,7 @@ public class VtnDefVal extends javax.swing.JDialog {
                     .addComponent(jLabel10)
                     .addComponent(cmbDefSup, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton6))
+                .addComponent(btnDefSup))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -446,6 +452,16 @@ public class VtnDefVal extends javax.swing.JDialog {
         ingresoCargo();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void btnDefSupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDefSupActionPerformed
+        // TODO add your handling code here:
+        defSupervisorGrupo();
+    }//GEN-LAST:event_btnDefSupActionPerformed
+
+    private void btnIngEmpPresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngEmpPresActionPerformed
+        // TODO add your handling code here:
+        ingresoEmpPresBonifi();
+    }//GEN-LAST:event_btnIngEmpPresActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -489,16 +505,16 @@ public class VtnDefVal extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDefSup;
+    private javax.swing.JButton btnIngEmpPres;
     private javax.swing.JButton btnIngGrupo;
     private javax.swing.JComboBox cmbDefSup;
     private javax.swing.JComboBox cmbGrupDefSup;
     private javax.swing.JComboBox cmbIngGrupo;
+    private javax.swing.JComboBox cmbTipEmpPres;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -522,11 +538,11 @@ public class VtnDefVal extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField txtIngCargo;
+    private javax.swing.JTextField txtNomEmpPres;
     private javax.swing.JTextField txtNomGrupo;
+    private javax.swing.JFormattedTextField txtVlrEmpPres;
     // End of variables declaration//GEN-END:variables
 
 
@@ -578,13 +594,31 @@ public class VtnDefVal extends javax.swing.JDialog {
         }
     }
     
-    /*private void lenarcmb(){
-        cmbGrupDefSup.removeAllItems();
-        Grupo[] datos;
-        Appi app = new Appi();
-        datos = app.cmbgrupo();
-        for (Grupo dato : datos) {
-            cmbGrupDefSup.addItem(dato.getNombre());
+    private void ingresoEmpPresBonifi(){
+        String nom = txtNomEmpPres.getText().trim().toUpperCase();
+        String val = txtVlrEmpPres.getText().trim();
+        String tipo = cmbTipEmpPres.getSelectedItem().toString();
+        if(!nom.equals("") || !val.equals("")){
+            float valor = Float.parseFloat(val);
+            Appi app = new Appi();
+            if(app.ingresoprestacionesBonificaciones(nom, tipo, valor)) {
+                txtNomEmpPres.setText("");
+                txtVlrEmpPres.setText("");
+                cmbTipEmpPres.setSelectedIndex(0);
+            }
+        }else{
+            Alerts msj = new Alerts();
+            msj.dangermsj("Verifique datos");
         }
-    }*/
+    }
+    
+    private void defSupervisorGrupo(){
+        String grupo = cmbGrupDefSup.getSelectedItem().toString();
+        String supervisor = cmbDefSup.getSelectedItem().toString();
+        Appi app = new Appi();
+        if(app.updateSupGrupo(grupo, supervisor)){
+            cmbGrupDefSup.setSelectedIndex(0);
+            cmbDefSup.setSelectedIndex(0);
+        }
+    }
 }
