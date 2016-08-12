@@ -55,7 +55,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtNcuenta = new javax.swing.JFormattedTextField();
         txtNficha = new javax.swing.JFormattedTextField();
         cmbgrupo = new javax.swing.JComboBox();
-        btnIngresarPersona = new javax.swing.JButton();
+        cmbcargo = new javax.swing.JComboBox();
+        txtRh = new javax.swing.JTextField();
+        cmbBonificacion = new javax.swing.JComboBox();
+        jRadioButton1 = new javax.swing.JRadioButton();
+        jRadioButton2 = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -67,11 +71,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         cmbEps = new javax.swing.JComboBox();
         cmbArl = new javax.swing.JComboBox();
         cmbPension = new javax.swing.JComboBox();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jTextField1 = new javax.swing.JTextField();
-        cmbBonificacion = new javax.swing.JComboBox();
-        cmbcargo = new javax.swing.JComboBox();
+        btnIngresarPersona = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -150,12 +150,22 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
-        btnIngresarPersona.setText("Ingresar");
-        btnIngresarPersona.addActionListener(new java.awt.event.ActionListener() {
+        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        txtRh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresarPersonaActionPerformed(evt);
+                txtRhActionPerformed(evt);
             }
         });
+
+        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        rbtnSexo.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
+        jRadioButton1.setText("M");
+
+        rbtnSexo.add(jRadioButton2);
+        jRadioButton2.setText("F");
 
         jLabel9.setText("Cargo:");
 
@@ -212,22 +222,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap(27, Short.MAX_VALUE))
         );
 
-        rbtnSexo.add(jRadioButton1);
-        jRadioButton1.setSelected(true);
-        jRadioButton1.setText("M");
-
-        rbtnSexo.add(jRadioButton2);
-        jRadioButton2.setText("F");
-
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        btnIngresarPersona.setText("Ingresar");
+        btnIngresarPersona.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                btnIngresarPersonaActionPerformed(evt);
             }
         });
-
-        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -276,7 +276,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
             .addGroup(jPanel5Layout.createSequentialGroup()
@@ -325,7 +325,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                             .addComponent(jRadioButton1)
                             .addComponent(jRadioButton2)
                             .addComponent(jLabel15)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel16)
                             .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
@@ -544,9 +544,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtListSupervisorActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void txtRhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRhActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_txtRhActionPerformed
 
     private void cmbgrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbgrupoActionPerformed
         // TODO add your handling code here:
@@ -638,7 +638,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton jRadioButton2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem mnuDefOpciones;
     private javax.swing.ButtonGroup rbtnSexo;
     private javax.swing.JTable tblListado;
@@ -648,6 +647,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtListSupervisor;
     private javax.swing.JFormattedTextField txtNcuenta;
     private javax.swing.JFormattedTextField txtNficha;
+    private javax.swing.JTextField txtRh;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtpApellido;
     private javax.swing.JTextField txtpNombre;
@@ -664,9 +664,17 @@ private void insercionPersona(){
     String cuenta = txtNcuenta.getText().trim();
     String ficha = txtNficha.getText().trim();
     String grupo = cmbgrupo.getSelectedItem().toString();
-    String cargo = cmbcargo.getSelectedItem().toString();
     
-    if("".equals(cedula) || "".equals(pNombre) || "".equals(pApellido) || "".equals(cargo)){
+    String cargo = cmbcargo.getSelectedItem().toString();
+    String sexo = rbtnSexo.getSelection().toString();
+    String rh = txtRh.getText();
+    
+    String bonificacion = cmbBonificacion.getSelectedItem().toString();
+    String eps = cmbEps.getSelectedItem().toString();
+    String arl = cmbArl.getSelectedItem().toString();
+    String pension = cmbPension.getSelectedItem().toString();
+    
+    if("".equals(cedula) || "".equals(pNombre) || "".equals(pApellido) || "".equals(cargo) || "".equals(rh)){
         Alerts msj = new Alerts();
         msj.dangermsj("Verifique datos");
     }else{
@@ -687,8 +695,23 @@ private void insercionPersona(){
         Appi app = new Appi();
         if(!"N".equals(grupo))       grupo = app.idGrupo(grupo);
         
-        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo);
+        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh);
         if(app.ingresoPersona(emp)){
+            if(!bonificacion.equals("N")){
+                
+                if(app.ingresoDeduccionesBonificaciones(bonificacion, "2")){
+                    
+                }
+            }
+            if(!eps.equals("N")){
+                
+            }
+            if(!arl.equals("N")){
+                
+            }
+            if(!pension.equals("N")){
+                
+            }
             limpiarinserpersona();
             cmbgrupo();
         }
@@ -730,13 +753,13 @@ private void listado(){
     for(int i=0; i<rows; i++){
         model.removeRow(0);
     }
-    for(int i=0;i<datos.length;i++) {
-        fila[0] = datos[i].getnFicha();
-        fila[1] = datos[i].getCedula();
-        fila[2] = datos[i].getpNombre();
-        fila[3] = datos[i].getGrupo();
-        model.addRow(fila);
-    }
+        for (Empleado dato : datos) {
+            fila[0] = dato.getnFicha();
+            fila[1] = dato.getCedula();
+            fila[2] = dato.getpNombre();
+            fila[3] = dato.getGrupo();
+            model.addRow(fila);
+        }
     tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
     tblListado.getColumnModel().getColumn(0).setPreferredWidth(60);
     tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);

@@ -19,8 +19,13 @@ public class Empleado {
     int nFicha;
     long nCuenta;
     String grupo;
+    String cargo;
+    String sexo;
+    String rh;
 
-    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, String sApellido, int nFicha, long nCuenta, String grupo) {
+    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, 
+            String sApellido, int nFicha, long nCuenta, String grupo, String cargo, 
+            String sexo, String rh) {
         this.cedula = cedula;
         this.pNombre = pNombre;
         this.sNombre = sNombre;
@@ -29,6 +34,9 @@ public class Empleado {
         this.nFicha = nFicha;
         this.nCuenta = nCuenta;
         this.grupo = grupo;
+        this.cargo = cargo;
+        this.sexo = sexo;
+        this.rh = rh;
     }
     
     public Empleado(int ficha, String cedula, String nombre, String grupo){
@@ -72,6 +80,18 @@ public class Empleado {
 
     public String getGrupo() {
         return grupo;
+    }
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public String getSexo() {
+        return sexo;
+    }
+
+    public String getRh() {
+        return rh;
     }
     
     

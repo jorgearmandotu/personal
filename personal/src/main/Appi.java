@@ -28,9 +28,9 @@ public class Appi {
         boolean res;
         Alerts msj = new Alerts();
          
-        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo') "
+        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo, cargo, sexo, rh') "
                 + "VALUES('"+emp.getCedula()+"',"+emp.getnFicha()+",'"+emp.getpNombre()+"','"+emp.getsNombre()+"','"+emp.getpApellido()
-                +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"');";
+                +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"', '"+emp.getRh()+"');";
         if(db.operacion(sql)){
             msj.aviso("Ingreso exitoso");
             res = true;
@@ -62,6 +62,21 @@ public class Appi {
         Alerts msj = new Alerts();
         String sql = "INSERT INTO cargos (nombreCargo)"
                 + "VALUES ('"+nom+"')";
+        if(db.operacion(sql)){
+            msj.aviso("Ingreso Exitoso");
+            res = true;
+        }else{
+            msj.errormsj("Error en operacion");
+            res = false;
+        }
+        return res;
+    }
+    
+    public boolean ingresoDeduccionesBonificaciones(String idemp, String idded){
+        boolean res ;
+        Alerts msj = new Alerts();
+        String sql = "INSERT INTO deduccionesBonificaciones (cedulaEmp, iddeduccion)"
+                + "VALUES ('"+idemp+"', '"+idded+"')";
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
             res = true;
