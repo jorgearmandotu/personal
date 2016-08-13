@@ -216,4 +216,10 @@ public class Appi {
         return id;
         
     }
+    
+    public AportesBonificaciones aporte(String nom){
+        String sql = "SELECT idAporte, nombreAporte, tipoAporte, valorAporte FROM aportesbonificaciones WHERE nombreAporte = '"+nom+"'";
+        AportesBonificaciones obj = db.buscarAporte(sql);
+        return obj;
+    }
 }

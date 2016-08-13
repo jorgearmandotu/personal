@@ -698,7 +698,9 @@ private void insercionPersona(){
         Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh);
         if(app.ingresoPersona(emp)){
             if(!bonificacion.equals("N")){
-                
+                String ccEmpleado;
+                String iddeduccion;
+                AportesBonificaciones obj = app.aporte(bonificacion);
                 if(app.ingresoDeduccionesBonificaciones(bonificacion, "2")){
                     
                 }

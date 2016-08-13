@@ -194,4 +194,27 @@ public class Apidb {
         }
         return obj;
     }
+    
+    public AportesBonificaciones buscarAporte(String sql){
+        AportesBonificaciones obj = null;
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                int id = res.getInt("idAporte");
+                String nombre = res.getString("nombreAporte");
+                String tipo = res.getString("tipoAporte");
+                float valor = res.getFloat("valorAporte");
+                obj = new AportesBonificaciones(id, nombre, tipo, valor);
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
+    
+    
 }
