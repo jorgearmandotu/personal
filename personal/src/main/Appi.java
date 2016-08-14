@@ -7,7 +7,11 @@ package main;
  */
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import main.resources.Alerts;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
@@ -28,7 +32,7 @@ public class Appi {
         boolean res;
         Alerts msj = new Alerts();
          
-        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo, cargo, sexo, rh') "
+        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo', 'cargo', 'sexo', 'rh') "
                 + "VALUES('"+emp.getCedula()+"',"+emp.getnFicha()+",'"+emp.getpNombre()+"','"+emp.getsNombre()+"','"+emp.getpApellido()
                 +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"', '"+emp.getRh()+"');";
         if(db.operacion(sql)){
@@ -72,16 +76,16 @@ public class Appi {
         return res;
     }
     
-    public boolean ingresoDeduccionesBonificaciones(String idemp, String idded){
+    public boolean ingresoDeduccionesBonificaciones(String idemp, int idded){
         boolean res ;
         Alerts msj = new Alerts();
-        String sql = "INSERT INTO deduccionesBonificaciones (cedulaEmp, iddeduccion)"
-                + "VALUES ('"+idemp+"', '"+idded+"')";
+        String sql = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion)"
+                + "VALUES ('"+idemp+"', "+idded+")";
         if(db.operacion(sql)){
-            msj.aviso("Ingreso Exitoso");
+            //msj.aviso("Ingreso Exitoso");
             res = true;
         }else{
-            msj.errormsj("Error en operacion");
+            //msj.errormsj("Error en operacion");
             res = false;
         }
         return res;
@@ -117,12 +121,30 @@ public class Appi {
         return res;
     }
     
+    public boolean eliminarEmpleado(String dato){
+        Alerts msj = new Alerts();
+        boolean res;
+        Date fechaActual = new Date();
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        String fecha = formato.format(fechaActual);
+        System.out.println(fecha);
+        String sql = "UPDATE empleado SET cc = '"+dato+" "+fecha+"' WHERE cc = '"+dato+"'";
+        if(db.operacion(sql)){
+            msj.aviso("empleado eliminado");
+            res = true;
+        }else{
+            msj.errormsj("Error en operacion");
+            res = false;
+        }
+        return res;
+    }
+    
     //Copnsultas listados
    
     public Empleado[] listado(String dato, int op) {
-        String sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado";
+        String sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
         if(dato.equals("")){//si se envian espacios en blanco
-            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado";
+            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
         }else if(op==1) {//nombre
             String[] nom = dato.split(" ");
             /*if(nom.length == 4) {
@@ -131,14 +153,14 @@ public class Appi {
                         + "papellido LIKE '%"+nom[2]+"%' OR sapellido LIKE '%"+nom[3]+"%'";
             }else{*/
                 sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
-                        + "WHERE pnombre LIKE '%"+nom[0]+"%' OR snombre LIKE '%"+nom[0]+"%' OR papellido LIKE '%"+nom[0]+"%' OR sapellido LIKE '%"+nom[0]+"%'";
+                        + "WHERE (pnombre LIKE '%"+nom[0]+"%' OR snombre LIKE '%"+nom[0]+"%' OR papellido LIKE '%"+nom[0]+"%' OR sapellido LIKE '%"+nom[0]+"%') AND cc NOT LIKE '% %'";
             //}
         }else if(op==2) {//ficha
-            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+"";
+            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+" AND cc NOT LIKE '% %'";
         }else if(op==3) {//cedula
-            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc="+dato+"";
+            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc="+dato+" AND cc NOT LIKE '% %'";
         }else if(op==4) {//grupo
-            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"'";
+            sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
         }
         ArrayList obj = db.listar(sql);
         System.out.println(obj.size());
@@ -176,7 +198,7 @@ public class Appi {
     }
     
     public String[] cmbcargos(){
-        String sql = "SELECT nombreCargo FROM cargos";
+        String sql = "SELECT DISTINCT cargo FROM empleado";
         ArrayList obj = db.listarCargos(sql);
         String[] datos = new String[obj.size()];
         int i = 0;
@@ -221,5 +243,16 @@ public class Appi {
         String sql = "SELECT idAporte, nombreAporte, tipoAporte, valorAporte FROM aportesbonificaciones WHERE nombreAporte = '"+nom+"'";
         AportesBonificaciones obj = db.buscarAporte(sql);
         return obj;
+    }
+    
+    public Empleado empleado(String cc){
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh"
+                + "FROM empleado WHERE cc = '"+cc+"'";
+        ArrayList list = db.empleados(sql);
+        Empleado emp = null;
+        for(Object e :list){
+            emp = (Empleado) e;
+        }
+        return emp;
     }
 }

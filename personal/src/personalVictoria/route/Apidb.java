@@ -73,12 +73,16 @@ public class Apidb {
                 Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
                 System.err.println(ex.getMessage());
                 res = false;
+                Alerts msj = new Alerts();
+                msj.errormsj(ex.getMessage());
             }
             if(close(con)){
                     System.out.println("Conexion terminada");
                 }
         }else{
             System.out.println("imposible encontrar base de datos");
+            Alerts msj = new Alerts();
+                msj.errormsj("imposible encontrar base de datos");
         }
         return res;
     }
@@ -102,7 +106,7 @@ public class Apidb {
         return res;
     }
     
-    public ArrayList listar(String sql){
+    public ArrayList listar(String sql){// este metodo crea un nombre completo con los registrods de db
         //ResultSet res = null;
         ArrayList<Empleado> obj= new ArrayList<>();
         Connection con = connect();
@@ -151,7 +155,7 @@ public class Apidb {
         return obj;
     }
     
-    public ArrayList listarEmp(String sql){
+    public ArrayList listarEmp(String sql){//listar deducciones bonificaciones
         ArrayList<AportesBonificaciones> obj = new ArrayList<>();
         Connection con = connect();
         if(con != null){
@@ -182,7 +186,7 @@ public class Apidb {
             try (Statement st = con.createStatement()){
                 ResultSet res = st.executeQuery(sql);
                 while(res.next()){
-                    String nom = res.getString("nombreCargo");
+                    String nom = res.getString("cargo");
                     obj.add(nom);
                 }
             }catch(SQLException ex){
@@ -195,7 +199,7 @@ public class Apidb {
         return obj;
     }
     
-    public AportesBonificaciones buscarAporte(String sql){
+    public AportesBonificaciones buscarAporte(String sql){// busca un deducido o bonid¿ficacion
         AportesBonificaciones obj = null;
         Connection con = connect();
         if(con != null){
@@ -216,5 +220,35 @@ public class Apidb {
         return obj;
     }
     
+    public ArrayList empleados(String sql){//retorna un listado de empleados
+        ArrayList<Empleado> obj = new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String cedula = res.getString("cc");
+                    String pNombre = res.getString("pnombre");
+                    String sNombre = res.getString("snombre");
+                    String pApellido = res.getString("papellido");
+                    String sApellido = res.getString("sapellido");
+                    int nFicha = res.getInt("nficha");
+                    long nCuenta = res.getLong("ncuenta");
+                    String grupo = res.getString("grupo");
+                    String cargo = res.getString("cargo");
+                    String sexo = res.getString("sexo");
+                    String rh = res.getString("rh");
+                    Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh);
+                    obj.add(emp);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
     
 }
