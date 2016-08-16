@@ -139,6 +139,19 @@ public class Appi {
         return res;
     }
     
+    public void insertarIncapacidadesPermisos(String cedula, String fechaA, String fechaB, int pagadas, int tipo){
+        Alerts msj = new Alerts();
+          String sql = "INSERT INTO incapacidadesPermisos (cc_Empleado, fechaA, fechaB, tipoFalta, pagada) "
+                  + "VALUES ('"+cedula+"', '"+fechaA+"', '"+fechaB+"', "+tipo+", "+pagadas+")";
+        System.out.println(sql);
+        if(db.operacion(sql)){
+            msj.aviso("Ingreso Exitoso");
+        }else{
+            msj.errormsj("Error en operacion");
+        }
+    }
+    
+    
     //Copnsultas listados
    
     public Empleado[] listado(String dato, int op) {
@@ -246,7 +259,7 @@ public class Appi {
     }
     
     public Empleado empleado(String cc){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh"
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh "
                 + "FROM empleado WHERE cc = '"+cc+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;
@@ -255,4 +268,27 @@ public class Appi {
         }
         return emp;
     }
+    
+    public Empleado empleadoFicha(String ficha){
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh "
+                + "FROM empleado WHERE nficha = '"+ficha+"'";
+        ArrayList list = db.empleados(sql);
+        Empleado emp = null;
+        for(Object e :list){
+            emp = (Empleado) e;
+        }
+        return emp;
+    }
+    
+    public boolean verificarincapacidadpermiso(String cedula, String fechaA){
+        boolean res = false;
+        String sql = "SELECT cc_Empleado, fechaA FROM incapacidadesPermisos WHERE cc_empleado = '"+cedula+"' AND fechaA = '"+fechaA+"'";
+        if(db.permisoExiste(sql)){
+            res = true;
+        }
+        return res;
+    }
+    
+    //Consulta resta select para llamar asistencia
+    //select cc from empleado except select distinct cc_Empleado from  incapacidadesPermisos
 }

@@ -1,6 +1,8 @@
 package views;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import main.resources.Alerts;
 import javax.swing.JTable;
@@ -1189,8 +1191,31 @@ private void eliminarEmpleado(){
 } 
 
 private void insertarIncapacidad(){
-    Date fechaa = dateAincapacidad.getDate();
-    System.out.println(fechaa);
+    Date fechaA = dateAincapacidad.getDate();
+    Date fechaB = dateBincapacidad.getDate();
+    String ficha = txtFichIncapacidad.getText().trim();
+    Appi app = new Appi();
+    Empleado emp = app.empleadoFicha(ficha);
+    String cedula ="";
+    if(emp != null) cedula = emp.getCedula();
+    if((!fechaA.toString().equals("") && !fechaB.toString().equals("") && !ficha.equals("")) && !cedula.equals("")){
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        String fecha1 = formato.format(fechaA);
+        if(!app.verificarincapacidadpermiso(cedula, fecha1)){
+            String fecha2 = formato.format(fechaB);
+            int pagada =0;
+            if(rbtnIncSi.isSelected()) pagada = 1;
+            app.insertarIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, 1);//1 incpacidades, 2 permisos, 0 falta, 
+        }else{
+            Alerts msj = new Alerts();
+            msj.dangermsj("Ya esta registrada esta incapacidad");
+        }
+        
+    }else{
+        Alerts msj = new Alerts();
+        msj.dangermsj("datos incorrectos");
+    }
+    
 }
 
 }

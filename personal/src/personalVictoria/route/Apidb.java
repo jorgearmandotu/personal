@@ -221,6 +221,7 @@ public class Apidb {
     }
     
     public ArrayList empleados(String sql){//retorna un listado de empleados
+        System.out.println(sql);
         ArrayList<Empleado> obj = new ArrayList<>();
         Connection con = connect();
         if(con != null){
@@ -249,6 +250,29 @@ public class Apidb {
             if(close(con)) System.out.println("conexion cerrada");
         }
         return obj;
+    }
+    
+    public boolean permisoExiste(String sql) {
+        System.out.println(sql);
+        boolean resultado = false;
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()) {
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String cc = res.getString("cc_Empleado");
+                    String fecha = res.getString("fechaA");
+                    System.out.println(cc+' '+fecha);
+                    if (!cc.equals("") && !fecha.equals("")) resultado = true; 
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return resultado;
     }
     
 }
