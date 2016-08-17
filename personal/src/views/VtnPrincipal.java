@@ -11,6 +11,7 @@ import main.Appi;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
+import main.resources.IncapacidadesPermisos;
 
 
 
@@ -66,6 +67,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         dateFechaApermiso = new org.jdesktop.swingx.JXDatePicker();
         dateFechaBpermiso = new org.jdesktop.swingx.JXDatePicker();
+        jPanel12 = new javax.swing.JPanel();
+        jLabel31 = new javax.swing.JLabel();
+        txtFichaFalta = new javax.swing.JTextField();
+        jLabel32 = new javax.swing.JLabel();
+        dateFechaFalta = new org.jdesktop.swingx.JXDatePicker();
+        jButton6 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -134,6 +141,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.setBackground(new java.awt.Color(51, 102, 255));
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        jTabbedPane1.setMinimumSize(new java.awt.Dimension(28, 28));
 
         jPanel9.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingreso asistencia"));
 
@@ -204,21 +212,20 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel23)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtFichIncapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel24)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(dateAincapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38)
-                .addComponent(jLabel25)
-                .addGap(18, 18, 18)
-                .addComponent(dateBincapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(119, Short.MAX_VALUE))
-            .addGroup(jPanel10Layout.createSequentialGroup()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel10Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel23)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFichIncapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel24)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(dateAincapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(38, 38, 38)
+                        .addComponent(jLabel25)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateBincapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(280, 280, 280)
                         .addComponent(jButton4))
@@ -264,17 +271,23 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel30.setText("Medio Dia:");
 
         jButton5.setText("Ingresar");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel30)
                     .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel30)
+                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jButton5)
                             .addGroup(jPanel11Layout.createSequentialGroup()
                                 .addComponent(jLabel27)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -282,14 +295,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel28)
                                 .addGap(18, 18, 18)
-                                .addComponent(dateFechaApermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(33, 33, 33)
-                                .addComponent(jLabel29)
-                                .addGap(18, 18, 18)
-                                .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGap(255, 255, 255)
-                        .addComponent(jButton5)))
+                                .addComponent(dateFechaApermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel29)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(119, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -306,9 +316,57 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addComponent(txtFichaPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingreso falta"));
+
+        jLabel31.setText("Ficha:");
+
+        jLabel32.setText("Fecha:");
+
+        jButton6.setText("Ingresar");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
+        jPanel12.setLayout(jPanel12Layout);
+        jPanel12Layout.setHorizontalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel31)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtFichaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel32)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateFechaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel12Layout.createSequentialGroup()
+                        .addGap(281, 281, 281)
+                        .addComponent(jButton6)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel12Layout.setVerticalGroup(
+            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtFichaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel32)
+                        .addComponent(dateFechaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel31))
+                .addGap(18, 18, 18)
+                .addComponent(jButton6)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -320,7 +378,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -332,14 +391,16 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(316, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Asistencia", jPanel2);
 
         jPanel3.setOpaque(false);
 
-        jPanel5.setBorder(new org.jdesktop.swingx.border.IconBorder());
+        jPanel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel1.setText("cedula:");
 
@@ -427,15 +488,15 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbEps, 0, 151, Short.MAX_VALUE)
+                .addComponent(cmbEps, 0, 153, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbArl, 0, 152, Short.MAX_VALUE)
+                .addComponent(cmbArl, 0, 154, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPension, 0, 161, Short.MAX_VALUE)
+                .addComponent(cmbPension, 0, 163, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -512,7 +573,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 41, Short.MAX_VALUE)))
+                        .addGap(0, 47, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(283, 283, 283)
@@ -584,7 +645,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(323, Short.MAX_VALUE))
+                .addContainerGap(210, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel3);
@@ -715,7 +776,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(344, Short.MAX_VALUE))
+                .addContainerGap(233, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultas", jPanel4);
@@ -771,7 +832,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(512, Short.MAX_VALUE))
+                .addContainerGap(401, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Retirar Empleados", jPanel7);
@@ -799,13 +860,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 708, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 654, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
@@ -857,8 +918,18 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        insertarIncapacidad();
+        insertarIncapacidad(0);
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        insertarIncapacidad(1);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        insertarIncapacidad(2);
+    }//GEN-LAST:event_jButton6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -910,11 +981,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dateBincapacidad;
     private org.jdesktop.swingx.JXDatePicker dateFechaApermiso;
     private org.jdesktop.swingx.JXDatePicker dateFechaBpermiso;
+    private org.jdesktop.swingx.JXDatePicker dateFechaFalta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -939,6 +1012,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel30;
+    private javax.swing.JLabel jLabel31;
+    private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -951,6 +1026,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
+    private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
@@ -971,6 +1047,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.ButtonGroup rbtnSexo;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtFichIncapacidad;
+    private javax.swing.JTextField txtFichaFalta;
     private javax.swing.JTextField txtFichaPermiso;
     private javax.swing.JTextField txtListCedula;
     private javax.swing.JFormattedTextField txtListFicha;
@@ -1180,6 +1257,7 @@ private void cmbgrupo(){
     dateBincapacidad.setDate(fecha);
     dateFechaApermiso.setDate(fecha);
     dateFechaBpermiso.setDate(fecha);
+    dateFechaFalta.setDate(fecha);
 }
 
 private void eliminarEmpleado(){
@@ -1190,25 +1268,59 @@ private void eliminarEmpleado(){
     }
 } 
 
-private void insertarIncapacidad(){
-    Date fechaA = dateAincapacidad.getDate();
-    Date fechaB = dateBincapacidad.getDate();
-    String ficha = txtFichIncapacidad.getText().trim();
+private void insertarIncapacidad(int tipo){
+    Date fechaA;
+    Date fechaB;
+    String ficha;
+    int pagada =0;
+    switch(tipo){
+        case 0:// incapacidad
+            fechaA = dateAincapacidad.getDate();
+            fechaB = dateBincapacidad.getDate();
+            ficha = txtFichIncapacidad.getText().trim();
+            if(rbtnIncSi.isSelected()) pagada = 1;
+            break;
+        case 1://permisos
+            fechaA = dateFechaApermiso.getDate();
+            fechaB = dateFechaBpermiso.getDate();
+            ficha = txtFichaPermiso.getText().trim();
+            break;
+        default:
+            fechaA = dateFechaFalta.getDate();
+            fechaB = fechaA;
+            ficha = txtFichaFalta.getText().trim();
+            break;
+                
+    }
+    
     Appi app = new Appi();
     Empleado emp = app.empleadoFicha(ficha);
     String cedula ="";
     if(emp != null) cedula = emp.getCedula();
-    if((!fechaA.toString().equals("") && !fechaB.toString().equals("") && !ficha.equals("")) && !cedula.equals("")){
+    //System.out.println("la fecha es :  "+fechaA.toString());
+    if((fechaA !=null  && fechaB != null && !ficha.equals("")) && !cedula.equals("")){//verificar q todos los campos tengan datos validos
+        
         DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         String fecha1 = formato.format(fechaA);
-        if(!app.verificarincapacidadpermiso(cedula, fecha1)){
-            String fecha2 = formato.format(fechaB);
-            int pagada =0;
-            if(rbtnIncSi.isSelected()) pagada = 1;
-            app.insertarIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, 1);//1 incpacidades, 2 permisos, 0 falta, 
-        }else{
+        IncapacidadesPermisos obj = app.verificarincapacidadpermiso(cedula, fecha1);
+        String fecha2 = formato.format(fechaB);
+        if(obj != null && obj.getTipo() == 0 && tipo == 0){//sis existe y es incapacidad y inserta incapacidad
+            //update incapacidad ingreso erroneo anterior
+            System.out.println("opcion 1");
+            app.updateIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, tipo);
+            cmbgrupo();
+        }else if(obj != null && (obj.getTipo() == 1 || obj.getTipo() == 2) && tipo !=2){//if existe y es permiso o falta y no inserta falta
+            //update falta o permiso a incapacidad o falta a permiso
+            System.out.println("opcion 2 "+obj.getTipo());
+            app.updateIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, tipo);
+            cmbgrupo();
+        }else if (obj != null && (obj.getTipo() == 0 || obj.getTipo() == 1)){
             Alerts msj = new Alerts();
-            msj.dangermsj("Ya esta registrada esta incapacidad");
+            msj.dangermsj("Ya esta registrada una incapacidad, permiso o falta");
+        }else{
+            System.out.println("opcion ingreso no existe registro");
+            app.insertarIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, tipo);//0 incpacidades, 1 permisos, 2 falta, 
+            cmbgrupo();
         }
         
     }else{

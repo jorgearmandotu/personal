@@ -18,6 +18,7 @@ import main.resources.Alerts;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
+import main.resources.IncapacidadesPermisos;
 
 /**
  *
@@ -221,7 +222,6 @@ public class Apidb {
     }
     
     public ArrayList empleados(String sql){//retorna un listado de empleados
-        System.out.println(sql);
         ArrayList<Empleado> obj = new ArrayList<>();
         Connection con = connect();
         if(con != null){
@@ -252,18 +252,19 @@ public class Apidb {
         return obj;
     }
     
-    public boolean permisoExiste(String sql) {
-        System.out.println(sql);
-        boolean resultado = false;
+    public IncapacidadesPermisos permisoExistente(String sql) {
+        IncapacidadesPermisos obj = null;
         Connection con = connect();
         if(con != null){
             try (Statement st = con.createStatement()) {
                 ResultSet res = st.executeQuery(sql);
                 while(res.next()){
                     String cc = res.getString("cc_Empleado");
-                    String fecha = res.getString("fechaA");
-                    System.out.println(cc+' '+fecha);
-                    if (!cc.equals("") && !fecha.equals("")) resultado = true; 
+                    String fechaA = res.getString("fechaA");
+                    String fechaB = res.getString("fechaB");
+                    int tipo = res.getInt("tipoFalta");
+                    int pagada = res.getInt("pagada");
+                    if (!cc.equals("")) obj = new IncapacidadesPermisos(cc, fechaA, fechaB, tipo, pagada); 
                 }
             }catch(SQLException ex){
                 System.err.println(ex.getMessage());
@@ -272,7 +273,7 @@ public class Apidb {
             }
             if(close(con)) System.out.println("conexion cerrada");
         }
-        return resultado;
+        return obj;
     }
     
 }

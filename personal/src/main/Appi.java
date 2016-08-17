@@ -16,6 +16,7 @@ import main.resources.Alerts;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
+import main.resources.IncapacidadesPermisos;
 import personalVictoria.route.Apidb;
 
 /**
@@ -143,6 +144,18 @@ public class Appi {
         Alerts msj = new Alerts();
           String sql = "INSERT INTO incapacidadesPermisos (cc_Empleado, fechaA, fechaB, tipoFalta, pagada) "
                   + "VALUES ('"+cedula+"', '"+fechaA+"', '"+fechaB+"', "+tipo+", "+pagadas+")";
+        System.out.println(sql);
+        if(db.operacion(sql)){
+            msj.aviso("Ingreso Exitoso");
+        }else{
+            msj.errormsj("Error en operacion");
+        }
+    }
+    
+    public void updateIncapacidadesPermisos(String cedula, String fechaA, String fechaB, int pagadas, int tipo){
+        Alerts msj = new Alerts();
+          String sql = "UPDATE incapacidadesPermisos SET fechaB = '"+fechaB+"', "
+                  + "tipoFalta = "+tipo+", pagada = "+pagadas+" WHERE cc_Empleado = '"+cedula+"' AND fechaA = '"+fechaA+"'";
         System.out.println(sql);
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
@@ -280,12 +293,11 @@ public class Appi {
         return emp;
     }
     
-    public boolean verificarincapacidadpermiso(String cedula, String fechaA){
-        boolean res = false;
-        String sql = "SELECT cc_Empleado, fechaA FROM incapacidadesPermisos WHERE cc_empleado = '"+cedula+"' AND fechaA = '"+fechaA+"'";
-        if(db.permisoExiste(sql)){
-            res = true;
-        }
+    public IncapacidadesPermisos verificarincapacidadpermiso(String cedula, String fechaA){
+        IncapacidadesPermisos res = null;
+        String sql = "SELECT cc_Empleado, fechaA, fechaB, tipoFalta, pagada FROM incapacidadesPermisos WHERE cc_empleado = '"+cedula+"' AND fechaA = '"+fechaA+"'";
+        IncapacidadesPermisos obj = db.permisoExistente(sql);
+            res = obj;
         return res;
     }
     
