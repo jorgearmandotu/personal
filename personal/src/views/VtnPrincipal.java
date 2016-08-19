@@ -46,13 +46,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel21 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnGenAsis = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         txtFichIncapacidad = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
+        btnIngIncapacidad = new javax.swing.JButton();
         jLabel26 = new javax.swing.JLabel();
         rbtnIncSi = new javax.swing.JRadioButton();
         rbntIncNo = new javax.swing.JRadioButton();
@@ -149,7 +149,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jButton2.setText("Ingresar");
 
-        jButton3.setText("Generar asistencia");
+        btnGenAsis.setText("Generar asistencia");
+        btnGenAsis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenAsisActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
@@ -164,7 +169,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(121, 121, 121)
                         .addComponent(jButton2))
-                    .addComponent(jButton3))
+                    .addComponent(btnGenAsis))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
@@ -177,7 +182,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
-                .addComponent(jButton3)
+                .addComponent(btnGenAsis)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -189,10 +194,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel25.setText("Fecha B:");
 
-        jButton4.setText("Ingresar");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnIngIncapacidad.setText("Ingresar");
+        btnIngIncapacidad.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnIngIncapacidadActionPerformed(evt);
             }
         });
 
@@ -228,7 +233,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(dateBincapacidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(280, 280, 280)
-                        .addComponent(jButton4))
+                        .addComponent(btnIngIncapacidad))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel26)
@@ -256,7 +261,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addComponent(rbtnIncSi)
                     .addComponent(rbntIncNo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btnIngIncapacidad)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -916,10 +921,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
         eliminarEmpleado();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnIngIncapacidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngIncapacidadActionPerformed
         // TODO add your handling code here:
         insertarIncapacidad(0);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnIngIncapacidadActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
@@ -930,6 +935,22 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         insertarIncapacidad(2);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void btnGenAsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenAsisActionPerformed
+        // TODO add your handling code here:
+
+        VtnAsistencia vtnasis = new VtnAsistencia(this, rootPaneCheckingEnabled);//puede ir tture en lugar del  rootPanecheckgenabled
+        vtnasis.setLocationRelativeTo(btnIngIncapacidad);
+        
+        Appi app = new Appi();
+        Empleado[] empleados = app.tomarAsistencia();
+        for (Empleado empleado : empleados) {
+            if(vtnasis.getCerrar()) break;
+            vtnasis.tomarAsistencia(empleado);
+            vtnasis.setVisible(rootPaneCheckingEnabled);
+        }
+        
+    }//GEN-LAST:event_btnGenAsisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -969,6 +990,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGenAsis;
+    private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JButton btnListar;
     private javax.swing.JComboBox cmbArl;
@@ -984,8 +1007,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dateFechaFalta;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
@@ -1169,7 +1190,7 @@ private void listado(){
     DefaultTableModel model = (DefaultTableModel) tblListado.getModel();
     Object [] fila = new Object[4];
     Appi app = new Appi();
-    Empleado[] datos = null;
+    Empleado[] datos;// = null;
             
     if(!txtListNombre.getText().isEmpty()){
         datos = app.listado(txtListNombre.getText().trim(),1);

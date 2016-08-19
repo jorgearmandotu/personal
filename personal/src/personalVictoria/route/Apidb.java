@@ -6,6 +6,7 @@
 package personalVictoria.route;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -25,12 +26,21 @@ import main.resources.IncapacidadesPermisos;
  * @author home
  */
 public class Apidb {
-    String separadorOS = System.getProperty("file.separator");
-    String url="db"+separadorOS+"data.db";
+   
+       
     
-    
-    
-    private Connection connect(){
+    private Connection connect() {
+        String separadorOS = System.getProperty("file.separator");
+        String url=separadorOS+"db"+separadorOS+"data.db";
+        File miDir = new File (".");
+        
+        try {
+            url = miDir.getCanonicalPath()+url;
+            //System.out.println(miDir.getCanonicalPath());
+        } catch (IOException ex) {
+            Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(url);
         Connection connect=null;
         File data = new File(url);
         if (data.exists()){
@@ -119,8 +129,12 @@ public class Apidb {
                     String cc = res.getString("cc");
                     String nombre = res.getString("nombre");
                     String grupo = res.getString("grupo");
+                    long cuenta = res.getInt("ncuenta");
+                    String cargo = res.getString("cargo");
+                    String sexo = res.getString("sexo");
+                    String rh = res.getString("rh");
                     System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
-                    Empleado emp = new Empleado(ficha, cc, nombre, grupo);
+                    Empleado emp = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh);
                     obj.add(emp);
                 }
             }catch(SQLException ex){

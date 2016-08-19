@@ -39,15 +39,15 @@ public class Empleado {
         this.rh = rh;
     }
     
-    public Empleado(int ficha, String cedula, String nombre, String grupo){
+    public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh){
         this.cedula = cedula;
         this.pNombre = nombre;
-        //this.sNombre = "";
-        //this.pApellido = pApellido;
-       // this.sApellido = sApellido;
         this.nFicha = ficha;
-        //this.nCuenta = nCuenta;
+        this.nCuenta = cuenta;
         this.grupo = grupo;
+        this.cargo = cargo;
+        this.sexo = sexo;
+        this.rh = rh;
     }
 
     public String getCedula() {
