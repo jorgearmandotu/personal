@@ -435,6 +435,14 @@ public class VtnDefVal extends javax.swing.JDialog {
         String nom = txtNomGrupo.getText().trim().toUpperCase();
         if(!nom.equals("")){
            String sup = cmbIngGrupo.getSelectedItem().toString();
+           String[] list = sup.split(sup);
+           if(list.length == 4){
+               String pn = list[0];
+               String sn = list[1];
+               String pa = list[2];
+               String sa = list[3];
+           }
+           
            Appi app = new Appi();
            if(app.ingresoGrupo(nom, sup)){
                txtNomGrupo.setText("");

@@ -1085,7 +1085,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtsNombre;
     // End of variables declaration//GEN-END:variables
 
-private void insercionPersona(){
+private void insercionPersona(){//12 campos
     String cedula = txtcedula.getText().trim();
     String pNombre = txtpNombre.getText().trim().toUpperCase();
     String sNombre= txtsNombre.getText().trim().toUpperCase();
@@ -1094,7 +1094,8 @@ private void insercionPersona(){
     String cuenta = txtNcuenta.getText().trim();
     String ficha = txtNficha.getText().trim();
     String grupo = cmbgrupo.getSelectedItem().toString();
-    
+    int sup = 0;
+    if(grupo.equals("N")) sup = 1;
     String cargo = cmbcargo.getSelectedItem().toString().toUpperCase();
     String sexo;
     if(rbtnMasculino.isSelected()) sexo = "M";
@@ -1127,7 +1128,7 @@ private void insercionPersona(){
         Appi app = new Appi();
         if(!"N".equals(grupo))       grupo = app.idGrupo(grupo);
         
-        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh);
+        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh, sup);
         if(app.ingresoPersona(emp)){
             AportesBonificaciones obj;
             if(!bonificacion.equals("N")){

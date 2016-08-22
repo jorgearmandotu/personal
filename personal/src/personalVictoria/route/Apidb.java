@@ -37,6 +37,8 @@ public class Apidb {
         try {
             url = miDir.getCanonicalPath()+url;
             //System.out.println(miDir.getCanonicalPath());
+            // Alerts msj = new Alerts();
+             // msj.aviso(url);
         } catch (IOException ex) {
             Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -119,6 +121,7 @@ public class Apidb {
     
     public ArrayList listar(String sql){// este metodo crea un nombre completo con los registrods de db
         //ResultSet res = null;
+        System.out.println(sql);
         ArrayList<Empleado> obj= new ArrayList<>();
         Connection con = connect();
         if(con != null){
@@ -253,7 +256,8 @@ public class Apidb {
                     String cargo = res.getString("cargo");
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
-                    Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh);
+                    int supervisor = res.getInt("supervisor");
+                    Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh, supervisor);
                     obj.add(emp);
                 }
             }catch(SQLException ex){

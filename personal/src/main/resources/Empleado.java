@@ -22,10 +22,11 @@ public class Empleado {
     String cargo;
     String sexo;
     String rh;
+    int supervisor;
 
     public Empleado(String cedula, String pNombre, String sNombre, String pApellido, 
             String sApellido, int nFicha, long nCuenta, String grupo, String cargo, 
-            String sexo, String rh) {
+            String sexo, String rh, int supervisor) {
         this.cedula = cedula;
         this.pNombre = pNombre;
         this.sNombre = sNombre;
@@ -37,6 +38,7 @@ public class Empleado {
         this.cargo = cargo;
         this.sexo = sexo;
         this.rh = rh;
+        this.supervisor = supervisor;
     }
     
     public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh){
@@ -92,6 +94,10 @@ public class Empleado {
 
     public String getRh() {
         return rh;
+    }
+
+    public int getSupervisor() {
+        return supervisor;
     }
     
     

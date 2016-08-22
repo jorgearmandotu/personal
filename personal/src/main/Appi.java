@@ -32,9 +32,9 @@ public class Appi {
         boolean res;
         Alerts msj = new Alerts();
          
-        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo', 'cargo', 'sexo', 'rh') "
+        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo', 'cargo', 'sexo', 'rh', 'supervisor') "
                 + "VALUES('"+emp.getCedula()+"',"+emp.getnFicha()+",'"+emp.getpNombre()+"','"+emp.getsNombre()+"','"+emp.getpApellido()
-                +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"', '"+emp.getRh()+"');";
+                +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"', '"+emp.getRh()+"', "+emp.getSupervisor()+");";
         if(db.operacion(sql)){
             msj.aviso("Ingreso exitoso");
             res = true;
@@ -111,6 +111,9 @@ public class Appi {
         boolean res;
         Alerts msj = new Alerts();
         String sql = "UPDATE grupos SET supervisor = '"+supervisor+"' WHERE nombreGrupo = '"+grupo+"'";
+        String idgrupo = idGrupo(grupo);
+        //String[] nombre =  
+        String sql2 = "UPDATE empleado SET grupo = '"+idgrupo+"' WHERE ";
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
             res = true;
@@ -172,14 +175,14 @@ public class Appi {
             sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
         }else if(op==1) {//nombre
             String[] nom = dato.split(" ");
-            /*if(nom.length == 4) {
-                sql = "SELECT  nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
+            if(nom.length == 4) {//inicio loop para nombre completo
+                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
                         + "WHERE pnombre LIKE '%"+nom[0]+"%' OR  snombre LIKE '%"+nom[1]+"%' OR "
                         + "papellido LIKE '%"+nom[2]+"%' OR sapellido LIKE '%"+nom[3]+"%'";
-            }else{*/
-                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
+            }else{
+                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
                         + "WHERE (pnombre LIKE '%"+nom[0]+"%' OR snombre LIKE '%"+nom[0]+"%' OR papellido LIKE '%"+nom[0]+"%' OR sapellido LIKE '%"+nom[0]+"%') AND cc NOT LIKE '% %'";
-            //}
+            }//fin condicion
         }else if(op==2) {//ficha
             sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+" AND cc NOT LIKE '% %'";
         }else if(op==3) {//cedula
@@ -235,7 +238,8 @@ public class Appi {
     }
     
     public Empleado[] supervisores(){
-        String sql = "SELECT nficha, cc, grupo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo = 'N'";
+        String sql = "SELECT nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido )"
+                + " as nombre from empleado WHERE supervisor = 1";
         ArrayList obj = db.listar(sql);
         System.out.println(obj.size());
         Empleado[] datos= new Empleado[obj.size()];

@@ -5,8 +5,6 @@
  */
 package views;
 
-import javax.swing.JOptionPane;
-import main.Appi;
 import main.resources.Empleado;
 
 /**
