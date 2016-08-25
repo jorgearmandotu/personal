@@ -20,6 +20,7 @@ import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
 import main.resources.IncapacidadesPermisos;
+import main.resources.Supervisor;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Apidb {
    
        
     
-    private Connection connect() {
+    private static Connection connect() {
         String separadorOS = System.getProperty("file.separator");
         String url=separadorOS+"db"+separadorOS+"data.db";
         File miDir = new File (".");
@@ -47,7 +48,7 @@ public class Apidb {
         File data = new File(url);
         if (data.exists()){
             try{
-                connect=DriverManager.getConnection("jdbc:sqlite:"+url);
+                connect = DriverManager.getConnection("jdbc:sqlite:"+url);
                 System.out.println("conexionexitosa");
             }catch(SQLException | NullPointerException ex){
                 System.err.println("error al conectar a base de datos"+ex.getMessage());
@@ -100,6 +101,49 @@ public class Apidb {
         return res;
     }
     
+    public boolean operacionTransaccion(String sql, String sql2){
+        boolean res = false;
+        Connection con = connect();
+        if(con!=null){
+            try {
+                con.setAutoCommit(false);
+                Statement st2;
+                try (Statement st = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY)) {
+                    st2 = con.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+                    st.executeUpdate(sql);
+                    st2.executeUpdate(sql2);
+                }
+                st2.close();
+                con.commit();
+                con.setAutoCommit(true);
+                    //st.close(); -> esto iria si no se usara en try with resources ya q siempre debe cerrarse el statement
+                
+                res = true;
+            } catch (SQLException ex) {
+                try {
+                    con.rollback();
+                    con.setAutoCommit(true);
+                } catch (SQLException ex1) {
+                    Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+                Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
+                System.err.println(ex.getMessage());
+                res = false;
+                Alerts msj = new Alerts();
+                msj.errormsj(ex.getMessage());
+            }
+            
+            if(close(con)){
+                    System.out.println("Conexion terminada");
+                }
+        }else{
+            System.out.println("imposible encontrar base de datos");
+            Alerts msj = new Alerts();
+                msj.errormsj("imposible encontrar base de datos");
+        }
+        return res;
+    }
+    
     public boolean consulta(String sql){
         boolean res=false;
         Connection con = connect();
@@ -122,12 +166,13 @@ public class Apidb {
     public ArrayList listar(String sql){// este metodo crea un nombre completo con los registrods de db
         //ResultSet res = null;
         System.out.println(sql);
-        ArrayList<Empleado> obj= new ArrayList<>();
+        ArrayList<Supervisor> obj= new ArrayList<>();
         Connection con = connect();
         if(con != null){
             try (Statement st = con.createStatement()) {
                 ResultSet res = st.executeQuery(sql);
                 while(res.next()){
+                    //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
                     int ficha = res.getInt("nficha");
                     String cc = res.getString("cc");
                     String nombre = res.getString("nombre");
@@ -137,8 +182,8 @@ public class Apidb {
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
                     System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
-                    Empleado emp = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh);
-                    obj.add(emp);
+                    Supervisor sup = new Supervisor(nombre, cc, ficha, grupo, cuenta, sexo, rh, cargo);
+                    obj.add(sup);
                 }
             }catch(SQLException ex){
                 System.err.println(ex.getMessage());
@@ -149,6 +194,40 @@ public class Apidb {
         }
         return obj;
     }
+    
+    public ArrayList listarEmpleadosNombre(String sql){// este metodo crea un nombre completo con los registrods de db
+        //ResultSet res = null;
+        System.out.println(sql);
+        ArrayList<Empleado> obj= new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()) {
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
+                    int ficha = res.getInt("nficha");
+                    String cc = res.getString("cc");
+                    String nombre = res.getString("nombre");
+                    String grupo = res.getString("grupo");
+                    long cuenta = res.getInt("ncuenta");
+                    String cargo = res.getString("cargo");
+                    String sexo = res.getString("sexo");
+                    String rh = res.getString("rh");
+                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
+                        Empleado sup = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh);
+                    obj.add(sup);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
+    
+    
     
     public ArrayList listarGrupos(String sql){
         ArrayList<Grupo> obj = new ArrayList<>();
@@ -294,4 +373,31 @@ public class Apidb {
         return obj;
     }
     
+    public Grupo maxGrupo(String sql){
+        Grupo obj = null;
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()) {
+                ResultSet res = st.executeQuery(sql);
+                System.out.println("esta es el row coño  "+res);
+                try{
+                    while(res.next()){
+                        String nombre = res.getString("nombreGrupo");
+                        String supervisor = res.getString("supervisor");
+                        String id = res.getString("idGrupo");
+                        obj = new Grupo(nombre, supervisor, id);
+                    }
+                }catch(Exception ex){
+                    System.err.println(ex);
+                    
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
+                obj = null;
+            }
+                    
+        }
+        return obj;
+    }
 }

@@ -11,10 +11,10 @@ package main.resources;
  */
 public class AportesBonificaciones {
     
-    int id;
-    String nombre;
-    String tipo;
-    float valor;
+    private int id;
+    private String nombre;
+    private String tipo;
+    private float valor;
 
     public AportesBonificaciones(int id, String nombre, String tipo, float valor) {
         this.id = id;

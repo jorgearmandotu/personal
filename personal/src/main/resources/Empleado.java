@@ -11,18 +11,18 @@ package main.resources;
  */
 public class Empleado {
     
-    String cedula;
-    String pNombre;
-    String sNombre;
-    String pApellido;
-    String sApellido;
-    int nFicha;
-    long nCuenta;
-    String grupo;
-    String cargo;
-    String sexo;
-    String rh;
-    int supervisor;
+    private String cedula;
+    private String pNombre;
+    private String sNombre;
+    private String pApellido;
+    private String sApellido;
+    private int nFicha;
+    private long nCuenta;
+    private String grupo;
+    private String cargo;
+    private String sexo;
+    private String rh;
+    private int supervisor;
 
     public Empleado(String cedula, String pNombre, String sNombre, String pApellido, 
             String sApellido, int nFicha, long nCuenta, String grupo, String cargo, 
@@ -40,7 +40,7 @@ public class Empleado {
         this.rh = rh;
         this.supervisor = supervisor;
     }
-    
+    //constructor empleado con nombre completo en pnombre
     public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh){
         this.cedula = cedula;
         this.pNombre = nombre;

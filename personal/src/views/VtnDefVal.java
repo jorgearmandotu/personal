@@ -9,6 +9,7 @@ import main.Appi;
 import main.resources.Alerts;
 import main.resources.Empleado;
 import main.resources.Grupo;
+import main.resources.Supervisor;
 
 /**
  *
@@ -412,14 +413,15 @@ public class VtnDefVal extends javax.swing.JDialog {
 
 
     private void llenarcombos(){
-        Empleado[] datos;// = null;
+        Supervisor[] datos;// = null;
         Appi app = new Appi();
         datos = app.supervisores();
         cmbIngGrupo.removeAllItems();
         cmbDefSup.removeAllItems();
-        for (Empleado dato : datos) {
-            cmbIngGrupo.addItem(dato.getpNombre());
-            cmbDefSup.addItem(dato.getpNombre());
+        for (Supervisor dato : datos) {
+            //combos de el empleado supervisor
+            cmbIngGrupo.addItem(dato);
+            cmbDefSup.addItem(dato);
         }
         
     //lenar combo 
@@ -433,18 +435,16 @@ public class VtnDefVal extends javax.swing.JDialog {
     
     private void ingresoGrupo(){
         String nom = txtNomGrupo.getText().trim().toUpperCase();
+        
         if(!nom.equals("")){
-           String sup = cmbIngGrupo.getSelectedItem().toString();
-           String[] list = sup.split(sup);
-           if(list.length == 4){
-               String pn = list[0];
-               String sn = list[1];
-               String pa = list[2];
-               String sa = list[3];
-           }
+           Supervisor supervisor = (Supervisor) cmbIngGrupo.getSelectedItem();
+           //se debe utilizxar los getesr de los objetos supervisor
+           System.out.println(supervisor.getCedula());
+          
            
            Appi app = new Appi();
-           if(app.ingresoGrupo(nom, sup)){
+           //utilisamos to-string q es un metodo sobre escriot de la clase supervisor
+           if(app.ingresoGrupo(nom, supervisor.getCedula())){
                txtNomGrupo.setText("");
                cmbIngGrupo.setSelectedIndex(0);
            }
@@ -475,9 +475,9 @@ public class VtnDefVal extends javax.swing.JDialog {
     
     private void defSupervisorGrupo(){
         String grupo = cmbGrupDefSup.getSelectedItem().toString();
-        String supervisor = cmbDefSup.getSelectedItem().toString();
+        Supervisor supervisor = (Supervisor) cmbDefSup.getSelectedItem();
         Appi app = new Appi();
-        if(app.updateSupGrupo(grupo, supervisor)){
+        if(app.updateSupGrupo(grupo, supervisor.toString(), supervisor.getCedula())){
             cmbGrupDefSup.setSelectedIndex(0);
             cmbDefSup.setSelectedIndex(0);
         }

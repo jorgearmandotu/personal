@@ -10,11 +10,11 @@ package main.resources;
  * @author home
  */
 public class IncapacidadesPermisos {
-    String cc;
-    String fechaA;
-    String fechaB;
-    int tipo;
-    int pagada;//boolean 0 no, 1 sí
+    private String cc;
+    private String fechaA;
+    private String fechaB;
+    private int tipo;
+    private int pagada;//boolean 0 no, 1 sí
 
     public IncapacidadesPermisos(String cc, String fechaA, String fechaB, int tipo, int pagada) {
         this.cc = cc;

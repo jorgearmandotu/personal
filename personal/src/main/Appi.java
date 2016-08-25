@@ -16,6 +16,7 @@ import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
 import main.resources.IncapacidadesPermisos;
+import main.resources.Supervisor;
 import personalVictoria.route.Apidb;
 
 /**
@@ -46,12 +47,27 @@ public class Appi {
         return res;
     }
     
-    public boolean ingresoGrupo(String nom, String supervisor){
+    public boolean ingresoGrupo(String nom, String cedsupervisor){
         boolean res;
         Alerts msj = new Alerts();
-        String sql = "Insert INTO grupos (nombreGrupo, supervisor)"
-                + "VALUES ('"+nom+"', '"+supervisor+"')";
-        if(db.operacion(sql)){
+        Grupo obj = null;
+        obj = db.maxGrupo("select  nombreGrupo, supervisor, max(idgrupo) as idGrupo from grupos");
+        int idgrupo = 0;
+        if(obj.getId() != null){
+            System.out.println(obj);
+            idgrupo = Integer.parseInt(obj.getId());
+            System.out.println("soy nulo coño i el numero es "+idgrupo);
+        }
+        System.out.println(" el numero es "+idgrupo);
+        System.out.println(obj);
+        idgrupo++;
+        String sql = "UPDATE grupos SET supervisor = 'N' WHERE supervisor ='"+cedsupervisor+"';"
+                + "Insert INTO grupos (nombreGrupo, supervisor, idGrupo)"
+                + "VALUES ('"+nom+"', '"+cedsupervisor+"', "+idgrupo+")";
+        
+        String sql2 = "UPDATE empleado SET grupo = '"+idgrupo+"' WHERE cc = '"+cedsupervisor+"'";
+        System.out.println(sql+"\n"+sql2);
+        if(db.operacionTransaccion(sql,sql2)){
             msj.aviso("Ingreso Exitoso");
             res = true;
         }else{
@@ -107,14 +123,19 @@ public class Appi {
         return res;
     }
     
-    public boolean updateSupGrupo(String grupo, String supervisor){
+    public boolean updateSupGrupo(String grupo, String supervisor, String cedula){
         boolean res;
         Alerts msj = new Alerts();
-        String sql = "UPDATE grupos SET supervisor = '"+supervisor+"' WHERE nombreGrupo = '"+grupo+"'";
-        String idgrupo = idGrupo(grupo);
+        String sql = "UPDATE grupos SET supervisor = 'N' WHERE supervisor ='"+cedula+"';"
+                + "UPDATE grupos SET supervisor = '"+cedula+"' WHERE nombreGrupo = '"+grupo+"'";
+        Grupo obj = db.maxGrupo("select  nombreGrupo, supervisor, idgrupo as idGrupo from grupos where nombreGrupo = '"+grupo+"'");
+        int idgrupo = Integer.parseInt(obj.getId());
+        String cedula2 = obj.getSupervisor();
         //String[] nombre =  
-        String sql2 = "UPDATE empleado SET grupo = '"+idgrupo+"' WHERE ";
-        if(db.operacion(sql)){
+        String sql2 = "UPDATE empleado SET grupo = 'N' WHERE cc = '"+cedula2+"' and grupo = '"+idgrupo+"' ;"
+                + "UPDATE empleado SET grupo = '"+idgrupo+"' WHERE cc = '"+cedula+"'";
+        System.out.println(sql+"\n"+sql2);
+        if(db.operacionTransaccion(sql, sql2)){
             msj.aviso("Ingreso Exitoso");
             res = true;
         }else{
@@ -237,15 +258,15 @@ public class Appi {
         return datos;
     }
     
-    public Empleado[] supervisores(){
+    public Supervisor[] supervisores(){
         String sql = "SELECT nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido )"
                 + " as nombre from empleado WHERE supervisor = 1";
         ArrayList obj = db.listar(sql);
         System.out.println(obj.size());
-        Empleado[] datos= new Empleado[obj.size()];
+        Supervisor[] datos= new Supervisor[obj.size()];
         int i=0;
         for(Object e:obj ){
-            datos[i]= (Empleado) e;
+            datos[i]= (Supervisor) e;
             i++;
         }
         return datos;
@@ -308,11 +329,11 @@ public class Appi {
     //select cc from empleado except select distinct cc_Empleado from  incapacidadesPermisos
     
     public Empleado[] tomarAsistencia(){
-
+        //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
         String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
-                + "as nombre FROM empleado ORDER BY grupo";
+                + "as nombre FROM empleado WHERE nficha > 10 ORDER BY grupo";
         
-        ArrayList obj = db.listar(sql);
+        ArrayList obj = db.listarEmpleadosNombre(sql);
         Empleado[] empleados = new Empleado[obj.size()];
         int i=0;
         for(Object e:obj ){

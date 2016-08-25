@@ -10,9 +10,9 @@ package main.resources;
  * @author home
  */
 public class Grupo {
-    String nombre;
-    String supervisor;
-    String id;
+    private String nombre;
+    private String supervisor;
+    private String id;
 
     public Grupo(String nombre, String supervisor, String id) {
         this.nombre = nombre;
