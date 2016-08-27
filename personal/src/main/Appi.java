@@ -201,9 +201,7 @@ public class Appi {
         String sql = "INSERT INTO asistencia (ccEmpleado, quincenaFechaA, quincenaFechaB, falta, FechaFalta)"
                 + "VALUES ('"+cc+"','"+fechaA+"', '"+fechaB+"', "+2+", '"+fecha+"')";// 2 es falta
         System.out.println(sql);
-        if(db.operacion(sql)) {
-            msj.aviso("Falta Ingresada");
-        }else{
+        if(!db.operacion(sql)) {
             msj.aviso("Error en Operacion");
         }
     }
