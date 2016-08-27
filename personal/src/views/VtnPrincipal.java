@@ -148,6 +148,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel21.setText("Ficha:");
 
         jButton2.setText("Ingresar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         btnGenAsis.setText("Generar asistencia");
         btnGenAsis.addActionListener(new java.awt.event.ActionListener() {
@@ -952,6 +957,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
         vtnasis.dispose();
     }//GEN-LAST:event_btnGenAsisActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1326,6 +1335,7 @@ private void insertarIncapacidad(int tipo){
         String fecha1 = formato.format(fechaA);
         IncapacidadesPermisos obj = app.verificarincapacidadpermiso(cedula, fecha1);
         String fecha2 = formato.format(fechaB);
+        boolean error = false;
         if(obj != null && obj.getTipo() == 0 && tipo == 0){//sis existe y es incapacidad y inserta incapacidad
             //update incapacidad ingreso erroneo anterior
             System.out.println("opcion 1");
@@ -1339,12 +1349,35 @@ private void insertarIncapacidad(int tipo){
         }else if (obj != null && (obj.getTipo() == 0 || obj.getTipo() == 1)){
             Alerts msj = new Alerts();
             msj.dangermsj("Ya esta registrada una incapacidad, permiso o falta");
-        }else{
+            error = true;
+        }else if(tipo == 2){//inserrtat falta
+            app.InsertarFaltaFecha(cedula, fecha1);
+        }
+        else{
             System.out.println("opcion ingreso no existe registro");
             app.insertarIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, tipo);//0 incpacidades, 1 permisos, 2 falta, 
             cmbgrupo();
         }
-        
+        if(!error){
+            Date fechaActual = new Date();
+            switch(tipo){
+                case 0:// incapacidad
+                    dateAincapacidad.setDate(fechaActual);
+                    dateBincapacidad.setDate(fechaActual);
+                    txtFichIncapacidad.setText("");
+                    rbtnIncSi.setSelected(true);
+                    break;
+                case 1://permisos
+                    dateFechaApermiso.setDate(fechaActual);
+                    dateFechaBpermiso.setDate(fechaActual);
+                    txtFichaPermiso.setText("");
+                    break;
+                default:
+                    dateFechaFalta.setDate(fechaActual);
+                    txtFichaFalta.setText("");
+                    break;
+            }
+        }
     }else{
         Alerts msj = new Alerts();
         msj.dangermsj("datos incorrectos");

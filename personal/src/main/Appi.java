@@ -208,6 +208,26 @@ public class Appi {
         }
     }
     
+    public void InsertarFaltaFecha(String cc, String fecha){
+        Alerts msj = new Alerts();
+        Date fechaActual = new Date();
+        //DateFormat formatFecha = new SimpleDateFormat("YYYY-MM-dd");
+        //String fecha = formatFecha.format(fechaActual);
+        //String[] fechas = fecha.split("-");
+        String[] quincena = definirQuincena(fecha);
+        String fechaA = quincena[0];
+        String fechaB = quincena[1];
+        System.out.println(fecha);
+        String sql = "INSERT INTO asistencia (ccEmpleado, quincenaFechaA, quincenaFechaB, falta, FechaFalta)"
+                + "VALUES ('"+cc+"','"+fechaA+"', '"+fechaB+"', "+2+", '"+fecha+"')";// 2 es falta
+        System.out.println(sql);
+        if(db.operacion(sql)) {
+            msj.aviso("Falta Ingresada");
+        }else{
+            msj.aviso("Error en Operacion");
+        }
+    }
+    
     public String[] definirQuincena(String fecha){
         
         String fechaA;
