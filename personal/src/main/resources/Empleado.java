@@ -41,7 +41,7 @@ public class Empleado {
         this.supervisor = supervisor;
     }
     //constructor empleado con nombre completo en pnombre
-    public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh){
+        public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh){
         this.cedula = cedula;
         this.pNombre = nombre;
         this.nFicha = ficha;

@@ -949,7 +949,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             vtnasis.tomarAsistencia(empleado);
             vtnasis.setVisible(rootPaneCheckingEnabled);
         }
-        
+        vtnasis.dispose();
     }//GEN-LAST:event_btnGenAsisActionPerformed
 
     /**

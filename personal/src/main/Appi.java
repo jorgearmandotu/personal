@@ -10,6 +10,7 @@ package main;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import main.resources.Alerts;
 import main.resources.AportesBonificaciones;
@@ -187,6 +188,49 @@ public class Appi {
         }
     }
     
+    public void InsertarFalta(String cc){
+        Alerts msj = new Alerts();
+        Date fechaActual = new Date();
+        DateFormat formatFecha = new SimpleDateFormat("YYYY-MM-dd");
+        String fecha = formatFecha.format(fechaActual);
+        //String[] fechas = fecha.split("-");
+        String[] quincena = definirQuincena(fecha);
+        String fechaA = quincena[0];
+        String fechaB = quincena[1];
+        System.out.println(fecha);
+        String sql = "INSERT INTO asistencia (ccEmpleado, quincenaFechaA, quincenaFechaB, falta, FechaFalta)"
+                + "VALUES ('"+cc+"','"+fechaA+"', '"+fechaB+"', "+2+", '"+fecha+"')";// 2 es falta
+        System.out.println(sql);
+        if(db.operacion(sql)) {
+            msj.aviso("Falta Ingresada");
+        }else{
+            msj.aviso("Error en Operacion");
+        }
+    }
+    
+    public String[] definirQuincena(String fecha){
+        
+        String fechaA;
+        String fechaB;
+        
+        String[] fechas = fecha.split("-");
+        int anio = Integer.parseInt(fechas[0]);
+        int mes = Integer.parseInt(fechas[1]);
+        int dia = Integer.parseInt(fechas[2]);
+        if (dia<16){
+            fechaA = anio+"-"+fechas[1]+"-01";
+            fechaB = anio+"-"+fechas[1]+"-15";
+        }else{
+            fechaA = anio+"-"+fechas[1]+"-16";
+            Calendar calendario = Calendar.getInstance();
+            calendario.set(anio, mes-1, 1);
+            int diaFinal = calendario.getActualMaximum(Calendar.DAY_OF_MONTH);
+            fechaB = anio+"-"+fechas[1]+"-"+diaFinal;
+        }
+        
+        String[] fechaAB = {fechaA, fechaB};
+        return fechaAB;
+    }
     
     //Copnsultas listados
    
@@ -211,7 +255,7 @@ public class Appi {
         }else if(op==4) {//grupo
             sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
         }
-        ArrayList obj = db.listar(sql);
+        ArrayList obj = db.listarEmpleadosNombre(sql);
         System.out.println(obj.size());
         Empleado[] datos= new Empleado[obj.size()];
         int i=0;
@@ -307,7 +351,7 @@ public class Appi {
     }
     
     public Empleado empleadoFicha(String ficha){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor "
                 + "FROM empleado WHERE nficha = '"+ficha+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;
@@ -331,7 +375,7 @@ public class Appi {
     public Empleado[] tomarAsistencia(){
         //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
         String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
-                + "as nombre FROM empleado WHERE nficha > 10 ORDER BY grupo";
+                + "as nombre FROM empleado WHERE nficha > 10 ORDER BY grupo, nficha";
         
         ArrayList obj = db.listarEmpleadosNombre(sql);
         Empleado[] empleados = new Empleado[obj.size()];

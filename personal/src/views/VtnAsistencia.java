@@ -5,6 +5,7 @@
  */
 package views;
 
+import main.Appi;
 import main.resources.Empleado;
 
 /**
@@ -12,7 +13,7 @@ import main.resources.Empleado;
  * @author home
  */
 public class VtnAsistencia extends javax.swing.JDialog {
-private boolean cerrar = false;
+private  boolean cerrar = false;
     /**
      * Creates new form VtnAsistencia
      */
@@ -44,8 +45,9 @@ private boolean cerrar = false;
         jPanel2 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -148,6 +150,13 @@ private boolean cerrar = false;
             }
         });
 
+        jButton3.setText("Cancelar");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -157,6 +166,8 @@ private boolean cerrar = false;
                 .addComponent(jButton1)
                 .addGap(119, 119, 119)
                 .addComponent(jButton2)
+                .addGap(52, 52, 52)
+                .addComponent(jButton3)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -165,7 +176,8 @@ private boolean cerrar = false;
                 .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(jButton3))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
@@ -201,6 +213,8 @@ private boolean cerrar = false;
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        IngresoFalta();
+        this.setVisible(false);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
@@ -210,8 +224,15 @@ private boolean cerrar = false;
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here
-        cerrar = true;
+        this.setVisible(false); // visualmente no se nota solo cambia la info
+        //dispose(); //es como si cerrase la ventana con la x
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        cerrar = true;
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,6 +279,7 @@ private boolean cerrar = false;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -282,6 +304,13 @@ public void tomarAsistencia(Empleado emp){
     lblCargo.setText(emp.getCargo());
     lblGrupo.setText(emp.getGrupo());
 }
+
+private void IngresoFalta(){
+    String cc = lblCedula.getText();
+    Appi app = new Appi();
+    app.InsertarFalta(cc);
+}
+
 public boolean getCerrar(){
     return cerrar;
 }
