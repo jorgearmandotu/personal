@@ -1241,10 +1241,10 @@ private void listado(){
             fila[3] = dato.getGrupo();
             model.addRow(fila);
         }
-    //tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
+    //tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     tblListado.getColumnModel().getColumn(0).setPreferredWidth(60);
     tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);
-    tblListado.getColumnModel().getColumn(2).setPreferredWidth(252);
+    tblListado.getColumnModel().getColumn(2).setPreferredWidth(280);
     tblListado.getColumnModel().getColumn(3).setPreferredWidth(250);
     
     tblListado.setModel(model);
