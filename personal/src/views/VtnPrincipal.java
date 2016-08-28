@@ -26,6 +26,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
      */
     public VtnPrincipal() {
         initComponents();
+        
         cmbgrupo();
     }
 
@@ -109,6 +110,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
         cmbPension = new javax.swing.JComboBox();
         btnIngresarPersona = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
+        jPanel7 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel20 = new javax.swing.JLabel();
+        txtcedEliminar = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
@@ -120,13 +126,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtListCedula = new javax.swing.JTextField();
         txtListSupervisor = new javax.swing.JTextField();
         btnListar = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        scrolltable = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jLabel20 = new javax.swing.JLabel();
-        txtcedEliminar = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuDefOpciones = new javax.swing.JMenuItem();
@@ -310,7 +311,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(jLabel29)
                         .addGap(18, 18, 18)
                         .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -498,15 +499,15 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbEps, 0, 153, Short.MAX_VALUE)
+                .addComponent(cmbEps, 0, 169, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbArl, 0, 154, Short.MAX_VALUE)
+                .addComponent(cmbArl, 0, 169, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPension, 0, 163, Short.MAX_VALUE)
+                .addComponent(cmbPension, 0, 178, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -583,7 +584,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 47, Short.MAX_VALUE)))
+                        .addGap(0, 93, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(283, 283, 283)
@@ -660,6 +661,62 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Ingresos", jPanel3);
 
+        jLabel20.setText("Cedula:");
+
+        jButton1.setText("eliminar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel20)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtcedEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel8Layout.createSequentialGroup()
+                        .addGap(259, 259, 259)
+                        .addComponent(jButton1)))
+                .addContainerGap(403, Short.MAX_VALUE))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel20)
+                    .addComponent(txtcedEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jButton1)
+                .addContainerGap(114, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(401, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Retirar Empleados", jPanel7);
+
         jPanel4.setMinimumSize(new java.awt.Dimension(750, 0));
 
         jLabel10.setText("Nombre:");
@@ -695,7 +752,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(376, 376, 376)
                         .addComponent(btnListar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 293, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -741,9 +798,21 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
+        scrolltable.setAutoscrolls(true);
+        scrolltable.setMinimumSize(new java.awt.Dimension(5, 5));
+
         tblListado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
                 "N ficha", "Cedula", "Nombre", "Supervisor"
@@ -764,7 +833,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(tblListado);
+        scrolltable.setViewportView(tblListado);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -775,7 +844,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 718, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrolltable, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -785,67 +854,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(233, Short.MAX_VALUE))
+                .addComponent(scrolltable, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(217, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultas", jPanel4);
-
-        jLabel20.setText("Cedula:");
-
-        jButton1.setText("eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel20)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtcedEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(259, 259, 259)
-                        .addComponent(jButton1)))
-                .addContainerGap(356, Short.MAX_VALUE))
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel20)
-                    .addComponent(txtcedEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(jButton1)
-                .addContainerGap(114, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(401, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Retirar Empleados", jPanel7);
 
         jMenu1.setText("File");
 
@@ -870,7 +883,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 708, Short.MAX_VALUE))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1065,7 +1078,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuItem mnuDefOpciones;
@@ -1075,6 +1087,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbtnIncSi;
     private javax.swing.JRadioButton rbtnMasculino;
     private javax.swing.ButtonGroup rbtnSexo;
+    private javax.swing.JScrollPane scrolltable;
     private javax.swing.JTable tblListado;
     private javax.swing.JTextField txtFichIncapacidad;
     private javax.swing.JTextField txtFichaFalta;
@@ -1197,7 +1210,9 @@ private void limpiarinserpersona(){
 }
 
 private void listado(){
-    DefaultTableModel model = (DefaultTableModel) tblListado.getModel();
+    
+    DefaultTableModel model;
+    model = (DefaultTableModel) this.tblListado.getModel();
     Object [] fila = new Object[4];
     Appi app = new Appi();
     Empleado[] datos;// = null;
@@ -1216,6 +1231,14 @@ private void listado(){
     
     
     int rows = model.getRowCount();
+    /*fila[0] = "1";
+    fila[1] = "2";
+    fila[2] = "2";
+    fila[3] = "3";
+    for(int i =0 ; i < 200; i++){
+        model.addRow(fila);
+    }
+    */
     for(int i=0; i<rows; i++){
         model.removeRow(0);
     }
@@ -1226,7 +1249,7 @@ private void listado(){
             fila[3] = dato.getGrupo();
             model.addRow(fila);
         }
-    tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+    //tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
     tblListado.getColumnModel().getColumn(0).setPreferredWidth(60);
     tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);
     tblListado.getColumnModel().getColumn(2).setPreferredWidth(252);
