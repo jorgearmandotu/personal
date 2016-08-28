@@ -1231,14 +1231,6 @@ private void listado(){
     
     
     int rows = model.getRowCount();
-    /*fila[0] = "1";
-    fila[1] = "2";
-    fila[2] = "2";
-    fila[3] = "3";
-    for(int i =0 ; i < 200; i++){
-        model.addRow(fila);
-    }
-    */
     for(int i=0; i<rows; i++){
         model.removeRow(0);
     }
