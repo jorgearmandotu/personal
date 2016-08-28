@@ -32,14 +32,15 @@ public class Apidb {
     
     private static Connection connect() {
         String separadorOS = System.getProperty("file.separator");
-        String url=separadorOS+"db"+separadorOS+"data.db";
-        File miDir = new File (".");
-        
+        String url=separadorOS;//+"db";
+        File miDir = new File ("db"+separadorOS+"data.db");
+                
         try {
-            url = miDir.getCanonicalPath()+url;
-            //System.out.println(miDir.getCanonicalPath());
-            // Alerts msj = new Alerts();
-             // msj.aviso(url);
+            url = miDir.getAbsolutePath();
+            //url = "db"+separadorOS+"data.db";
+            System.out.println(miDir.getCanonicalPath());
+            Alerts msj = new Alerts();
+            msj.aviso(url);
         } catch (IOException ex) {
             Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
         }
