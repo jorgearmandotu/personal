@@ -40,7 +40,7 @@ public class VtnDefVal extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtNomEmpPres = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        cmbTipEmpPres = new javax.swing.JComboBox();
+        cmbTipEmpPres = new javax.swing.JComboBox<String>();
         jLabel7 = new javax.swing.JLabel();
         btnIngEmpPres = new javax.swing.JButton();
         txtVlrEmpPres = new javax.swing.JFormattedTextField();
@@ -52,13 +52,13 @@ public class VtnDefVal extends javax.swing.JDialog {
         txtNomGrupo = new javax.swing.JTextField();
         btnIngGrupo = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        cmbIngGrupo = new javax.swing.JComboBox();
+        cmbIngGrupo = new javax.swing.JComboBox<Supervisor>();
         jLabel12 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        cmbDefSup = new javax.swing.JComboBox();
-        cmbGrupDefSup = new javax.swing.JComboBox();
+        cmbDefSup = new javax.swing.JComboBox<Supervisor>();
+        cmbGrupDefSup = new javax.swing.JComboBox<String>();
         btnDefSup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -387,10 +387,10 @@ public class VtnDefVal extends javax.swing.JDialog {
     private javax.swing.JButton btnDefSup;
     private javax.swing.JButton btnIngEmpPres;
     private javax.swing.JButton btnIngGrupo;
-    private javax.swing.JComboBox cmbDefSup;
-    private javax.swing.JComboBox cmbGrupDefSup;
-    private javax.swing.JComboBox cmbIngGrupo;
-    private javax.swing.JComboBox cmbTipEmpPres;
+    private javax.swing.JComboBox<Supervisor> cmbDefSup;
+    private javax.swing.JComboBox<String> cmbGrupDefSup;
+    private javax.swing.JComboBox<Supervisor> cmbIngGrupo;
+    private javax.swing.JComboBox<String> cmbTipEmpPres;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

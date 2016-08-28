@@ -91,10 +91,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtsApellido = new javax.swing.JTextField();
         txtNcuenta = new javax.swing.JFormattedTextField();
         txtNficha = new javax.swing.JFormattedTextField();
-        cmbgrupo = new javax.swing.JComboBox();
-        cmbcargo = new javax.swing.JComboBox();
+        cmbcargo = new javax.swing.JComboBox<String>();
         txtRh = new javax.swing.JTextField();
-        cmbBonificacion = new javax.swing.JComboBox();
+        cmbBonificacion = new javax.swing.JComboBox<String>();
         rbtnMasculino = new javax.swing.JRadioButton();
         rbtnFemenino = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
@@ -105,11 +104,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        cmbEps = new javax.swing.JComboBox();
-        cmbArl = new javax.swing.JComboBox();
-        cmbPension = new javax.swing.JComboBox();
+        cmbEps = new javax.swing.JComboBox<String>();
+        cmbArl = new javax.swing.JComboBox<String>();
+        cmbPension = new javax.swing.JComboBox<String>();
         btnIngresarPersona = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
+        cmbgrupo = new javax.swing.JComboBox<String>();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -439,13 +439,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         txtNficha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
-        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "N" }));
-        cmbgrupo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbgrupoActionPerformed(evt);
-            }
-        });
-
         cmbcargo.setEditable(true);
         cmbcargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -533,6 +526,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel22.setText("Foto:");
 
+        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -552,11 +547,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel7))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cmbgrupo, 0, 201, Short.MAX_VALUE)
                                     .addComponent(txtNcuenta)
-                                    .addComponent(txtpApellido)
+                                    .addComponent(txtpApellido, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                                     .addComponent(txtpNombre)
-                                    .addComponent(txtcedula))
+                                    .addComponent(txtcedula)
+                                    .addComponent(cmbgrupo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(38, 38, 38)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel5Layout.createSequentialGroup()
@@ -624,8 +619,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cmbcargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(cmbgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
+                    .addComponent(jLabel7)
+                    .addComponent(cmbgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(29, 29, 29)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
@@ -918,10 +913,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtRhActionPerformed
 
-    private void cmbgrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbgrupoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbgrupoActionPerformed
-
     private void mnuDefOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDefOpcionesActionPerformed
         // TODO add your handling code here:
         VtnDefVal vtnval = new VtnDefVal(this,true);
@@ -1016,12 +1007,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JButton btnListar;
-    private javax.swing.JComboBox cmbArl;
-    private javax.swing.JComboBox cmbBonificacion;
-    private javax.swing.JComboBox cmbEps;
-    private javax.swing.JComboBox cmbPension;
-    private javax.swing.JComboBox cmbcargo;
-    private javax.swing.JComboBox cmbgrupo;
+    private javax.swing.JComboBox<String> cmbArl;
+    private javax.swing.JComboBox<String> cmbBonificacion;
+    private javax.swing.JComboBox<String> cmbEps;
+    private javax.swing.JComboBox<String> cmbPension;
+    private javax.swing.JComboBox<String> cmbcargo;
+    private javax.swing.JComboBox<String> cmbgrupo;
     private org.jdesktop.swingx.JXDatePicker dateAincapacidad;
     private org.jdesktop.swingx.JXDatePicker dateBincapacidad;
     private org.jdesktop.swingx.JXDatePicker dateFechaApermiso;
@@ -1280,19 +1271,23 @@ private void cmbgrupo(){
     cmbArl.addItem("N");
     cmbPension.removeAllItems();
     cmbPension.addItem("N");
-    for(AportesBonificaciones e : emp){
-        switch (e.getTipo()) {
+    for(AportesBonificaciones empleado : emp){
+        switch (empleado.getTipo()) {
             case "BONIFICACION":
-                cmbBonificacion.addItem(e.getNombre());
+                String nombonifi = empleado.getNombre();
+                cmbBonificacion.addItem(nombonifi);
                 break;
             case "EPS":
-                cmbEps.addItem(e.getNombre());
+                String nomEps = empleado.getNombre();
+                cmbEps.addItem(nomEps);
                 break;
             case "ARL":
-                cmbArl.addItem(e.getNombre());
+                String nomArl = empleado.getNombre();
+                cmbArl.addItem(nomArl);
                 break;
             case "PENSIONES":
-                cmbPension.addItem(e.getNombre());
+                String nompension = empleado.getNombre();
+                cmbPension.addItem(nompension);
                 break;
         }
     }
