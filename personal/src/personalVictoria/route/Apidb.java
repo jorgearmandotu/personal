@@ -39,8 +39,8 @@ public class Apidb {
             url = miDir.getAbsolutePath();
             //url = "db"+separadorOS+"data.db";
             System.out.println(miDir.getCanonicalPath());
-            Alerts msj = new Alerts();
-            msj.aviso(url);
+            //Alerts msj = new Alerts();
+            //msj.aviso(url);
         } catch (IOException ex) {
             Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
         }
