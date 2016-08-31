@@ -1040,9 +1040,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        //FileExcel excel = new FileExcel();
+        FileExcel excel = new FileExcel();
         try {
-            FileExcel.generaXlsx();
+            excel.excelDia();
         } catch (IOException ex) {
             Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
