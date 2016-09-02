@@ -8,6 +8,11 @@ package main.resources;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import main.Appi;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.util.CellReference;
 import org.apache.poi.ss.usermodel.Cell;
@@ -156,6 +161,20 @@ public class FileExcel {
         celda4.setCellStyle(estilo);
         celda5.setCellStyle(estilo);
         //Row row1 = hoja.createRow(2);
+        
+        //empleados faltas
+        Appi app = new Appi();
+        Date Fecha = new Date();
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        String fechaActual = formato.format(Fecha);
+        ArrayList<String> faltas = app.faltas(fechaActual);//obtengo listado de cedulas
+        for(Object e : faltas){
+            String cedula = (String) e;
+            Empleado emp = app.empleado(cedula);
+            Grupo grupo = app.grupo(emp.getGrupo());
+        }
+        
+        //enmcabezados
         Row row2 = hoja.createRow(3);
         Cell cell = row2.createCell(1);
         cell.setCellValue("Nficha");
@@ -194,9 +213,41 @@ public class FileExcel {
         cell8.setCellStyle(estilo2);
         
         //Row row3 = hoja.createRow(1);
-        Row row4 = hoja.createRow(5);
+        // debe ejcutarse un loop de acuerdoa consaulta
+        //datos
+        Row row5 = hoja.createRow(4);
+        Cell celda51 = row5.createCell(1);
+        celda51.setCellStyle(bordes);
+        celda51.setCellValue("#ficha");
+        Cell celda52 = row5.createCell(2);
+        celda52.setCellStyle(bordes);
+        celda52.setCellValue("apellido");
+        Cell celda53 = row5.createCell(3);
+        celda53.setCellStyle(bordes);
+        celda53.setCellValue("#apellido");
+        Cell celda54 = row5.createCell(4);
+        celda54.setCellStyle(bordes);
+        celda54.setCellValue("#nombre");
+        Cell celda55 = row5.createCell(5);
+        celda55.setCellStyle(bordes);
+        celda55.setCellValue("#nombre");
+        Cell celda56 = row5.createCell(6);
+        celda56.setCellStyle(bordes);
+        celda56.setCellValue("#identificacion");
+        Cell celda57 = row5.createCell(7);
+        celda57.setCellStyle(bordes);
+        celda57.setCellValue("#dia");
+        Cell celda58 = row5.createCell(8);
+        celda58.setCellStyle(bordes);
+        celda58.setCellValue("#cargo");
+        Cell celda59 = row5.createCell(9);
+        celda59.setCellStyle(bordes);
+        celda59.setCellValue("#grupo");
+        
+        //datos responsable firma
+        Row row4 = hoja.createRow(6);
         Cell celda9 = row4.createCell(1);
-        combinarceldas(hoja, 5, 5, 1, 3);
+        combinarceldas(hoja, 6, 6, 1, 3);
         celda9.setCellValue("Maestro Grupo:");
         celda9.setCellStyle(estilo);
         Cell celda10 = row4.createCell(2);
@@ -210,9 +261,9 @@ public class FileExcel {
         Cell celda14 = row4.createCell(6);
         celda14.setCellStyle(borderBot);
         
-        Row row5 = hoja.createRow(6);
-        Cell celda64 = row5.createCell(4);
-        combinarceldas(hoja, 6, 6, 4, 6);
+        Row row6 = hoja.createRow(7);
+        Cell celda64 = row6.createCell(4);
+        combinarceldas(hoja, 7, 7, 4, 6);
         celda64.setCellValue("maestro XXXX");
         
         //CellS

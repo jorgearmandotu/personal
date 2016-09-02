@@ -358,7 +358,7 @@ public class Appi {
     }
     
     public Empleado empleado(String cc){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor "
                 + "FROM empleado WHERE cc = '"+cc+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;
@@ -403,6 +403,19 @@ public class Appi {
             i++;
         }
         return empleados;
+    }
+    
+    public ArrayList<String> faltas(String fecha){
+        String sql = "SELECT ccEmpleado FROM asistencia where fechafalta= '"+fecha+"';";
+        ArrayList ced = db.faltas(sql);
+        return ced;
+    }
+    
+    public Grupo grupo(String id){
+        System.out.println("***id grupo "+id);
+         String sql = "SELECT nombreGrupo, idGrupo, supervisor FROM grupos WHERE idGrupo = "+id;
+         Grupo grupo = db.grupo(sql);
+         return grupo;
     }
     
 }

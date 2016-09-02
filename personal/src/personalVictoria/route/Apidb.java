@@ -401,4 +401,47 @@ public class Apidb {
         }
         return obj;
     }
+    
+    public ArrayList faltas(String sql) {
+        ArrayList<String> cedulas = new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String ced = res.getString("ccEmpleado");
+                    cedulas.add(ced);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            close(con);
+        }
+        return cedulas;
+    }
+    
+    public Grupo grupo(String sql){
+        Grupo grupo = null;
+        Connection con = connect();
+        if (con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String nombre = res.getString("nombreGrupo");
+                    String id = res.getString("idGrupo");
+                    String supervisor = res.getString("supervisor");
+                    grupo = new Grupo(nombre, supervisor, id);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            close(con);
+        }
+        return grupo;
+    }
+    
 }
