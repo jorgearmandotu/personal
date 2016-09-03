@@ -357,6 +357,7 @@ public class Appi {
         return obj;
     }
     
+    
     public Empleado empleado(String cc){
         String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor "
                 + "FROM empleado WHERE cc = '"+cc+"'";

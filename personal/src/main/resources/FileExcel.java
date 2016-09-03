@@ -42,9 +42,11 @@ public class FileExcel {
         //nombre del archivo de Excel
         String nombreArchivo = "quincena.xlsx";
  
-        String nombreHoja1 = "fecha";//nombre de la hoja1
+        
  
         Workbook libroTrabajo = new XSSFWorkbook();
+        
+        String nombreHoja1 = "fecha";//nombre de la hoja1
         Sheet hoja1 = libroTrabajo.createSheet(nombreHoja1) ;
         
         Row row = hoja1.createRow((short)1);
@@ -90,16 +92,23 @@ public class FileExcel {
    
     public void  excelDia() throws FileNotFoundException, IOException{
         String nombreFile = "quincena.xlsx";
-        String nombreHoja = "dia x mes x año x";
+        
+        Appi app = new Appi();
+        Date Fecha = new Date();
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        String fechaActual = formato.format(Fecha);
+        
+        String nombreHoja = fechaActual;
         
         Workbook libro = new XSSFWorkbook();
-        Sheet hoja = libro.createSheet(nombreHoja);
         
+        Sheet hoja = libro.createSheet(nombreHoja);
+        Sheet hojaMadre = libro.createSheet("quincena");
+        Row row = hoja.createRow(1);
+                
         Font negrita = libro.createFont();
         negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
-        
-        
-        
+                
         CellStyle estilo = libro.createCellStyle();
         estilo.setAlignment(CellStyle.ALIGN_CENTER);
         estilo.setFillForegroundColor(IndexedColors.GREEN.getIndex());
@@ -145,18 +154,10 @@ public class FileExcel {
         borderBot.setBorderBottom(CellStyle.BORDER_THIN);
         borderBot.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
         
-        
-        Row row = hoja.createRow(1);
-        
-        
-        
-        //Row row1 = hoja.createRow(2);
+       //Row row1 = hoja.createRow(2);
         
         //empleados faltas
-        Appi app = new Appi();
-        Date Fecha = new Date();
-        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
-        String fechaActual = formato.format(Fecha);
+        
         ArrayList<Empleado> faltas = app.faltas(fechaActual);//obtengo listado de empleados
         String grupoBandera = "";
         String maestro = "";
@@ -215,12 +216,10 @@ public class FileExcel {
             cell8.setCellStyle(estilo2);
         }
         Empleado emp = null;
-        for(int i=0; i<faltas.size(); i++){
-           
+        for (Empleado falta : faltas) {
             //datos
-            emp = (Empleado) faltas.get(i);
+            emp = (Empleado) falta;
             Grupo grupo = app.grupo(emp.getGrupo());
-            
             if(!grupoBandera.equals(emp.getGrupo())){
                 grupoBandera = emp.getGrupo();
                 pRow = pRow+2;
@@ -291,7 +290,6 @@ public class FileExcel {
                 cell8.setCellValue("Grupo");
                 cell8.setCellStyle(estilo2);
             }
-            
             Row row5 = hoja.createRow(pRow+1);
             Cell celda51 = row5.createCell(1);
             celda51.setCellStyle(bordes);
@@ -323,7 +321,7 @@ public class FileExcel {
             pRow++;
             Empleado supervisor = app.empleado(grupo.getSupervisor());
             if(supervisor != null){
-                 maestro = supervisor.getpNombre()+" "+supervisor.getsNombre()+" "+supervisor.getpApellido()+" "+supervisor.getsApellido();
+                maestro = supervisor.getpNombre()+" "+supervisor.getsNombre()+" "+supervisor.getpApellido()+" "+supervisor.getsApellido();
             }else{
                 maestro = String.valueOf(grupo.getSupervisor());
             }
@@ -331,11 +329,7 @@ public class FileExcel {
             //
             //String cedula = (String) e;
             //Empleado emp = app.empleado(cedula);
-            
-           
             System.out.println(emp.getCedula());
-            
-            
         }
         if(emp != null){
             pRow = pRow+2;
