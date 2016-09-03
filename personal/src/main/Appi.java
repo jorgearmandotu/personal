@@ -405,10 +405,15 @@ public class Appi {
         return empleados;
     }
     
-    public ArrayList<String> faltas(String fecha){
-        String sql = "SELECT ccEmpleado FROM asistencia where fechafalta= '"+fecha+"';";
-        ArrayList ced = db.faltas(sql);
-        return ced;
+    public ArrayList<Empleado> faltas(String fecha){
+        //SELECT cc, nficha, pnombre, papelldo, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor FROM asistencia 
+        //JOIN empleado WHERE fechaFalta = '2016-09-01' AND ccEmpleado = cc  ORDER BY grupo
+        //String sql = "SELECT ccEmpleado FROM asistencia where fechafalta= '"+fecha+"';";
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor "
+                + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc  ORDER BY grupo";
+        ArrayList<Empleado> emp = db.empleados(sql);
+        
+        return emp;
     }
     
     public Grupo grupo(String id){

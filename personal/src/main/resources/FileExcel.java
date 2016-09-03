@@ -147,19 +147,9 @@ public class FileExcel {
         
         
         Row row = hoja.createRow(1);
-        Cell celda = row.createCell(1);
-        Cell celda2 = row.createCell(2);
-        Cell celda3 = row.createCell(3);
-        Cell celda4 = row.createCell(4);
-        Cell celda5 = row.createCell(5);
         
-        combinarceldas(hoja, 1, 1, 1, 5);
-        celda.setCellValue("Asistencia del dia de hoy fecha");
-        celda.setCellStyle(estilo);
-        celda2.setCellStyle(estilo);
-        celda3.setCellStyle(estilo);
-        celda4.setCellStyle(estilo);
-        celda5.setCellStyle(estilo);
+        
+        
         //Row row1 = hoja.createRow(2);
         
         //empleados faltas
@@ -167,104 +157,227 @@ public class FileExcel {
         Date Fecha = new Date();
         DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         String fechaActual = formato.format(Fecha);
-        ArrayList<String> faltas = app.faltas(fechaActual);//obtengo listado de cedulas
-        for(Object e : faltas){
-            String cedula = (String) e;
-            Empleado emp = app.empleado(cedula);
+        ArrayList<Empleado> faltas = app.faltas(fechaActual);//obtengo listado de empleados
+        String grupoBandera = "";
+        String maestro = "";
+        int pRow = 3;
+        if(!faltas.isEmpty()){
+            Cell celda = row.createCell(3);
+            Cell celda2 = row.createCell(4);
+            Cell celda3 = row.createCell(5);
+            Cell celda4 = row.createCell(6);
+            Cell celda5 = row.createCell(7);
+            combinarceldas(hoja, 1, 1, 3, 7);
+            celda.setCellValue("Asistencia "+fechaActual);
+            celda.setCellStyle(estilo);
+            celda2.setCellStyle(estilo);
+            celda3.setCellStyle(estilo);
+            celda4.setCellStyle(estilo);
+            celda5.setCellStyle(estilo);
+            grupoBandera = faltas.get(0).getGrupo();
+            
+            //encabezados
+            Row row2 = hoja.createRow(pRow);
+            Cell cell = row2.createCell(1);
+            cell.setCellValue("Nficha");
+            cell.setCellStyle(estilo2);
+        
+            Cell cell1 = row2.createCell(2);
+            cell1.setCellValue("1er Apellido");
+            cell1.setCellStyle(estilo2);
+        
+            Cell cell2 = row2.createCell(3);
+            cell2.setCellValue("2do Apellido");
+            cell2.setCellStyle(estilo2);
+        
+            Cell cell3 = row2.createCell(4);
+            cell3.setCellValue("1er Nombre");
+            cell3.setCellStyle(estilo2);
+        
+            Cell cell4 = row2.createCell(5);
+            cell4.setCellValue("2do Nombre");
+            cell4.setCellStyle(estilo2);
+        
+            Cell cell5 = row2.createCell(6);
+            cell5.setCellValue("Identificacion");
+            cell5.setCellStyle(estilo2);
+        
+            Cell cell6 = row2.createCell(7);
+            cell6.setCellValue("Día");
+            cell6.setCellStyle(estilo2);
+        
+            Cell cell7 = row2.createCell(8);
+            cell7.setCellValue("Cargo");
+            cell7.setCellStyle(estilo2);
+        
+            Cell cell8 = row2.createCell(9);
+            cell8.setCellValue("Grupo");
+            cell8.setCellStyle(estilo2);
+        }
+        Empleado emp = null;
+        for(int i=0; i<faltas.size(); i++){
+           
+            //datos
+            emp = (Empleado) faltas.get(i);
             Grupo grupo = app.grupo(emp.getGrupo());
+            
+            if(!grupoBandera.equals(emp.getGrupo())){
+                grupoBandera = emp.getGrupo();
+                pRow = pRow+2;
+                //frima maestro
+                Row row4 = hoja.createRow(pRow);
+                Cell celda9 = row4.createCell(1);
+                combinarceldas(hoja, pRow, pRow, 1, 3);
+                celda9.setCellValue("Maestro Grupo:");
+                celda9.setCellStyle(estilo);
+                Cell celda10 = row4.createCell(2);
+                celda10.setCellStyle(bordes);
+                Cell celda11 = row4.createCell(3);
+                celda11.setCellStyle(bordes);
+                Cell celda12 = row4.createCell(4);
+                celda12.setCellStyle(borderBot);
+                Cell celda13 = row4.createCell(5);
+                celda13.setCellStyle(borderBot);
+                Cell celda14 = row4.createCell(6);
+                celda14.setCellStyle(borderBot);
+                Cell celda15 = row4.createCell(7);
+                celda15.setCellStyle(borderBot);
+                Cell celda16 = row4.createCell(8);
+                celda16.setCellStyle(borderBot);
+                
+                pRow++;
+        
+                Row row6 = hoja.createRow(pRow);
+                Cell celda64 = row6.createCell(4);
+                combinarceldas(hoja, pRow, pRow, 4, 8);
+                celda64.setCellValue(maestro);
+                
+                pRow = pRow+2;
+                //encabexzados
+                Row row2 = hoja.createRow(pRow);
+                Cell cell = row2.createCell(1);
+                cell.setCellValue("Nficha");
+                cell.setCellStyle(estilo2);
+        
+                Cell cell1 = row2.createCell(2);
+                cell1.setCellValue("1er Apellido");
+                cell1.setCellStyle(estilo2);
+        
+                Cell cell2 = row2.createCell(3);
+                cell2.setCellValue("2do Apellido");
+                cell2.setCellStyle(estilo2);
+        
+                Cell cell3 = row2.createCell(4);
+                cell3.setCellValue("1er Nombre");
+                cell3.setCellStyle(estilo2);
+        
+                Cell cell4 = row2.createCell(5);
+                cell4.setCellValue("2do Nombre");
+                cell4.setCellStyle(estilo2);
+        
+                Cell cell5 = row2.createCell(6);
+                cell5.setCellValue("Identificacion");
+                cell5.setCellStyle(estilo2);
+        
+                Cell cell6 = row2.createCell(7);
+                cell6.setCellValue("Día");
+                cell6.setCellStyle(estilo2);
+        
+                Cell cell7 = row2.createCell(8);
+                cell7.setCellValue("Cargo");
+                cell7.setCellStyle(estilo2);
+        
+                Cell cell8 = row2.createCell(9);
+                cell8.setCellValue("Grupo");
+                cell8.setCellStyle(estilo2);
+            }
+            
+            Row row5 = hoja.createRow(pRow+1);
+            Cell celda51 = row5.createCell(1);
+            celda51.setCellStyle(bordes);
+            celda51.setCellValue(emp.getnFicha());
+            Cell celda52 = row5.createCell(2);
+            celda52.setCellStyle(bordes);
+            celda52.setCellValue(emp.getpApellido());
+            Cell celda53 = row5.createCell(3);
+            celda53.setCellStyle(bordes);
+            celda53.setCellValue(emp.getsApellido());
+            Cell celda54 = row5.createCell(4);
+            celda54.setCellStyle(bordes);
+            celda54.setCellValue(emp.getpNombre());
+            Cell celda55 = row5.createCell(5);
+            celda55.setCellStyle(bordes);
+            celda55.setCellValue(emp.getsNombre());
+            Cell celda56 = row5.createCell(6);
+            celda56.setCellStyle(bordes);
+            celda56.setCellValue(emp.getCedula());
+            Cell celda57 = row5.createCell(7);
+            celda57.setCellStyle(bordes);
+            celda57.setCellValue(fechaActual);
+            Cell celda58 = row5.createCell(8);
+            celda58.setCellStyle(bordes);
+            celda58.setCellValue(emp.getCargo());
+            Cell celda59 = row5.createCell(9);
+            celda59.setCellStyle(bordes);
+            celda59.setCellValue(grupo.getNombre());
+            pRow++;
+            Empleado supervisor = app.empleado(grupo.getSupervisor());
+            if(supervisor != null){
+                 maestro = supervisor.getpNombre()+" "+supervisor.getsNombre()+" "+supervisor.getpApellido()+" "+supervisor.getsApellido();
+            }else{
+                maestro = String.valueOf(grupo.getSupervisor());
+            }
+           
+            //
+            //String cedula = (String) e;
+            //Empleado emp = app.empleado(cedula);
+            
+           
+            System.out.println(emp.getCedula());
+            
+            
+        }
+        if(emp != null){
+            pRow = pRow+2;
+                //frima maestro
+            Row row4 = hoja.createRow(pRow);
+            Cell celda9 = row4.createCell(1);
+            combinarceldas(hoja, pRow, pRow, 1, 3);
+            celda9.setCellValue("Maestro Grupo:");
+            celda9.setCellStyle(estilo);
+            Cell celda10 = row4.createCell(2);
+            celda10.setCellStyle(bordes);
+            Cell celda11 = row4.createCell(3);
+            celda11.setCellStyle(bordes);
+            Cell celda12 = row4.createCell(4);
+            celda12.setCellStyle(borderBot);
+            Cell celda13 = row4.createCell(5);
+            celda13.setCellStyle(borderBot);
+            Cell celda14 = row4.createCell(6);
+            celda14.setCellStyle(borderBot);
+            Cell celda15 = row4.createCell(7);
+            celda15.setCellStyle(borderBot);
+            Cell celda16 = row4.createCell(8);
+            celda16.setCellStyle(borderBot);
+                
+            pRow++;
+        
+            Row row6 = hoja.createRow(pRow);
+            Cell celda64 = row6.createCell(4);
+            combinarceldas(hoja, pRow, pRow, 4, 8);
+            celda64.setCellValue(maestro);
         }
         
         //enmcabezados
-        Row row2 = hoja.createRow(3);
-        Cell cell = row2.createCell(1);
-        cell.setCellValue("Nficha");
-        cell.setCellStyle(estilo2);
         
-        Cell cell1 = row2.createCell(2);
-        cell1.setCellValue("1er Apellido");
-        cell1.setCellStyle(estilo2);
-        
-        Cell cell2 = row2.createCell(3);
-        cell2.setCellValue("2do Apellido");
-        cell2.setCellStyle(estilo2);
-        
-        Cell cell3 = row2.createCell(4);
-        cell3.setCellValue("1er Nombre");
-        cell3.setCellStyle(estilo2);
-        
-        Cell cell4 = row2.createCell(5);
-        cell4.setCellValue("2do Nombre");
-        cell4.setCellStyle(estilo2);
-        
-        Cell cell5 = row2.createCell(6);
-        cell5.setCellValue("Identificacion");
-        cell5.setCellStyle(estilo2);
-        
-        Cell cell6 = row2.createCell(7);
-        cell6.setCellValue("Día");
-        cell6.setCellStyle(estilo2);
-        
-        Cell cell7 = row2.createCell(8);
-        cell7.setCellValue("Cargo");
-        cell7.setCellStyle(estilo2);
-        
-        Cell cell8 = row2.createCell(9);
-        cell8.setCellValue("Grupo");
-        cell8.setCellStyle(estilo2);
         
         //Row row3 = hoja.createRow(1);
         // debe ejcutarse un loop de acuerdoa consaulta
         //datos
-        Row row5 = hoja.createRow(4);
-        Cell celda51 = row5.createCell(1);
-        celda51.setCellStyle(bordes);
-        celda51.setCellValue("#ficha");
-        Cell celda52 = row5.createCell(2);
-        celda52.setCellStyle(bordes);
-        celda52.setCellValue("apellido");
-        Cell celda53 = row5.createCell(3);
-        celda53.setCellStyle(bordes);
-        celda53.setCellValue("#apellido");
-        Cell celda54 = row5.createCell(4);
-        celda54.setCellStyle(bordes);
-        celda54.setCellValue("#nombre");
-        Cell celda55 = row5.createCell(5);
-        celda55.setCellStyle(bordes);
-        celda55.setCellValue("#nombre");
-        Cell celda56 = row5.createCell(6);
-        celda56.setCellStyle(bordes);
-        celda56.setCellValue("#identificacion");
-        Cell celda57 = row5.createCell(7);
-        celda57.setCellStyle(bordes);
-        celda57.setCellValue("#dia");
-        Cell celda58 = row5.createCell(8);
-        celda58.setCellStyle(bordes);
-        celda58.setCellValue("#cargo");
-        Cell celda59 = row5.createCell(9);
-        celda59.setCellStyle(bordes);
-        celda59.setCellValue("#grupo");
+       
         
         //datos responsable firma
-        Row row4 = hoja.createRow(6);
-        Cell celda9 = row4.createCell(1);
-        combinarceldas(hoja, 6, 6, 1, 3);
-        celda9.setCellValue("Maestro Grupo:");
-        celda9.setCellStyle(estilo);
-        Cell celda10 = row4.createCell(2);
-        celda10.setCellStyle(bordes);
-        Cell celda11 = row4.createCell(3);
-        celda11.setCellStyle(bordes);
-        Cell celda12 = row4.createCell(4);
-        celda12.setCellStyle(borderBot);
-        Cell celda13 = row4.createCell(5);
-        celda13.setCellStyle(borderBot);
-        Cell celda14 = row4.createCell(6);
-        celda14.setCellStyle(borderBot);
-        
-        Row row6 = hoja.createRow(7);
-        Cell celda64 = row6.createCell(4);
-        combinarceldas(hoja, 7, 7, 4, 6);
-        celda64.setCellValue("maestro XXXX");
+       
         
         //CellS
         //celda64.setCellStyle();

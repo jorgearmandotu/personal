@@ -318,8 +318,8 @@ public class Apidb {
         return obj;
     }
     
-    public ArrayList empleados(String sql){//retorna un listado de empleados
-        ArrayList<Empleado> obj = new ArrayList<>();
+    public ArrayList<Empleado> empleados(String sql) {//retorna un listado de empleados
+        ArrayList<Empleado> obj = new ArrayList<Empleado>();
         Connection con = connect();
         if(con != null){
             try (Statement st = con.createStatement()){
