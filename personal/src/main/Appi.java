@@ -233,12 +233,17 @@ public class Appi {
         
         String[] fechas = fecha.split("-");
         int anio = Integer.parseInt(fechas[0]);
+        System.out.println("añooo : "+anio);
         int mes = Integer.parseInt(fechas[1]);
+        System.out.println("meess : "+mes);
         int dia = Integer.parseInt(fechas[2]);
+        System.out.println("diaa : "+dia);
         if (dia<16){
+            System.out.println("dia menor a 16");
             fechaA = anio+"-"+fechas[1]+"-01";
             fechaB = anio+"-"+fechas[1]+"-15";
         }else{
+            System.out.println("dia mayor a 16");
             fechaA = anio+"-"+fechas[1]+"-16";
             Calendar calendario = Calendar.getInstance();
             calendario.set(anio, mes-1, 1);

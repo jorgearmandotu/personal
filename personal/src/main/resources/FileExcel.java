@@ -97,15 +97,17 @@ public class FileExcel {
         Date Fecha = new Date();
         DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         String fechaActual = formato.format(Fecha);
-        
+        String[] quincena = app.definirQuincena(fechaActual);
+        System.out.println(quincena[0]+"---"+quincena[1]);
         String nombreHoja = fechaActual;
         
         Workbook libro = new XSSFWorkbook();
         
+        Sheet hojaMadre = libro.createSheet("periodo "+quincena[0]+" a "+quincena[1]);
         Sheet hoja = libro.createSheet(nombreHoja);
-        Sheet hojaMadre = libro.createSheet("quincena");
-        Row row = hoja.createRow(1);
-                
+        
+        
+        
         Font negrita = libro.createFont();
         negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
                 
@@ -163,6 +165,7 @@ public class FileExcel {
         String maestro = "";
         int pRow = 3;
         if(!faltas.isEmpty()){
+            Row row = hoja.createRow(1);
             Cell celda = row.createCell(3);
             Cell celda2 = row.createCell(4);
             Cell celda3 = row.createCell(5);
@@ -362,21 +365,8 @@ public class FileExcel {
             celda64.setCellValue(maestro);
         }
         
-        //enmcabezados
-        
-        
-        //Row row3 = hoja.createRow(1);
-        // debe ejcutarse un loop de acuerdoa consaulta
-        //datos
-       
-        
-        //datos responsable firma
-       
-        
-        //CellS
-        //celda64.setCellStyle();
-        
-        
+        Row rowM = hojaMadre.createRow(1);
+                
         try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
             //escribir este libro en un OutputStream.
             libro.write(fileOut);
