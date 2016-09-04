@@ -13,8 +13,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import main.Appi;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.util.CellReference;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -23,10 +21,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.CellUtil;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -92,22 +86,41 @@ public class FileExcel {
    
     public void  excelDia() throws FileNotFoundException, IOException{
         String nombreFile = "quincena.xlsx";
+        Workbook libro = new XSSFWorkbook();
         
         Appi app = new Appi();
         Date Fecha = new Date();
         DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         String fechaActual = formato.format(Fecha);
         String[] quincena = app.definirQuincena(fechaActual);
-        System.out.println(quincena[0]+"---"+quincena[1]);
+        
         String nombreHoja = fechaActual;
-        
-        Workbook libro = new XSSFWorkbook();
-        
+                        
         Sheet hojaMadre = libro.createSheet("periodo "+quincena[0]+" a "+quincena[1]);
+        
+        Row rowM = hojaMadre.createRow(1);
         Sheet hoja = libro.createSheet(nombreHoja);
+
+        paginaDiaria(libro, hoja, fechaActual);
         
+        try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
+            //escribir este libro en un OutputStream.
+            libro.write(fileOut);
+            fileOut.flush();
+        }
+                
+       //Row row1 = hoja.createRow(2);
         
+        //empleados faltas
         
+    }
+    private void combinarceldas(Sheet hoja, int pFila, int uFila, int nColumna, int nColumnaFinal){
+        hoja.addMergedRegion(new CellRangeAddress(pFila,uFila,nColumna,nColumnaFinal));
+    }
+    
+    private void paginaDiaria(Workbook libro, Sheet hoja, String fechaActual){
+        
+        //estilos
         Font negrita = libro.createFont();
         negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
                 
@@ -156,9 +169,8 @@ public class FileExcel {
         borderBot.setBorderBottom(CellStyle.BORDER_THIN);
         borderBot.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
         
-       //Row row1 = hoja.createRow(2);
-        
-        //empleados faltas
+        //escribiendo hoja
+        Appi app = new Appi();
         
         ArrayList<Empleado> faltas = app.faltas(fechaActual);//obtengo listado de empleados
         String grupoBandera = "";
@@ -363,20 +375,7 @@ public class FileExcel {
             Cell celda64 = row6.createCell(4);
             combinarceldas(hoja, pRow, pRow, 4, 8);
             celda64.setCellValue(maestro);
-        }
-        
-        Row rowM = hojaMadre.createRow(1);
-                
-        try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
-            //escribir este libro en un OutputStream.
-            libro.write(fileOut);
-            fileOut.flush();
-        }
-        
-        
-    }
-    private void combinarceldas(Sheet hoja, int pFila, int uFila, int nColumna, int nColumnaFinal){
-        hoja.addMergedRegion(new CellRangeAddress(pFila,uFila,nColumna,nColumnaFinal));
+        }  
     }
         
 }
