@@ -340,7 +340,12 @@ public class FileExcel {
             if(emp.getSupervisor() == 1) cellD7.setCellStyle(cellAmarilla);
             
             //celdas con asistencia
-            
+            ArrayList<String> dias = app.diasAsistencia(emp.getCedula());
+            for(int j=0; j<dias.size();j++){
+                Cell cellDias = rowD.createCell(j+9);
+                cellDias.setCellValue(dias.get(j));
+                cellDias.setCellStyle(cellBordes);
+            }
             
         }
         System.out.println(getSupportedFunctionNames ());

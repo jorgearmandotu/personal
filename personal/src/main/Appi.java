@@ -152,7 +152,7 @@ public class Appi {
         Date fechaActual = new Date();
         DateFormat formato = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         String fecha = formato.format(fechaActual);
-        System.out.println(fecha);
+        
         String sql = "UPDATE empleado SET cc = '"+dato+" "+fecha+"' WHERE cc = '"+dato+"'";
         if(db.operacion(sql)){
             msj.aviso("empleado eliminado");
@@ -233,17 +233,17 @@ public class Appi {
         
         String[] fechas = fecha.split("-");
         int anio = Integer.parseInt(fechas[0]);
-        System.out.println("añooo : "+anio);
+        
         int mes = Integer.parseInt(fechas[1]);
-        System.out.println("meess : "+mes);
+        
         int dia = Integer.parseInt(fechas[2]);
-        System.out.println("diaa : "+dia);
+        
         if (dia<16){
-            System.out.println("dia menor a 16");
+            
             fechaA = anio+"-"+fechas[1]+"-01";
             fechaB = anio+"-"+fechas[1]+"-15";
         }else{
-            System.out.println("dia mayor a 16");
+            
             fechaA = anio+"-"+fechas[1]+"-16";
             Calendar calendario = Calendar.getInstance();
             calendario.set(anio, mes-1, 1);
@@ -422,6 +422,15 @@ public class Appi {
         return emp;
     }
     
+    public Empleado faltaEmpleado(String fecha, String cc){
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor "
+                + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc AND cc="+cc;
+        ArrayList<Empleado> emp = db.empleados(sql);
+        Empleado empleado = null;
+        if(!emp.isEmpty()) empleado = emp.get(0);
+        return empleado;
+    }
+    
     public ArrayList<Empleado> empleadosTotales(){
         String sql = "SELECT * FROM empleado ORDER BY grupo, supervisor DESC, nficha";
         ArrayList<Empleado> emp = db.empleados(sql);
@@ -433,6 +442,39 @@ public class Appi {
          String sql = "SELECT nombreGrupo, idGrupo, supervisor FROM grupos WHERE idGrupo = "+id;
          Grupo grupo = db.grupo(sql);
          return grupo;
+    }
+    
+    public ArrayList<String> diasAsistencia(String cc){
+        Date fecha = new Date();
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        String fechaActual = formato.format(fecha);
+        String[] fechas = definirQuincena(fechaActual);
+        ArrayList<String> asist = new ArrayList<>();
+        boolean loop = true;
+        String fechaAux = fechas[0];
+        int dias=0;
+        while(loop){
+        if(fechaActual.compareTo(fechaAux)>=0){
+            //System.out.println(fechaAux);
+            String[] fec = fechaAux.split("-");
+            int dia = Integer.parseInt(fec[2]);
+            dia++;
+            Empleado emp = faltaEmpleado(fechaAux, cc);
+            if(emp==null){
+                asist.add("X");
+            }else{
+                asist.add("N");
+            }
+            
+            if(dia<10) fechaAux = fec[0]+"-"+fec[1]+"-0"+dia;
+            else fechaAux = fec[0]+"-"+fec[1]+"-"+dia;
+            dias++;
+        }else{
+            loop = false;
+        }
+        
+    }
+        return asist;
     }
     
 }
