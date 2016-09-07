@@ -323,7 +323,7 @@ public class FileExcel {
             if(emp.getSupervisor() == 1) cellD5.setCellStyle(cellAmarilla);
             
             Cell cellD6 = rowD.createCell(6);
-            cellD6.setCellValue("=CONCATENAR(C9;D9;E9;F9)");
+            cellD6.setCellFormula("sum(a9:b9)");
             cellD6.setCellStyle(cellBordes);
             if(emp.getSupervisor() == 1) cellD6.setCellStyle(cellAmarilla);
         }
