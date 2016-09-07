@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import main.Appi;
+import static org.apache.poi.ss.formula.WorkbookEvaluator.getSupportedFunctionNames;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
@@ -324,6 +325,7 @@ public class FileExcel {
             
             Cell cellD6 = rowD.createCell(6);
             cellD6.setCellFormula("sum(a9:b9)");
+            System.out.println(getSupportedFunctionNames ());
             cellD6.setCellStyle(cellBordes);
             if(emp.getSupervisor() == 1) cellD6.setCellStyle(cellAmarilla);
         }
