@@ -159,6 +159,7 @@ public class FileExcel {
         cellAmarilla.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
         cellAmarilla.setBorderRight(CellStyle.BORDER_THIN);
         cellAmarilla.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAmarilla.setFont(normal);
         
         CellStyle cellAzul = libro.createCellStyle();
         cellAzul.setFillPattern(CellStyle.SOLID_FOREGROUND);
@@ -324,12 +325,25 @@ public class FileExcel {
             if(emp.getSupervisor() == 1) cellD5.setCellStyle(cellAmarilla);
             
             Cell cellD6 = rowD.createCell(6);
-            cellD6.setCellFormula("sum(a9:b9)");
-            System.out.println(getSupportedFunctionNames ());
+            cellD6.setCellFormula("concatenate(c"+(i+9)+",d"+(i+9)+",e"+(i+9)+",f"+(i+9)+")");
             cellD6.setCellStyle(cellBordes);
             if(emp.getSupervisor() == 1) cellD6.setCellStyle(cellAmarilla);
+            
+            Cell cellD7 = rowD.createCell(7);
+            cellD7.setCellValue(emp.getCedula());
+            cellD7.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD7.setCellStyle(cellAmarilla);
+            
+            Cell cellD8 = rowD.createCell(8);
+            cellD8.setCellValue(emp.getnCuenta());
+            cellD8.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD7.setCellStyle(cellAmarilla);
+            
+            //celdas con asistencia
+            
+            
         }
-        
+        System.out.println(getSupportedFunctionNames ());
         try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
             //escribir este libro en un OutputStream.
             libro.write(fileOut);
