@@ -285,6 +285,48 @@ public class FileExcel {
             cellT0.setCellValue(titles[i]);
             cellT0.setCellStyle(cellBordesNeg);
         }
+        //array de empleados ordenados porgrupo, supervisor, ficha
+        //SELECT * FROM empleado ORDER BY grupo, supervisor DESC, nficha
+        
+        ArrayList empleados = app.empleadosTotales();
+        for(int i=0; i<empleados.size(); i++){
+            Row rowD = hojaMadre.createRow(i+8);
+            
+            Cell cellD = rowD.createCell(0);
+            cellD.setCellValue(i+1);
+            cellD.setCellStyle(cellBordes);
+            
+            Empleado emp = (Empleado) empleados.get(i);
+            Cell cellD1 = rowD.createCell(1);
+            cellD1.setCellValue(emp.getnFicha());
+            cellD1.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD1.setCellStyle(cellAmarilla);
+            
+            Cell cellD2 = rowD.createCell(2);
+            cellD2.setCellValue(emp.getpApellido());
+            cellD2.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD2.setCellStyle(cellAmarilla);
+            
+            Cell cellD3 = rowD.createCell(3);
+            cellD3.setCellValue(emp.getsApellido());
+            cellD3.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD3.setCellStyle(cellAmarilla);
+            
+            Cell cellD4 = rowD.createCell(4);
+            cellD4.setCellValue(emp.getpNombre());
+            cellD4.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD4.setCellStyle(cellAmarilla);
+            
+            Cell cellD5 = rowD.createCell(5);
+            cellD5.setCellValue(emp.getsNombre());
+            cellD5.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD5.setCellStyle(cellAmarilla);
+            
+            Cell cellD6 = rowD.createCell(6);
+            cellD6.setCellValue("=CONCATENAR(C9;D9;E9;F9)");
+            cellD6.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD6.setCellStyle(cellAmarilla);
+        }
         
         try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
             //escribir este libro en un OutputStream.

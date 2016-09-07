@@ -422,6 +422,12 @@ public class Appi {
         return emp;
     }
     
+    public ArrayList<Empleado> empleadosTotales(){
+        String sql = "SELECT * FROM empleado ORDER BY grupo, supervisor DESC, nficha";
+        ArrayList<Empleado> emp = db.empleados(sql);
+        return emp;
+    }
+    
     public Grupo grupo(String id){
         System.out.println("***id grupo "+id);
          String sql = "SELECT nombreGrupo, idGrupo, supervisor FROM grupos WHERE idGrupo = "+id;
