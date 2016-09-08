@@ -5,8 +5,15 @@
  */
 package views;
 
+import com.sun.prism.Graphics;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
+import javax.swing.ImageIcon;
 import main.Appi;
 import main.resources.Empleado;
+import main.resources.Grupo;
 
 /**
  *
@@ -95,14 +102,14 @@ private  boolean cerrar = false;
                             .addComponent(lblGrupo)
                             .addComponent(lblCargo)
                             .addComponent(lblSexo))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 128, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42))))
+                        .addGap(42, 42, 42))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(lblLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,7 +309,30 @@ public void tomarAsistencia(Empleado emp){
     lblRh.setText(emp.getRh());
     lblSexo.setText(emp.getSexo());
     lblCargo.setText(emp.getCargo());
-    lblGrupo.setText(emp.getGrupo());
+    //bscar nobre de grupo
+    Appi app = new Appi();
+    Grupo grupo = app.grupo(emp.getGrupo());
+    lblGrupo.setText(grupo.getNombre());
+    //logo empresa
+    String separadorOS = System.getProperty("file.separator");
+    String url=separadorOS;//+"db";
+    File miDir = new File ("images"+separadorOS+"SantaMariaDeFatima.png");
+    String urlLogoEmp = miDir.getAbsolutePath();
+    System.out.println(urlLogoEmp);
+    URL dirLogoOb = this.getClass().getResource(urlLogoEmp);
+    System.out.println(dirLogoOb);
+    ImageIcon logoObra = new ImageIcon(urlLogoEmp);
+    /*int width = logoObra.getIconWidth();
+    int height = logoObra.getIconHeight();
+    int scale = 1;
+    BufferedImage buffer = new BufferedImage(scale * width, scale * height, BufferedImage.TYPE_INT_ARGB);
+    Graphics2D grapics = buffer.createGraphics();
+    grapics.scale(scale, scale);
+    logoObra.paintIcon(null, grapics, 0, 0);
+    grapics.dispose();
+    lblLogo.setIcon(new ImageIcon(buffer));*/
+    lblLogo.setIcon(logoObra);
+    lblFoto.setIcon(logoObra);
 }
 
 private void IngresoFalta(){

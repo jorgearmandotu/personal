@@ -214,6 +214,7 @@ public class Apidb {
                     String cargo = res.getString("cargo");
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
+                    String photo = res.getString("photo");
                     System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
                         Empleado sup = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh);
                     obj.add(sup);
