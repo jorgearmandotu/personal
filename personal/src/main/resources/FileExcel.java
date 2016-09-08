@@ -344,11 +344,18 @@ public class FileExcel {
             for(int j=0; j<dias.size();j++){
                 Cell cellDias = rowD.createCell(j+9);
                 cellDias.setCellValue(dias.get(j));
-                cellDias.setCellStyle(cellBordes);
+                if(dias.get(j).equals("N")){
+                    cellDias.setCellStyle(cellRoja);
+                }else if(dias.get(j).equals("I")){
+                    cellDias.setCellStyle(cellAzul);
+                }else if(dias.get(j).equals("%")){
+                    cellDias.setCellStyle(cellAzul2);
+                }
+                else cellDias.setCellStyle(cellBordes);
             }
             
         }
-        System.out.println(getSupportedFunctionNames ());
+        //System.out.println(getSupportedFunctionNames ());
         try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
             //escribir este libro en un OutputStream.
             libro.write(fileOut);

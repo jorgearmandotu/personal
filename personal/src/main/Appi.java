@@ -44,7 +44,7 @@ public class Appi {
             msj.errormsj("Error en operacion");
             res = false;
         }
-        System.out.println(sql);
+        
         return res;
     }
     
@@ -55,19 +55,19 @@ public class Appi {
         obj = db.maxGrupo("select  nombreGrupo, supervisor, max(idgrupo) as idGrupo from grupos");
         int idgrupo = 0;
         if(obj.getId() != null){
-            System.out.println(obj);
+            
             idgrupo = Integer.parseInt(obj.getId());
-            System.out.println("soy nulo coño i el numero es "+idgrupo);
+            
         }
-        System.out.println(" el numero es "+idgrupo);
-        System.out.println(obj);
+        
+        
         idgrupo++;
         String sql = "UPDATE grupos SET supervisor = 'N' WHERE supervisor ='"+cedsupervisor+"';"
                 + "Insert INTO grupos (nombreGrupo, supervisor, idGrupo)"
                 + "VALUES ('"+nom+"', '"+cedsupervisor+"', "+idgrupo+")";
         
         String sql2 = "UPDATE empleado SET grupo = '"+idgrupo+"' WHERE cc = '"+cedsupervisor+"'";
-        System.out.println(sql+"\n"+sql2);
+       
         if(db.operacionTransaccion(sql,sql2)){
             msj.aviso("Ingreso Exitoso");
             res = true;
@@ -113,7 +113,7 @@ public class Appi {
         Alerts msj = new Alerts();
         String sql = "INSERT INTO aportesbonificaciones (nombreAporte, tipoAporte, valorAporte)"
                 + "VALUES ('"+nom+"', '"+tipo+"', "+val+")";
-        System.out.println(sql);
+        
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
             res = true;
@@ -135,7 +135,7 @@ public class Appi {
         //String[] nombre =  
         String sql2 = "UPDATE empleado SET grupo = 'N' WHERE cc = '"+cedula2+"' and grupo = '"+idgrupo+"' ;"
                 + "UPDATE empleado SET grupo = '"+idgrupo+"' WHERE cc = '"+cedula+"'";
-        System.out.println(sql+"\n"+sql2);
+        
         if(db.operacionTransaccion(sql, sql2)){
             msj.aviso("Ingreso Exitoso");
             res = true;
@@ -168,7 +168,7 @@ public class Appi {
         Alerts msj = new Alerts();
           String sql = "INSERT INTO incapacidadesPermisos (cc_Empleado, fechaA, fechaB, tipoFalta, pagada) "
                   + "VALUES ('"+cedula+"', '"+fechaA+"', '"+fechaB+"', "+tipo+", "+pagadas+")";
-        System.out.println(sql);
+        
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
         }else{
@@ -180,7 +180,7 @@ public class Appi {
         Alerts msj = new Alerts();
           String sql = "UPDATE incapacidadesPermisos SET fechaB = '"+fechaB+"', "
                   + "tipoFalta = "+tipo+", pagada = "+pagadas+" WHERE cc_Empleado = '"+cedula+"' AND fechaA = '"+fechaA+"'";
-        System.out.println(sql);
+        
         if(db.operacion(sql)){
             msj.aviso("Ingreso Exitoso");
         }else{
@@ -197,10 +197,10 @@ public class Appi {
         String[] quincena = definirQuincena(fecha);
         String fechaA = quincena[0];
         String fechaB = quincena[1];
-        System.out.println(fecha);
+        
         String sql = "INSERT INTO asistencia (ccEmpleado, quincenaFechaA, quincenaFechaB, falta, FechaFalta)"
                 + "VALUES ('"+cc+"','"+fechaA+"', '"+fechaB+"', "+2+", '"+fecha+"')";// 2 es falta
-        System.out.println(sql);
+       
         if(!db.operacion(sql)) {
             msj.aviso("Error en Operacion");
         }
@@ -215,10 +215,10 @@ public class Appi {
         String[] quincena = definirQuincena(fecha);
         String fechaA = quincena[0];
         String fechaB = quincena[1];
-        System.out.println(fecha);
+       ;
         String sql = "INSERT INTO asistencia (ccEmpleado, quincenaFechaA, quincenaFechaB, falta, FechaFalta)"
                 + "VALUES ('"+cc+"','"+fechaA+"', '"+fechaB+"', "+2+", '"+fecha+"')";// 2 es falta
-        System.out.println(sql);
+        
         if(db.operacion(sql)) {
             msj.aviso("Falta Ingresada");
         }else{
@@ -279,7 +279,7 @@ public class Appi {
             sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
         }
         ArrayList obj = db.listarEmpleadosNombre(sql);
-        System.out.println(obj.size());
+        
         Empleado[] datos= new Empleado[obj.size()];
         int i=0;
         for(Object e:obj ){
@@ -329,7 +329,7 @@ public class Appi {
         String sql = "SELECT nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido )"
                 + " as nombre from empleado WHERE supervisor = 1";
         ArrayList obj = db.listar(sql);
-        System.out.println(obj.size());
+        
         Supervisor[] datos= new Supervisor[obj.size()];
         int i=0;
         for(Object e:obj ){
@@ -392,6 +392,12 @@ public class Appi {
             res = obj;
         return res;
     }
+    public IncapacidadesPermisos consultaIncPermiso(String cc, String fecha){
+        IncapacidadesPermisos res = null;
+        String sql = "SELECT * from incapacidadesPermisos where cc_Empleado='"+cc+"' AND fechaA<='"+fecha+"' AND fechaB >= '"+fecha+"';";
+        res = db.permisoExistente(sql);
+        return res;
+    }
     
     //Consulta resta select para llamar asistencia
     //select cc from empleado except select distinct cc_Empleado from  incapacidadesPermisos
@@ -424,7 +430,8 @@ public class Appi {
     
     public Empleado faltaEmpleado(String fecha, String cc){
         String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor "
-                + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc AND cc="+cc;
+                + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc AND cc='"+cc+"'";
+        
         ArrayList<Empleado> emp = db.empleados(sql);
         Empleado empleado = null;
         if(!emp.isEmpty()) empleado = emp.get(0);
@@ -438,7 +445,7 @@ public class Appi {
     }
     
     public Grupo grupo(String id){
-        System.out.println("***id grupo "+id);
+       
          String sql = "SELECT nombreGrupo, idGrupo, supervisor FROM grupos WHERE idGrupo = "+id;
          Grupo grupo = db.grupo(sql);
          return grupo;
@@ -461,9 +468,28 @@ public class Appi {
             dia++;
             Empleado emp = faltaEmpleado(fechaAux, cc);
             if(emp==null){
-                asist.add("X");
+                IncapacidadesPermisos inc = consultaIncPermiso(cc, fechaAux);
+                if(inc != null){
+                    if(inc.getTipo()==0){//0 incaoacidad, 1 permiso,2 falta
+                        asist.add("I");
+                    }else if(inc.getTipo()==1){
+                        asist.add("%");
+                    }
+                }else{
+                    asist.add("X");
+                }
+                
             }else{
-                asist.add("N");
+                IncapacidadesPermisos inc = consultaIncPermiso(cc, fechaAux);
+                if(inc != null){
+                    if(inc.getTipo()==0){//0 incaoacidad, 1 permiso,2 falta
+                        asist.add("I");
+                    }else if(inc.getTipo()==1){
+                        asist.add("%");
+                    }
+                }else{
+                    asist.add("N");
+                }
             }
             
             if(dia<10) fechaAux = fec[0]+"-"+fec[1]+"-0"+dia;
