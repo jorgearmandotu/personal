@@ -341,6 +341,7 @@ public class FileExcel {
             
             //celdas con asistencia
             ArrayList<String> dias = app.diasAsistencia(emp.getCedula());
+            float diasW = 0;
             for(int j=0; j<dias.size();j++){
                 Cell cellDias = rowD.createCell(j+9);
                 cellDias.setCellValue(dias.get(j));
@@ -348,14 +349,27 @@ public class FileExcel {
                     cellDias.setCellStyle(cellRoja);
                 }else if(dias.get(j).equals("I")){
                     cellDias.setCellStyle(cellAzul);
+                }else if(dias.get(j).equals("P")){
+                    cellDias.setCellStyle(cellAzul2);
+                    diasW++;
                 }else if(dias.get(j).equals("%")){
                     cellDias.setCellStyle(cellAzul2);
+                    diasW = (float) (diasW+0.5);
                 }
-                else cellDias.setCellStyle(cellBordes);
+                else {
+                    cellDias.setCellStyle(cellBordes);
+                    diasW++;
+                }
             }
-            
+            Cell cellDW = rowD.createCell(24);
+            cellDW.setCellValue(diasW);
+            cellDW.setCellStyle(cellBordes);
         }
         //System.out.println(getSupportedFunctionNames ());
+        for(int column=0; column<36; column++){
+            hojaMadre.autoSizeColumn(column, true);
+        }
+        
         try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
             //escribir este libro en un OutputStream.
             libro.write(fileOut);

@@ -470,10 +470,19 @@ public class Appi {
             if(emp==null){
                 IncapacidadesPermisos inc = consultaIncPermiso(cc, fechaAux);
                 if(inc != null){
-                    if(inc.getTipo()==0){//0 incaoacidad, 1 permiso,2 falta
-                        asist.add("I");
-                    }else if(inc.getTipo()==1){
-                        asist.add("%");
+                    switch (inc.getTipo()) {
+                        case 0:
+                            //0 incaoacidad, 1 permiso,3 permiso medio dia, 2 falta
+                            asist.add("I");
+                            break;
+                        case 1:
+                            asist.add("P");
+                            break;
+                        case 3:
+                            asist.add("%");
+                            break;
+                        default:
+                            break;
                     }
                 }else{
                     asist.add("X");
