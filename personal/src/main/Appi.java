@@ -512,4 +512,16 @@ public class Appi {
         return asist;
     }
     
+    public ArrayList<AportesBonificaciones> entidades(){
+        ArrayList<AportesBonificaciones> entidades = null;
+        String sql = "SELECT * FROM aportesbonificaciones";
+        entidades = db.entidades(sql);
+        return entidades;
+    }
+    
+    public AportesBonificaciones entidad(String nombre){
+        String sql = "SELECT * FROM aportesBonificaciones WHERE nombreAporte = '"+nombre+"'";
+        AportesBonificaciones ent = db.entidad(sql);
+        return ent;
+    }
 }
