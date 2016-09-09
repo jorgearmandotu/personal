@@ -317,11 +317,16 @@ public void tomarAsistencia(Empleado emp){
     String separadorOS = System.getProperty("file.separator");
     String url=separadorOS;//+"db";
     File miDir = new File ("images"+separadorOS+"SantaMariaDeFatima.png");
+    File miDir2 = new File ("images"+separadorOS+emp.getPhoto());
     String urlLogoEmp = miDir.getAbsolutePath();
+    String urlphoto = miDir2.getAbsolutePath();
     System.out.println(urlLogoEmp);
+    System.out.println(urlphoto);
     URL dirLogoOb = this.getClass().getResource(urlLogoEmp);
+    URL dirphoto = this.getClass().getResource(urlphoto);
     System.out.println(dirLogoOb);
     ImageIcon logoObra = new ImageIcon(urlLogoEmp);
+    ImageIcon photo = new ImageIcon(urlphoto);
     /*int width = logoObra.getIconWidth();
     int height = logoObra.getIconHeight();
     int scale = 1;
@@ -332,7 +337,8 @@ public void tomarAsistencia(Empleado emp){
     grapics.dispose();
     lblLogo.setIcon(new ImageIcon(buffer));*/
     lblLogo.setIcon(logoObra);
-    lblFoto.setIcon(logoObra);
+    System.out.println(emp.getPhoto());
+    lblFoto.setIcon(photo);
 }
 
 private void IngresoFalta(){

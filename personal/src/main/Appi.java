@@ -404,8 +404,8 @@ public class Appi {
     
     public Empleado[] tomarAsistencia(){
         //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
-        String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
-                + "as nombre FROM empleado, photo WHERE nficha > 10 ORDER BY grupo, nficha";
+        String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
+                + "as nombre FROM empleado WHERE nficha > 10 ORDER BY grupo, nficha";
         
         ArrayList obj = db.listarEmpleadosNombre(sql);
         Empleado[] empleados = new Empleado[obj.size()];

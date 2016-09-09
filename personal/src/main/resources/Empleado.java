@@ -112,6 +112,10 @@ public class Empleado {
     public int getSupervisor() {
         return supervisor;
     }
+
+    public String getPhoto() {
+        return photo;
+    }
     
     
 }
