@@ -68,10 +68,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
         txtFichaPermiso = new javax.swing.JTextField();
-        jLabel30 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         dateFechaApermiso = new org.jdesktop.swingx.JXDatePicker();
         dateFechaBpermiso = new org.jdesktop.swingx.JXDatePicker();
+        checkMedioDia = new javax.swing.JCheckBox();
         jPanel12 = new javax.swing.JPanel();
         jLabel31 = new javax.swing.JLabel();
         txtFichaFalta = new javax.swing.JTextField();
@@ -95,9 +95,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtsApellido = new javax.swing.JTextField();
         txtNcuenta = new javax.swing.JFormattedTextField();
         txtNficha = new javax.swing.JFormattedTextField();
-        cmbcargo = new javax.swing.JComboBox<String>();
+        cmbcargo = new javax.swing.JComboBox<>();
         txtRh = new javax.swing.JTextField();
-        cmbBonificacion = new javax.swing.JComboBox<String>();
+        cmbBonificacion = new javax.swing.JComboBox<>();
         rbtnMasculino = new javax.swing.JRadioButton();
         rbtnFemenino = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
@@ -108,12 +108,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        cmbEps = new javax.swing.JComboBox<String>();
-        cmbArl = new javax.swing.JComboBox<String>();
-        cmbPension = new javax.swing.JComboBox<String>();
+        cmbEps = new javax.swing.JComboBox<>();
+        cmbArl = new javax.swing.JComboBox<>();
+        cmbPension = new javax.swing.JComboBox<>();
         btnIngresarPersona = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
-        cmbgrupo = new javax.swing.JComboBox<String>();
+        cmbgrupo = new javax.swing.JComboBox<>();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -287,8 +287,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel29.setText("Fecha B:");
 
-        jLabel30.setText("Medio Dia:");
-
         jButton5.setText("Ingresar");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,29 +294,31 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
+        checkMedioDia.setText("Medio Día");
+
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel11Layout.createSequentialGroup()
                 .addGap(14, 14, 14)
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel30)
-                    .addGroup(jPanel11Layout.createSequentialGroup()
-                        .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton5)
-                            .addGroup(jPanel11Layout.createSequentialGroup()
-                                .addComponent(jLabel27)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFichaPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel28)
-                                .addGap(18, 18, 18)
-                                .addComponent(dateFechaApermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel29)
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                        .addComponent(checkMedioDia)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton5))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
+                        .addComponent(jLabel27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtFichaPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jLabel28)
+                        .addGap(18, 18, 18)
+                        .addComponent(dateFechaApermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(33, 33, 33)
+                .addComponent(jLabel29)
+                .addGap(18, 18, 18)
+                .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
@@ -334,10 +334,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(txtFichaPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel30)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel11Layout.createSequentialGroup()
+                        .addGap(21, 21, 21)
+                        .addComponent(jButton5))
+                    .addComponent(checkMedioDia))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createTitledBorder("Ingreso falta"));
@@ -412,7 +414,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Asistencia", jPanel2);
@@ -448,7 +450,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtNficha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
         cmbcargo.setEditable(true);
-        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtRh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -456,7 +458,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
-        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         rbtnSexo.add(rbtnMasculino);
         rbtnMasculino.setSelected(true);
@@ -486,11 +488,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel19.setText("Pension:");
 
-        cmbEps.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEps.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbArl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbArl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbPension.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPension.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -534,7 +536,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel22.setText("Foto:");
 
-        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -1090,6 +1092,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JButton btnListar;
+    private javax.swing.JCheckBox checkMedioDia;
     private javax.swing.JComboBox<String> cmbArl;
     private javax.swing.JComboBox<String> cmbBonificacion;
     private javax.swing.JComboBox<String> cmbEps;
@@ -1130,7 +1133,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
@@ -1412,6 +1414,7 @@ private void insertarIncapacidad(int tipo){
             fechaA = dateFechaApermiso.getDate();
             fechaB = dateFechaBpermiso.getDate();
             ficha = txtFichaPermiso.getText().trim();
+            if(checkMedioDia.isSelected()) tipo = 3;
             break;
         default:
             fechaA = dateFechaFalta.getDate();
@@ -1469,6 +1472,11 @@ private void insertarIncapacidad(int tipo){
                     dateFechaBpermiso.setDate(fechaActual);
                     txtFichaPermiso.setText("");
                     break;
+                case 3:
+                    dateFechaApermiso.setDate(fechaActual);
+                    dateFechaBpermiso.setDate(fechaActual);
+                    txtFichaPermiso.setText("");
+                    checkMedioDia.setSelected(false);
                 default:
                     dateFechaFalta.setDate(fechaActual);
                     txtFichaFalta.setText("");

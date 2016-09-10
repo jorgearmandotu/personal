@@ -16,6 +16,7 @@ import main.Appi;
 import static org.apache.poi.ss.formula.WorkbookEvaluator.getSupportedFunctionNames;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
@@ -111,12 +112,17 @@ public class FileExcel {
         Font negrita = libro.createFont();
         negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
         
+        
+        
         Font negritaGrande = libro.createFont();
         negritaGrande .setBoldweight(Font.BOLDWEIGHT_BOLD);
         negritaGrande.setFontHeightInPoints((short)14);
         
         Font normal = libro.createFont();
         normal.setFontHeightInPoints((short)12);
+        
+        DataFormat numeric = libro.createDataFormat();
+        
         
         CellStyle convecciones = libro.createCellStyle();
         convecciones.setAlignment(CellStyle.ALIGN_CENTER);
@@ -132,6 +138,7 @@ public class FileExcel {
         convecciones.setBorderRight(CellStyle.BORDER_THIN);
         convecciones.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
         convecciones.setFont(negrita);
+        
         
         //estilos conecciones celdas
         CellStyle cellRoja = libro.createCellStyle();
@@ -195,6 +202,7 @@ public class FileExcel {
         cellBordes.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
         cellBordes.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
         cellBordes.setFont(normal);
+        //cellBordes.setDataFormat(numeric.getFormat("_(* #.##0_);_(* (#.##0);_(* -??_);_(@_)"));
         
         CellStyle cellBordesNeg = libro.createCellStyle();
         cellBordesNeg.setBorderBottom(CellStyle.BORDER_THIN);
@@ -291,6 +299,8 @@ public class FileExcel {
         //SELECT * FROM empleado ORDER BY grupo, supervisor DESC, nficha
         
         ArrayList empleados = app.empleadosTotales();
+        AportesBonificaciones ent = app.entidad("SALARIO MINIMO");
+        float minimo = ent.getValor();
         for(int i=0; i<empleados.size(); i++){
             Row rowD = hojaMadre.createRow(i+8);
             
@@ -341,6 +351,7 @@ public class FileExcel {
             
             //celdas con asistencia
             ArrayList<String> dias = app.diasAsistencia(emp.getCedula());
+            float diasW = 0;
             for(int j=0; j<dias.size();j++){
                 Cell cellDias = rowD.createCell(j+9);
                 cellDias.setCellValue(dias.get(j));
@@ -348,14 +359,47 @@ public class FileExcel {
                     cellDias.setCellStyle(cellRoja);
                 }else if(dias.get(j).equals("I")){
                     cellDias.setCellStyle(cellAzul);
+                }else if(dias.get(j).equals("P")){
+                    cellDias.setCellStyle(cellAzul2);
+                    diasW++;
                 }else if(dias.get(j).equals("%")){
                     cellDias.setCellStyle(cellAzul2);
+                    diasW = (float) (diasW+0.5);
                 }
-                else cellDias.setCellStyle(cellBordes);
+                else {
+                    cellDias.setCellStyle(cellBordes);
+                    diasW++;
+                }
             }
+            Cell cellDW = rowD.createCell(24);
+            cellDW.setCellValue(diasW);
+            cellDW.setCellStyle(cellBordes);
             
+            Cell cellVD = rowD.createCell(25);
+            cellVD.setCellFormula("("+minimo+"/30)");
+            cellVD.setCellStyle(cellBordes);
+            
+            Cell cellsal = rowD.createCell(26);
+            cellsal.setCellFormula("(z"+(i+9)+" * y"+(i+9)+")");
+            cellsal.setCellStyle(cellBordes);
+            
+            Cell cellAuxTrans = rowD.createCell(27);
+            cellAuxTrans.setCellFormula("(77700/30*y"+(i+9)+")");
+            cellAuxTrans.setCellStyle(cellBordes);
+            
+            Cell cellBon = rowD.createCell(28);
+            cellBon.setCellValue("bonificacion");
+            cellBon.setCellStyle(cellBordes);
+            
+            Cell cellIss = rowD.createCell(29);
+            cellIss.setCellFormula("("+minimo+"*0.08)/30*15");
+            cellIss.setCellStyle(cellBordes);
         }
         //System.out.println(getSupportedFunctionNames ());
+        for(int column=0; column<36; column++){
+            hojaMadre.autoSizeColumn(column, true);
+        }
+        
         try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
             //escribir este libro en un OutputStream.
             libro.write(fileOut);

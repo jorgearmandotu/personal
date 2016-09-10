@@ -404,7 +404,7 @@ public class Appi {
     
     public Empleado[] tomarAsistencia(){
         //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
-        String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
+        String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
                 + "as nombre FROM empleado WHERE nficha > 10 ORDER BY grupo, nficha";
         
         ArrayList obj = db.listarEmpleadosNombre(sql);
@@ -470,10 +470,19 @@ public class Appi {
             if(emp==null){
                 IncapacidadesPermisos inc = consultaIncPermiso(cc, fechaAux);
                 if(inc != null){
-                    if(inc.getTipo()==0){//0 incaoacidad, 1 permiso,2 falta
-                        asist.add("I");
-                    }else if(inc.getTipo()==1){
-                        asist.add("%");
+                    switch (inc.getTipo()) {
+                        case 0:
+                            //0 incaoacidad, 1 permiso,3 permiso medio dia, 2 falta
+                            asist.add("I");
+                            break;
+                        case 1:
+                            asist.add("P");
+                            break;
+                        case 3:
+                            asist.add("%");
+                            break;
+                        default:
+                            break;
                     }
                 }else{
                     asist.add("X");
@@ -503,4 +512,16 @@ public class Appi {
         return asist;
     }
     
+    public ArrayList<AportesBonificaciones> entidades(){
+        ArrayList<AportesBonificaciones> entidades = null;
+        String sql = "SELECT * FROM aportesbonificaciones";
+        entidades = db.entidades(sql);
+        return entidades;
+    }
+    
+    public AportesBonificaciones entidad(String nombre){
+        String sql = "SELECT * FROM aportesBonificaciones WHERE nombreAporte = '"+nombre+"'";
+        AportesBonificaciones ent = db.entidad(sql);
+        return ent;
+    }
 }

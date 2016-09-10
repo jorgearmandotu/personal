@@ -214,8 +214,9 @@ public class Apidb {
                     String cargo = res.getString("cargo");
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
-                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
-                        Empleado sup = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh);
+                    String photo = res.getString("photo");
+                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo+photo);
+                        Empleado sup = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh, photo);
                     obj.add(sup);
                 }
             }catch(SQLException ex){
@@ -444,4 +445,50 @@ public class Apidb {
         return grupo;
     }
     
+    public ArrayList<AportesBonificaciones> entidades(String sql){
+        ArrayList<AportesBonificaciones> entidad = new ArrayList<>();
+        Connection con = connect();
+        if(con!=null) {
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                int idAporte = res.getInt("idAporte");
+                String nombre = res.getString("nombreAporte");
+                String tipo = res.getString("tipoAporte");
+                float valor = res.getFloat("valorAporte");
+                AportesBonificaciones ent = new AportesBonificaciones(idAporte, nombre, tipo, valor);
+                entidad.add(ent);
+            }
+            }catch(SQLException ex) {
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Error al consultar DB");
+            }
+            close(con);
+        }
+        return entidad;
+    }
+    
+    public AportesBonificaciones entidad(String sql){
+        AportesBonificaciones ent = null;
+        Connection con = connect();
+        if(con!=null) {
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                int idAporte = res.getInt("idAporte");
+                String nombre = res.getString("nombreAporte");
+                String tipo = res.getString("tipoAporte");
+                float valor = res.getFloat("valorAporte");
+                ent = new AportesBonificaciones(idAporte, nombre, tipo, valor);                
+            }
+            }catch(SQLException ex) {
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Error al consultar DB");
+            }
+            close(con);
+        }
+        return ent;
+    }
 }

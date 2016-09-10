@@ -23,6 +23,7 @@ public class Empleado {
     private String sexo;
     private String rh;
     private int supervisor;
+    private String photo;
 
     public Empleado(String cedula, String pNombre, String sNombre, String pApellido, 
             String sApellido, int nFicha, long nCuenta, String grupo, String cargo, 
@@ -50,6 +51,18 @@ public class Empleado {
         this.cargo = cargo;
         this.sexo = sexo;
         this.rh = rh;
+    }
+        
+        public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh,String photo){
+        this.cedula = cedula;
+        this.pNombre = nombre;
+        this.nFicha = ficha;
+        this.nCuenta = cuenta;
+        this.grupo = grupo;
+        this.cargo = cargo;
+        this.sexo = sexo;
+        this.rh = rh;
+        this.photo = photo;
     }
 
     public String getCedula() {
@@ -98,6 +111,10 @@ public class Empleado {
 
     public int getSupervisor() {
         return supervisor;
+    }
+
+    public String getPhoto() {
+        return photo;
     }
     
     
