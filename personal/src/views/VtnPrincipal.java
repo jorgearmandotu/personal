@@ -1069,6 +1069,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
         JFileChooser photo = new JFileChooser();
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "jpg");
         photo.setFileFilter(filtro);
+        ImagePreviewPanel preview = new ImagePreviewPanel();
+        photo.setAccessory(preview);
+        photo.addPropertyChangeListener(preview);
         int select = photo.showOpenDialog(this);
         File rutaPhoto = null;
         switch (select) {
