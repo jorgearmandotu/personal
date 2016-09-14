@@ -145,6 +145,8 @@ public class Apidb {
         return res;
     }
     
+    
+    
     public boolean consulta(String sql){
         boolean res=false;
         Connection con = connect();
