@@ -226,6 +226,14 @@ public class Appi {
         }
     }
     
+    public void ingresoPhoto(String cc, String ruta){
+        Alerts msj = new Alerts();
+        String sql = "UPDATE empleado SET photo = '"+ruta+"' WHERE cc = '"+cc+"'";
+        if(!db.operacion(sql)){
+            msj.errormsj("Error en Ingreso photograpia");
+        }
+    }
+    
     public String[] definirQuincena(String fecha){
         
         String fechaA;
@@ -254,7 +262,7 @@ public class Appi {
         String[] fechaAB = {fechaA, fechaB};
         return fechaAB;
     }
-    
+       
     //Copnsultas listados
    
     public Empleado[] listado(String dato, int op) {

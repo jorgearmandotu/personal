@@ -1,14 +1,23 @@
 package views;
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import main.resources.Alerts;
 import javax.swing.JTable;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import main.Appi;
 import main.resources.AportesBonificaciones;
@@ -114,6 +123,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
         btnIngresarPersona = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
         cmbgrupo = new javax.swing.JComboBox<>();
+        btnPhoto = new javax.swing.JButton();
+        jLabel30 = new javax.swing.JLabel();
+        lblRutaPhoto = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -319,7 +331,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel29)
                 .addGap(18, 18, 18)
                 .addComponent(dateFechaBpermiso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addContainerGap(263, Short.MAX_VALUE))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -360,19 +372,16 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel31)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtFichaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel32)
-                        .addGap(18, 18, 18)
-                        .addComponent(dateFechaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(281, 281, 281)
-                        .addComponent(jButton6)))
+                .addContainerGap()
+                .addComponent(jLabel31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtFichaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(jLabel32)
+                .addGap(18, 18, 18)
+                .addComponent(dateFechaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
+                .addComponent(jButton6)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
@@ -384,10 +393,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(txtFichaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel32)
                         .addComponent(dateFechaFalta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel31))
-                .addGap(18, 18, 18)
-                .addComponent(jButton6)
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(jLabel31)
+                    .addComponent(jButton6))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -414,7 +422,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Asistencia", jPanel2);
@@ -502,15 +510,15 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbEps, 0, 169, Short.MAX_VALUE)
+                .addComponent(cmbEps, 0, 212, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbArl, 0, 169, Short.MAX_VALUE)
+                .addComponent(cmbArl, 0, 212, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPension, 0, 178, Short.MAX_VALUE)
+                .addComponent(cmbPension, 0, 221, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -538,6 +546,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnPhoto.setText("Seleccionar");
+        btnPhoto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPhotoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -564,21 +579,29 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                     .addComponent(cmbgrupo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(38, 38, 38)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel16)
+                                    .addComponent(jLabel22))
+                                .addGap(35, 35, 35)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtsNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtsApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cmbcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addComponent(btnPhoto)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel8)
-                                            .addComponent(jLabel9)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel3)
-                                            .addComponent(jLabel16))
-                                        .addGap(35, 35, 35)
-                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtsNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtsApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(cmbcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel22)))
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addGap(94, 94, 94)
+                                                .addComponent(jLabel30))
+                                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(lblRutaPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -589,7 +612,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 93, Short.MAX_VALUE)))
+                        .addGap(0, 136, Short.MAX_VALUE)))
                 .addGap(20, 20, 20))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(283, 283, 283)
@@ -603,8 +626,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel22))
-                .addGap(14, 14, 14)
+                    .addComponent(jLabel22)
+                    .addComponent(btnPhoto)
+                    .addComponent(jLabel30)
+                    .addComponent(lblRutaPhoto))
+                .addGap(10, 10, 10)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -661,7 +687,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel3);
@@ -689,7 +715,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel8Layout.createSequentialGroup()
                         .addGap(259, 259, 259)
                         .addComponent(jButton1)))
-                .addContainerGap(403, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -757,7 +783,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(376, 376, 376)
                         .addComponent(btnListar)
-                        .addGap(0, 293, Short.MAX_VALUE))
+                        .addGap(0, 438, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -891,7 +917,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
                         .addComponent(jButton4)))
-                .addContainerGap(505, Short.MAX_VALUE))
+                .addContainerGap(658, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -951,20 +977,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 602, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnIngresarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPersonaActionPerformed
-        // TODO add your handling code here:
-        insercionPersona();
-    }//GEN-LAST:event_btnIngresarPersonaActionPerformed
-
-    private void txtsNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtsNombreActionPerformed
 
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
@@ -976,10 +993,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtListSupervisorActionPerformed
 
-    private void txtRhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRhActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtRhActionPerformed
-
     private void mnuDefOpcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDefOpcionesActionPerformed
         // TODO add your handling code here:
         VtnDefVal vtnval = new VtnDefVal(this,true);
@@ -987,10 +1000,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
         vtnval.setVisible(true);
         cmbgrupo();
     }//GEN-LAST:event_mnuDefOpcionesActionPerformed
-
-    private void rbtnFemeninoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnFemeninoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbtnFemeninoActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -1050,6 +1059,64 @@ public class VtnPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    private void btnPhotoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPhotoActionPerformed
+        // TODO add your handling code here:
+        //VtnSelectorFiles photo = new VtnSelectorFiles(this, rootPaneCheckingEnabled);
+        JFileChooser photo = new JFileChooser();
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jpg", "jpg");
+        photo.setFileFilter(filtro);
+        ImagePreviewPanel preview = new ImagePreviewPanel();
+        photo.setAccessory(preview);
+        photo.addPropertyChangeListener(preview);
+        int select = photo.showOpenDialog(this);
+        File rutaPhoto = null;
+        switch (select) {
+            case JFileChooser.APPROVE_OPTION:
+            rutaPhoto = photo.getSelectedFile();
+            lblRutaPhoto.setText(String.valueOf(rutaPhoto));
+            //String separadorOS = System.getProperty("file.separator");
+            //String url=separadorOS;//+"db";
+            //File rutadestino = new File("images"+separadorOS+"foto.jpg");
+
+            //        {
+                //            try {
+                    //                if(copyPhoto(rutaPhoto, rutadestino)){
+                        //
+                        //                }
+                    //            } catch (IOException ex) {
+                    //                Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    //            }
+                //        }
+            break;
+            case JFileChooser.CANCEL_OPTION:
+            break;
+            case JFileChooser.ERROR_OPTION:
+            Alerts msj = new Alerts();
+            msj.errormsj("Ocurrio un error en Operación");
+            break;
+            default:
+            break;
+        }
+
+    }//GEN-LAST:event_btnPhotoActionPerformed
+
+    private void btnIngresarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarPersonaActionPerformed
+        // TODO add your handling code here:
+        insercionPersona();
+    }//GEN-LAST:event_btnIngresarPersonaActionPerformed
+
+    private void rbtnFemeninoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnFemeninoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbtnFemeninoActionPerformed
+
+    private void txtRhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtRhActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtRhActionPerformed
+
+    private void txtsNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtsNombreActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1092,6 +1159,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnPhoto;
     private javax.swing.JCheckBox checkMedioDia;
     private javax.swing.JComboBox<String> cmbArl;
     private javax.swing.JComboBox<String> cmbBonificacion;
@@ -1133,6 +1201,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel30;
     private javax.swing.JLabel jLabel31;
     private javax.swing.JLabel jLabel32;
     private javax.swing.JLabel jLabel4;
@@ -1160,6 +1229,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblRutaPhoto;
     private javax.swing.JMenuItem mnuDefOpciones;
     private javax.swing.JRadioButton rbntIncNo;
     private javax.swing.JRadioButton rbtnFemenino;
@@ -1265,6 +1335,17 @@ private void insercionPersona(){//12 campos
                     msj.errormsj("error ingresando pension");
                 }
             }
+            String origin = lblRutaPhoto.getText();
+            String separadorOS = System.getProperty("file.separator");
+            File rutadestino = new File("images"+separadorOS+cedula+".jpg");
+            String destino = String.valueOf(rutadestino);
+            if(!copyPhoto(origin, destino)) {
+                Alerts msj = new Alerts();
+                msj.errormsj("error ingresando fotografía");
+            }else {
+                app.ingresoPhoto(cedula, cedula+".jpg");
+            }
+            
             limpiarinserpersona();
             cmbgrupo();
         }
@@ -1287,6 +1368,7 @@ private void limpiarinserpersona(){
     cmbArl.setSelectedIndex(0);
     cmbPension.setSelectedIndex(0);
     rbtnMasculino.setSelected(true);
+    lblRutaPhoto.setText("");
 }
 
 private void listado(){
@@ -1488,6 +1570,29 @@ private void insertarIncapacidad(int tipo){
         msj.dangermsj("datos incorrectos");
     }
     
+}
+
+private boolean copyPhoto(String photoOrigin, String destino) {
+    boolean res = false;
+    File origin = new File(photoOrigin);
+    if(origin.exists()){
+        try {
+            InputStream in = new FileInputStream(origin);
+            OutputStream out = new FileOutputStream(destino);
+            byte[] buffer = new byte[1024];
+            int len;
+            while((len = in.read(buffer))>0) {
+                out.write(buffer, 0, len);
+            }
+            in.close();
+            out.close();
+            res = true;
+            
+        } catch (IOException ex) {
+            Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    return res;
 }
 
 }
