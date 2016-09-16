@@ -59,8 +59,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtNFichaAsis = new javax.swing.JTextField();
+        btnAsis = new javax.swing.JButton();
         btnGenAsis = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel23 = new javax.swing.JLabel();
@@ -170,10 +170,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel21.setText("Ficha:");
 
-        jButton2.setText("Ingresar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnAsis.setText("Ingresar");
+        btnAsis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnAsisActionPerformed(evt);
             }
         });
 
@@ -194,22 +194,25 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jLabel21)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(121, 121, 121)
-                        .addComponent(jButton2))
+                        .addComponent(txtNFichaAsis, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAsis))
                     .addComponent(btnGenAsis))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(565, Short.MAX_VALUE))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel21)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton2))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel21)
+                            .addComponent(txtNFichaAsis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(26, 26, 26))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
+                        .addComponent(btnAsis)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(btnGenAsis)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1050,9 +1053,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
         vtnasis.dispose();
     }//GEN-LAST:event_btnGenAsisActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnAsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAsisActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+        insertarAsistencia();
+    }//GEN-LAST:event_btnAsisActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
@@ -1178,6 +1182,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAsis;
     private javax.swing.JButton btnGenAsis;
     private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
@@ -1196,7 +1201,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dateFechaBpermiso;
     private org.jdesktop.swingx.JXDatePicker dateFechaFalta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1252,7 +1256,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblRutaPhoto;
     private javax.swing.JMenuItem mnuDefOpciones;
     private javax.swing.JRadioButton rbntIncNo;
@@ -1270,6 +1273,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField txtListFicha;
     private javax.swing.JTextField txtListNombre;
     private javax.swing.JTextField txtListSupervisor;
+    private javax.swing.JTextField txtNFichaAsis;
     private javax.swing.JFormattedTextField txtNcuenta;
     private javax.swing.JFormattedTextField txtNficha;
     private javax.swing.JTextField txtRh;
@@ -1561,7 +1565,7 @@ private void insertarIncapacidad(int tipo){
         }
         else{
             System.out.println("opcion ingreso no existe registro");
-            app.insertarIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, tipo);//0 incpacidades, 1 permisos, 2 falta, 
+            app.insertarIncapacidadesPermisos(cedula, fecha1, fecha2, pagada, tipo);//0 incpacidades, 1 permisos, 2 falta, 3 medio dia ermiso
             cmbgrupo();
         }
         if(!error){
@@ -1596,6 +1600,17 @@ private void insertarIncapacidad(int tipo){
     
 }
 
+private void insertarAsistencia(){
+    if(!txtNFichaAsis.getText().isEmpty()){
+        String ficha = txtNFichaAsis.getText();
+        Appi app = new Appi();
+        if(app.eliminarFalta(ficha))    txtNFichaAsis.setText("");
+    }else{
+        Alerts msj = new Alerts();
+        msj.errormsj("verifique datos");
+    }
+    
+}
 private boolean copyPhoto(String photoOrigin, String destino) {
     boolean res = false;
     File origin = new File(photoOrigin);

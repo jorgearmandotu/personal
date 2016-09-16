@@ -164,6 +164,23 @@ public class Appi {
         return res;
     }
     
+    public boolean eliminarFalta(String ficha){
+        boolean res = false;
+        Alerts msj = new Alerts();
+        Date fechaActual = new Date();
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        String fecha = formato.format(fechaActual);
+        Empleado emp = empleadoFicha(ficha);
+        if(emp != null){
+            String sql = "DELETE FROM asistencia WHERE ccEmpleado = '"+emp.getCedula()+"' AND fechafalta = '"+fecha+"'";
+            if(!db.operacion(sql)) msj.errormsj("Error en operacion");
+            else res = true;
+        }else{
+            msj.errormsj("Empleado no existe");
+        }
+        return res;
+    }
+    
     public void insertarIncapacidadesPermisos(String cedula, String fechaA, String fechaB, int pagadas, int tipo){
         Alerts msj = new Alerts();
           String sql = "INSERT INTO incapacidadesPermisos (cc_Empleado, fechaA, fechaB, tipoFalta, pagada) "
@@ -266,25 +283,25 @@ public class Appi {
     //Copnsultas listados
    
     public Empleado[] listado(String dato, int op) {
-        String sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
+        String sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
         if(dato.equals("")){//si se envian espacios en blanco
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
         }else if(op==1) {//nombre
             String[] nom = dato.split(" ");
             if(nom.length == 4) {//inicio loop para nombre completo
-                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
+                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
                         + "WHERE pnombre LIKE '%"+nom[0]+"%' OR  snombre LIKE '%"+nom[1]+"%' OR "
                         + "papellido LIKE '%"+nom[2]+"%' OR sapellido LIKE '%"+nom[3]+"%'";
             }else{
-                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
+                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
                         + "WHERE (pnombre LIKE '%"+nom[0]+"%' OR snombre LIKE '%"+nom[0]+"%' OR papellido LIKE '%"+nom[0]+"%' OR sapellido LIKE '%"+nom[0]+"%') AND cc NOT LIKE '% %'";
             }//fin condicion
         }else if(op==2) {//ficha
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+" AND cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+" AND cc NOT LIKE '% %'";
         }else if(op==3) {//cedula
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc="+dato+" AND cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc="+dato+" AND cc NOT LIKE '% %'";
         }else if(op==4) {//grupo
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
         }
         ArrayList obj = db.listarEmpleadosNombre(sql);
         
