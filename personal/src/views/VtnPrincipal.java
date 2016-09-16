@@ -23,6 +23,7 @@ import main.Appi;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.FileExcel;
+import main.resources.FileWord;
 import main.resources.Grupo;
 import main.resources.IncapacidadesPermisos;
 
@@ -148,6 +149,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jPanel14 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         mnuDefOpciones = new javax.swing.JMenuItem();
@@ -905,6 +907,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("generar Word");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
@@ -916,7 +925,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jButton4)))
+                        .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton7)
+                            .addComponent(jButton4))))
                 .addContainerGap(658, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
@@ -926,7 +937,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
-                .addContainerGap(250, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton7)
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -1117,6 +1130,16 @@ public class VtnPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtsNombreActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        FileWord word = new FileWord();
+        try {
+            word.crearWord();
+        } catch (IOException ex) {
+            Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1178,6 +1201,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
