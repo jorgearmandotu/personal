@@ -15,10 +15,13 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import main.resources.Alerts;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import main.Appi;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
@@ -869,6 +872,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblListado.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblListadoMouseClicked(evt);
+            }
+        });
         scrolltable.setViewportView(tblListado);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -1002,7 +1010,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
         listado();
-        
+        popmenu();
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void txtListSupervisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtListSupervisorActionPerformed
@@ -1143,6 +1151,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
             Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
+        // TODO add your handling code here:
+        int n = tblListado.getSelectedRow();
+        System.out.println(tblListado.getValueAt(n, 1));
+        popmenu();
+    }//GEN-LAST:event_tblListadoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1403,6 +1418,7 @@ private void listado(){
     
     DefaultTableModel model;
     model = (DefaultTableModel) this.tblListado.getModel();
+    
     Object [] fila = new Object[4];
     Appi app = new Appi();
     Empleado[] datos;// = null;
@@ -1633,5 +1649,19 @@ private boolean copyPhoto(String photoOrigin, String destino) {
     }
     return res;
 }
-
+private void popmenu(){
+    JPopupMenu menu = new JPopupMenu();
+    JMenuItem detalles = new JMenuItem("Detalles");
+    JMenuItem eliminar = new JMenuItem("eliminar");
+    
+    menu.add(detalles);
+    menu.add(eliminar);
+    
+    tblListado.setComponentPopupMenu(menu);
+    int row = tblListado.getSelectedRow();
+    if(tblListado.getValueAt(row, 1) != null){
+        
+    }
+    
+}
 }
