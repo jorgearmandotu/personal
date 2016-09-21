@@ -148,6 +148,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         btnListar = new javax.swing.JButton();
         scrolltable = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
+        btnDetallesList = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -872,12 +873,25 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tblListado.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                tblListadoFocusGained(evt);
+            }
+        });
         tblListado.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblListadoMouseClicked(evt);
             }
         });
         scrolltable.setViewportView(tblListado);
+
+        btnDetallesList.setText("Detalles");
+        btnDetallesList.setEnabled(false);
+        btnDetallesList.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDetallesListActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -891,6 +905,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addComponent(scrolltable, javax.swing.GroupLayout.PREFERRED_SIZE, 716, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(266, 266, 266)
+                .addComponent(btnDetallesList)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -899,7 +917,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(scrolltable, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(165, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(btnDetallesList)
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultas", jPanel4);
@@ -1010,7 +1030,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private void btnListarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListarActionPerformed
         // TODO add your handling code here:
         listado();
-        popmenu();
     }//GEN-LAST:event_btnListarActionPerformed
 
     private void txtListSupervisorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtListSupervisorActionPerformed
@@ -1154,10 +1173,18 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
     private void tblListadoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListadoMouseClicked
         // TODO add your handling code here:
-        int n = tblListado.getSelectedRow();
-        System.out.println(tblListado.getValueAt(n, 1));
-        popmenu();
     }//GEN-LAST:event_tblListadoMouseClicked
+
+    private void tblListadoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tblListadoFocusGained
+        // TODO add your handling code here:
+        btnDetallesList.setEnabled(true);
+    }//GEN-LAST:event_tblListadoFocusGained
+
+    private void btnDetallesListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesListActionPerformed
+        // TODO add your handling code here:
+        int n = tblListado.getSelectedRow();
+        detallesSelecionList(n);
+    }//GEN-LAST:event_btnDetallesListActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1198,6 +1225,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAsis;
+    private javax.swing.JButton btnDetallesList;
     private javax.swing.JButton btnGenAsis;
     private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
@@ -1649,19 +1677,39 @@ private boolean copyPhoto(String photoOrigin, String destino) {
     }
     return res;
 }
-private void popmenu(){
-    JPopupMenu menu = new JPopupMenu();
-    JMenuItem detalles = new JMenuItem("Detalles");
-    JMenuItem eliminar = new JMenuItem("eliminar");
-    
-    menu.add(detalles);
-    menu.add(eliminar);
-    
-    tblListado.setComponentPopupMenu(menu);
-    int row = tblListado.getSelectedRow();
-    if(tblListado.getValueAt(row, 1) != null){
+
+private void detallesSelecionList(int row){
+    Alerts msj = new Alerts();
+    String cedula = (String) tblListado.getValueAt(row, 1);
+    Appi app = new Appi();
+    Empleado emp = app.empleado(cedula);
+    if(emp != null ){
         
+        msj.aviso("Nombre: "+emp.getpNombre()+" "+emp.getsNombre()+" "+emp.getpApellido()+" "+emp.getsApellido()+"\n"
+                +"Cedula: "+emp.getCedula()+"\n"
+                +"Cargo: "+emp.getCargo()+"\n"
+                + "RH: "+emp.getRh()+"\n"
+                + "EPS: "+ "\n"
+                + "ARL: "+ "\n"
+                + "Pension:"+ "\n");
     }
-    
 }
+
+//private void popmenu(){
+//    JPopupMenu menu = new JPopupMenu();
+//    JMenuItem detalles = new JMenuItem("Detalles");
+//    JMenuItem eliminar = new JMenuItem("eliminar");
+//    
+//    menu.add(detalles);
+//    menu.add(eliminar);
+//    
+//    tblListado.setComponentPopupMenu(menu);
+//    int row = tblListado.getSelectedRow();
+//    if(tblListado.getValueAt(row, 1) != null){
+//        
+//    }
+//}
+
+
+
 }
