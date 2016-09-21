@@ -34,9 +34,11 @@ public class Appi {
         boolean res;
         Alerts msj = new Alerts();
          
-        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido','ncuenta','grupo', 'cargo', 'sexo', 'rh', 'supervisor') "
+        String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido',"
+                + "'ncuenta','grupo', 'cargo', 'sexo', 'rh', 'supervisor', 'auxTransporte') "
                 + "VALUES('"+emp.getCedula()+"',"+emp.getnFicha()+",'"+emp.getpNombre()+"','"+emp.getsNombre()+"','"+emp.getpApellido()
-                +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"', '"+emp.getRh()+"', "+emp.getSupervisor()+");";
+                +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"',"
+                + " '"+emp.getRh()+"', "+emp.getSupervisor()+", "+emp.getAuxTransporte()+");";
         if(db.operacion(sql)){
             msj.aviso("Ingreso exitoso");
             res = true;
@@ -389,7 +391,7 @@ public class Appi {
     
     
     public Empleado empleado(String cc){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor, auxTransporte "
                 + "FROM empleado WHERE cc = '"+cc+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;
@@ -400,7 +402,7 @@ public class Appi {
     }
     
     public Empleado empleadoFicha(String ficha){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor, auxTransporte "
                 + "FROM empleado WHERE nficha = '"+ficha+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;
@@ -446,7 +448,7 @@ public class Appi {
         //SELECT cc, nficha, pnombre, papelldo, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor FROM asistencia 
         //JOIN empleado WHERE fechaFalta = '2016-09-01' AND ccEmpleado = cc  ORDER BY grupo
         //String sql = "SELECT ccEmpleado FROM asistencia where fechafalta= '"+fecha+"';";
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte "
                 + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc  ORDER BY grupo";
         ArrayList<Empleado> emp = db.empleados(sql);
         
@@ -454,7 +456,7 @@ public class Appi {
     }
     
     public Empleado faltaEmpleado(String fecha, String cc){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte "
                 + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc AND cc='"+cc+"'";
         
         ArrayList<Empleado> emp = db.empleados(sql);
@@ -557,5 +559,22 @@ public class Appi {
         String sql = "SELECT * FROM aportesBonificaciones WHERE nombreAporte = '"+nombre+"'";
         AportesBonificaciones ent = db.entidad(sql);
         return ent;
+    }
+    public AportesBonificaciones entidadID(String id){
+        String sql = "SELECT * FROM aportesBonificaciones WHERE idAporte = '"+id+"'";
+        AportesBonificaciones ent = db.entidad(sql);
+        return ent;
+    }
+    
+    public ArrayList<AportesBonificaciones> deduccionesEmpleado(String cc){
+        String sql = "SELECT iddeduccion FROM deducidosBonificaciones WHERE cedulaEmp = '"+cc+"';";
+        ArrayList<String> ids = db.prestacionesEmpleado(sql);
+        ArrayList<AportesBonificaciones> aportes = new ArrayList<>();
+        if(ids != null){
+            for(int i=0; i< ids.size(); i++){
+                if(ids.get(i) != null) aportes.add(entidadID(ids.get(i)));
+            }
+        }
+        return aportes;
     }
 }

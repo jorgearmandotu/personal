@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import main.Appi;
+import static org.apache.poi.ss.formula.WorkbookEvaluator.getSupportedFunctionNames;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.DataFormat;
@@ -289,7 +290,7 @@ public class FileExcel {
         
         String[] titles = {"N°", "Ficha", "1ER.Apellido", "2DO.Apellido", "1ER.Nombre", "2DO.Nombre", "concatenar", "IDENTIFICACION",
         "#Cuenta", "S", "D", "L", "M", "M", "J", "V", "S", "D", "L", "M", "M", "J", "V", "S", "D/W", "V/ DIARIO", "SALARIO", "AUX. TRANS",
-        "BONIFICACION", "ISS", "TOTAL A PAGAR", "REDONDEAR", "CES-%CES -P-V", "Total Costo Empresa", "CARGO", "MAESTRO/CUADRILLA"};
+        "BONIFICACION", "ISS", "TOTAL A PAGAR", "REDONDEAR", "ISS", "CES-%CES -P-V", "Total Costo Empresa", "CARGO", "MAESTRO/CUADRILLA"};
         for(int i=0; i<titles.length; i++){
             Cell cellT0 = row7.createCell(i);
             cellT0.setCellValue(titles[i]);
@@ -301,6 +302,8 @@ public class FileExcel {
         ArrayList empleados = app.empleadosTotales();
         AportesBonificaciones ent = app.entidad("SALARIO MINIMO");
         float minimo = ent.getValor();
+        ent = app.entidad("AUXILIO TRANSPORTE");
+        float auxTransporte = ent.getValor();
         for(int i=0; i<empleados.size(); i++){
             Row rowD = hojaMadre.createRow(i+8);
             
@@ -384,18 +387,76 @@ public class FileExcel {
             cellsal.setCellStyle(cellBordes);
             
             Cell cellAuxTrans = rowD.createCell(27);
-            cellAuxTrans.setCellFormula("(77700/30*y"+(i+9)+")");
+            if(emp.getAuxTransporte() == 0) cellAuxTrans.setCellValue("0");
+            else cellAuxTrans.setCellFormula(auxTransporte+"/30*y"+(i+9));
             cellAuxTrans.setCellStyle(cellBordes);
             
+        ArrayList<AportesBonificaciones> aportes = app.deduccionesEmpleado(emp.getCedula());
+        String eps="";
+        String arl="";
+        String pension="";
+        String bonificacion="";
+        if(aportes != null){
+            for (AportesBonificaciones aporte : aportes) {
+                switch (aporte.getTipo()) {
+                    case "EPS":
+                        eps = aporte.getNombre();
+                        break;
+                    case "PENSIONES":
+                        pension = aporte.getNombre();
+                        break;
+                    case "ARL":
+                        arl = aporte.getNombre();
+                        break;
+                    case "BONIFICACION":
+                        bonificacion = String.valueOf(aporte.getValor());
+                        break;
+                }
+            }
+        }
+            
+            
             Cell cellBon = rowD.createCell(28);
-            cellBon.setCellValue("bonificacion");
+            if(bonificacion.equals("")) cellBon.setCellValue("0");
+            else cellBon.setCellFormula(bonificacion+"/15*Y"+(i+9));
             cellBon.setCellStyle(cellBordes);
             
             Cell cellIss = rowD.createCell(29);
             cellIss.setCellFormula("("+minimo+"*0.08)/30*15");
             cellIss.setCellStyle(cellBordes);
+            
+            Cell cellTotalPagar = rowD.createCell(30);
+            cellTotalPagar.setCellFormula("AA"+(i+9)+"+AB"+(i+9)+"+AC"+(i+9)+"+AD"+(i+9));
+            cellTotalPagar.setCellStyle(cellBordes);
+            
+            Cell cellRedondear = rowD.createCell(31);
+            cellRedondear.setCellFormula("ROUND(AE"+(i+9)+",0)");
+            cellRedondear.setCellStyle(cellBordes);
+            
+            Cell cellIss2 = rowD.createCell(32);
+            cellIss2.setCellValue(0);
+            cellIss2.setCellStyle(cellBordes);
+            
+            Cell cellCesPv = rowD.createCell(33);
+            cellCesPv.setCellValue(0);
+            cellCesPv.setCellStyle(cellBordes);
+            
+            Cell cellCostoEmp = rowD.createCell(34);
+            cellCostoEmp.setCellFormula("AA"+(i+9)+"+AB"+(i+9)+"+AC"+(i+9)+"+AD"+(i+9)+"+AG"+(i+9)+"+AH"+(i+9));
+            cellCostoEmp.setCellStyle(cellBordes);
+            
+            Cell cellCargo = rowD.createCell(35);
+            cellCargo.setCellValue(emp.getCargo());
+            cellCargo.setCellStyle(cellBordes);
+            
+            Grupo grp = app.grupo(emp.getGrupo());
+            
+            Cell cellMaestro = rowD.createCell(36);
+            cellMaestro.setCellValue(grp.getNombre());
+            cellMaestro.setCellStyle(cellBordes);
+            
         }
-        //System.out.println(getSupportedFunctionNames ());
+        System.out.println(getSupportedFunctionNames ());
         for(int column=0; column<36; column++){
             hojaMadre.autoSizeColumn(column, true);
         }
@@ -411,7 +472,6 @@ public class FileExcel {
     }
     
     private void paginaDiaria(Workbook libro, Sheet hoja, String fechaActual){
-        
         //estilos
         Font negrita = libro.createFont();
         negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
@@ -636,7 +696,6 @@ public class FileExcel {
             //
             //String cedula = (String) e;
             //Empleado emp = app.empleado(cedula);
-            System.out.println(emp.getCedula());
         }
         if(emp != null){
             pRow = pRow+2;

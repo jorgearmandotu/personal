@@ -22,6 +22,7 @@ public class Empleado {
     private String cargo;
     private String sexo;
     private String rh;
+    private int auxTransporte;
     private int supervisor;
     private String photo;
 
@@ -41,6 +42,24 @@ public class Empleado {
         this.rh = rh;
         this.supervisor = supervisor;
     }
+    public Empleado(String cedula, String pNombre, String sNombre, String pApellido, 
+            String sApellido, int nFicha, long nCuenta, String grupo, String cargo, 
+            String sexo, String rh, int supervisor, int auxTrans) {
+        this.cedula = cedula;
+        this.pNombre = pNombre;
+        this.sNombre = sNombre;
+        this.pApellido = pApellido;
+        this.sApellido = sApellido;
+        this.nFicha = nFicha;
+        this.nCuenta = nCuenta;
+        this.grupo = grupo;
+        this.cargo = cargo;
+        this.sexo = sexo;
+        this.rh = rh;
+        this.supervisor = supervisor;
+        this.auxTransporte = auxTrans;
+    }
+    
     //constructor empleado con nombre completo en pnombre
         public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta, String cargo, String sexo, String rh){
         this.cedula = cedula;
@@ -115,6 +134,10 @@ public class Empleado {
 
     public String getPhoto() {
         return photo;
+    }
+
+    public int getAuxTransporte() {
+        return auxTransporte;
     }
     
     

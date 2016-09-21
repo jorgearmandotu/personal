@@ -302,7 +302,6 @@ private  boolean cerrar = false;
     // End of variables declaration//GEN-END:variables
 
 public void tomarAsistencia(Empleado emp){
-    System.out.println(emp);
     lblNombre.setText(emp.getpNombre());
     lblNumeroFicha.setText(String.valueOf(emp.getnFicha()));
     lblCedula.setText(emp.getCedula());
@@ -320,11 +319,8 @@ public void tomarAsistencia(Empleado emp){
     File miDir2 = new File ("images"+separadorOS+emp.getPhoto());
     String urlLogoEmp = miDir.getAbsolutePath();
     String urlphoto = miDir2.getAbsolutePath();
-    System.out.println(urlLogoEmp);
-    System.out.println(urlphoto);
     URL dirLogoOb = this.getClass().getResource(urlLogoEmp);
     URL dirphoto = this.getClass().getResource(urlphoto);
-    System.out.println(dirLogoOb);
     ImageIcon logoObra = new ImageIcon(urlLogoEmp);
     ImageIcon photo = new ImageIcon(urlphoto);
     /*int width = logoObra.getIconWidth();
@@ -337,7 +333,6 @@ public void tomarAsistencia(Empleado emp){
     grapics.dispose();
     lblLogo.setIcon(new ImageIcon(buffer));*/
     lblLogo.setIcon(logoObra);
-    System.out.println(emp.getPhoto());
     lblFoto.setIcon(photo);
 }
 

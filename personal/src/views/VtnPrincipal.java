@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -130,6 +131,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         btnPhoto = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
         lblRutaPhoto = new javax.swing.JLabel();
+        chkAuxTrans = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jLabel20 = new javax.swing.JLabel();
@@ -149,6 +151,8 @@ public class VtnPrincipal extends javax.swing.JFrame {
         scrolltable = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
         btnDetallesList = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
@@ -519,15 +523,15 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel17)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbEps, 0, 212, Short.MAX_VALUE)
+                .addComponent(cmbEps, 0, 218, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel18)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbArl, 0, 212, Short.MAX_VALUE)
+                .addComponent(cmbArl, 0, 220, Short.MAX_VALUE)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel19)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbPension, 0, 221, Short.MAX_VALUE)
+                .addComponent(cmbPension, 0, 227, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -562,15 +566,17 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
+        chkAuxTrans.setText("Aux Transporte");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -596,12 +602,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel22))
                                 .addGap(35, 35, 35)
                                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtsNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtsApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cmbcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel5Layout.createSequentialGroup()
                                         .addComponent(btnPhoto)
                                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,7 +610,16 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                                 .addComponent(jLabel30))
                                             .addGroup(jPanel5Layout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(lblRutaPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                                .addComponent(lblRutaPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel5Layout.createSequentialGroup()
+                                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtsNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtsApellido, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(txtNficha, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cmbcargo, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(chkAuxTrans))))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -621,10 +630,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel15)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 136, Short.MAX_VALUE)))
-                .addGap(20, 20, 20))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(283, 283, 283)
+                .addGap(317, 317, 317)
                 .addComponent(btnIngresarPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -674,12 +683,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel15)
                     .addComponent(txtRh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel16)
-                    .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkAuxTrans))
+                .addGap(33, 33, 33)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnIngresarPersona)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -696,7 +706,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(163, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Ingresos", jPanel3);
@@ -893,6 +903,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Modificar");
+
+        jButton8.setText("Eliminar");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -906,8 +920,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(266, 266, 266)
+                .addGap(123, 123, 123)
                 .addComponent(btnDetallesList)
+                .addGap(39, 39, 39)
+                .addComponent(jButton2)
+                .addGap(38, 38, 38)
+                .addComponent(jButton8)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -917,9 +935,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(scrolltable, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnDetallesList)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDetallesList)
+                    .addComponent(jButton2)
+                    .addComponent(jButton8))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultas", jPanel4);
@@ -1183,7 +1204,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private void btnDetallesListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDetallesListActionPerformed
         // TODO add your handling code here:
         int n = tblListado.getSelectedRow();
-        detallesSelecionList(n);
+        if(n>-1) detallesSelecionList(n);
     }//GEN-LAST:event_btnDetallesListActionPerformed
 
     /**
@@ -1232,6 +1253,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnListar;
     private javax.swing.JButton btnPhoto;
     private javax.swing.JCheckBox checkMedioDia;
+    private javax.swing.JCheckBox chkAuxTrans;
     private javax.swing.JComboBox<String> cmbArl;
     private javax.swing.JComboBox<String> cmbBonificacion;
     private javax.swing.JComboBox<String> cmbEps;
@@ -1244,11 +1266,13 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dateFechaBpermiso;
     private org.jdesktop.swingx.JXDatePicker dateFechaFalta;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -1337,6 +1361,8 @@ private void insercionPersona(){//12 campos
     String cuenta = txtNcuenta.getText().trim();
     String ficha = txtNficha.getText().trim();
     String grupo = cmbgrupo.getSelectedItem().toString();
+    int auxTransp = 0;
+    if(chkAuxTrans.isSelected()) auxTransp = 1;
     int sup = 0;
     if(grupo.equals("N")) sup = 1;
     String cargo = cmbcargo.getSelectedItem().toString().toUpperCase();
@@ -1371,7 +1397,8 @@ private void insercionPersona(){//12 campos
         Appi app = new Appi();
         if(!"N".equals(grupo))       grupo = app.idGrupo(grupo);
         
-        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh, sup);
+        Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, 
+                nCuenta, grupo, cargo, sexo, rh, sup, auxTransp);
         if(app.ingresoPersona(emp)){
             AportesBonificaciones obj;
             if(!bonificacion.equals("N")){
@@ -1440,6 +1467,7 @@ private void limpiarinserpersona(){
     cmbPension.setSelectedIndex(0);
     rbtnMasculino.setSelected(true);
     lblRutaPhoto.setText("");
+    chkAuxTrans.setSelected(false);
 }
 
 private void listado(){
@@ -1684,14 +1712,38 @@ private void detallesSelecionList(int row){
     Appi app = new Appi();
     Empleado emp = app.empleado(cedula);
     if(emp != null ){
-        
+        ArrayList<AportesBonificaciones> aportes = app.deduccionesEmpleado(cedula);
+        String eps="";
+        String arl="";
+        String pension="";
+        String bonificacion="";
+        if(aportes != null){
+            for (AportesBonificaciones aporte : aportes) {
+                switch (aporte.getTipo()) {
+                    case "EPS":
+                        eps = aporte.getNombre();
+                        break;
+                    case "PENSIONES":
+                        pension = aporte.getNombre();
+                        break;
+                    case "ARL":
+                        arl = aporte.getNombre();
+                        break;
+                    case "BONIFICACION":
+                        bonificacion = String.valueOf(aporte.getValor());
+                        break;
+                
+                }
+            }
+        }
         msj.aviso("Nombre: "+emp.getpNombre()+" "+emp.getsNombre()+" "+emp.getpApellido()+" "+emp.getsApellido()+"\n"
                 +"Cedula: "+emp.getCedula()+"\n"
                 +"Cargo: "+emp.getCargo()+"\n"
                 + "RH: "+emp.getRh()+"\n"
-                + "EPS: "+ "\n"
-                + "ARL: "+ "\n"
-                + "Pension:"+ "\n");
+                + "EPS: "+eps+ "\n"
+                + "ARL: "+arl+ "\n"
+                + "Pension:"+pension+ "\n"
+                + "Bonificacion: "+bonificacion);
     }
 }
 

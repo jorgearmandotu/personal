@@ -6,7 +6,6 @@
 package personalVictoria.route;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -32,28 +31,19 @@ public class Apidb {
     
     private static Connection connect() {
         String separadorOS = System.getProperty("file.separator");
-        String url=separadorOS;//+"db";
+        String url;//+"db";
         File miDir = new File ("db"+separadorOS+"data.db");
                 
-        try {
-            url = miDir.getAbsolutePath();
-            //url = "db"+separadorOS+"data.db";
-            System.out.println(miDir.getCanonicalPath());
-            //Alerts msj = new Alerts();
-            //msj.aviso(url);
-        } catch (IOException ex) {
-            Logger.getLogger(Apidb.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println(url);
+        url = miDir.getAbsolutePath();
         Connection connect=null;
         File data = new File(url);
         if (data.exists()){
             try{
                 connect = DriverManager.getConnection("jdbc:sqlite:"+url);
-                System.out.println("conexionexitosa");
+//                System.out.println("conexionexitosa");
             }catch(SQLException | NullPointerException ex){
                 System.err.println("error al conectar a base de datos"+ex.getMessage());
-                System.out.println("conexionexitosa");
+//                System.out.println("conexionexitosa");
             }
         }else{
             System.out.println("Imposible encontrar base de datos");
@@ -168,7 +158,7 @@ public class Apidb {
     
     public ArrayList listar(String sql){// este metodo crea un nombre completo con los registrods de db
         //ResultSet res = null;
-        System.out.println(sql);
+        //System.out.println(sql);
         ArrayList<Supervisor> obj= new ArrayList<>();
         Connection con = connect();
         if(con != null){
@@ -184,7 +174,7 @@ public class Apidb {
                     String cargo = res.getString("cargo");
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
-                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
+                    //System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo);
                     Supervisor sup = new Supervisor(nombre, cc, ficha, grupo, cuenta, sexo, rh, cargo);
                     obj.add(sup);
                 }
@@ -200,7 +190,7 @@ public class Apidb {
     
     public ArrayList listarEmpleadosNombre(String sql){// este metodo crea un nombre completo con los registrods de db
         //ResultSet res = null;
-        System.out.println(sql);
+        
         ArrayList<Empleado> obj= new ArrayList<>();
         Connection con = connect();
         if(con != null){
@@ -217,7 +207,7 @@ public class Apidb {
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
                     String photo = res.getString("photo");
-                    System.out.println(Integer.toString(ficha)+' '+cc+' '+nombre+' '+grupo+photo);
+                    
                         Empleado sup = new Empleado(ficha, cc, nombre, grupo, cuenta, cargo, sexo, rh, photo);
                     obj.add(sup);
                 }
@@ -340,7 +330,9 @@ public class Apidb {
                     String sexo = res.getString("sexo");
                     String rh = res.getString("rh");
                     int supervisor = res.getInt("supervisor");
-                    Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, nCuenta, grupo, cargo, sexo, rh, supervisor);
+                    int auxTransporte = res.getInt("auxTransporte");
+                    Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, 
+                            nCuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte);
                     obj.add(emp);
                 }
             }catch(SQLException ex){
@@ -493,4 +485,25 @@ public class Apidb {
         }
         return ent;
     }
+    
+    public ArrayList<String> prestacionesEmpleado(String sql){
+        ArrayList<String> result = new ArrayList<>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String id = res.getString("iddeduccion");
+                    result.add(id);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+            }
+            close(con);
+        }
+        return result;
+    }
+    
 }
