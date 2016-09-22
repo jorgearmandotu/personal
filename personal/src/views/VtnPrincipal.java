@@ -9,6 +9,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import static java.lang.System.exit;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -144,10 +145,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         txtListNombre = new javax.swing.JTextField();
-        txtListFicha = new javax.swing.JFormattedTextField();
         txtListCedula = new javax.swing.JTextField();
         txtListSupervisor = new javax.swing.JTextField();
         btnListar = new javax.swing.JButton();
+        txtListFicha = new javax.swing.JTextField();
         scrolltable = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
         btnDetallesList = new javax.swing.JButton();
@@ -775,9 +776,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel12.setText("Cedula:");
 
-        jLabel13.setText("Supervisor:");
-
-        txtListFicha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#######"))));
+        jLabel13.setText("Grupo:");
 
         txtListSupervisor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -809,20 +808,20 @@ public class VtnPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
                                 .addComponent(txtListNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel11)
-                                    .addComponent(jLabel12))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtListCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
-                                    .addComponent(txtListFicha))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel13)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                                    .addComponent(txtListSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel12))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtListCedula, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
+                                        .addComponent(txtListFicha)))))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel13)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtListSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -832,18 +831,18 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel10)
                     .addComponent(txtListNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel11)
                     .addComponent(txtListFicha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(txtListCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
                     .addComponent(txtListSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(btnListar)
                 .addContainerGap())
         );
@@ -865,7 +864,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "N ficha", "Cedula", "Nombre", "Supervisor"
+                "N ficha", "Cedula", "Nombre", "Grupo"
             }
         ) {
             Class[] types = new Class [] {
@@ -904,6 +903,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
         });
 
         jButton2.setText("Modificar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton8.setText("Eliminar");
 
@@ -935,12 +939,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(scrolltable, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDetallesList)
                     .addComponent(jButton2)
                     .addComponent(jButton8))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(136, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Consultas", jPanel4);
@@ -1207,6 +1211,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
         if(n>-1) detallesSelecionList(n);
     }//GEN-LAST:event_btnDetallesListActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        VtnModificarEmp ModEmp = new VtnModificarEmp(this, rootPaneCheckingEnabled);
+        ModEmp.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1337,7 +1347,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField txtFichaFalta;
     private javax.swing.JTextField txtFichaPermiso;
     private javax.swing.JTextField txtListCedula;
-    private javax.swing.JFormattedTextField txtListFicha;
+    private javax.swing.JTextField txtListFicha;
     private javax.swing.JTextField txtListNombre;
     private javax.swing.JTextField txtListSupervisor;
     private javax.swing.JTextField txtNFichaAsis;
@@ -1482,11 +1492,21 @@ private void listado(){
     if(!txtListNombre.getText().isEmpty()){
         datos = app.listado(txtListNombre.getText().trim(),1);
     }else if(!txtListFicha.getText().isEmpty()){
-        datos = app.listado(txtListFicha.getText().trim(),2);
+        if(isNumeric(txtListFicha.getText().trim())){
+            datos = app.listado(txtListFicha.getText().trim(),2);
+        }else{
+            datos = null;
+            
+        }
     }else if(!txtListCedula.getText().isEmpty()){
         datos = app.listado(txtListCedula.getText().trim(),3);
     }else if(!txtListSupervisor.getText().isEmpty()){
-        datos = app.listado(txtListSupervisor.getText().trim(),4);
+        Grupo gr = app.grupoNombre(txtListSupervisor.getText().trim().toUpperCase());
+        if(gr != null){
+            String idGrupo = gr.getId();
+            datos = app.listado(idGrupo,4);
+        }else datos = null;
+        
     }else{
         datos = app.listado("",0);
     }
@@ -1496,13 +1516,16 @@ private void listado(){
     for(int i=0; i<rows; i++){
         model.removeRow(0);
     }
+    if(datos != null){
         for (Empleado dato : datos) {
             fila[0] = dato.getnFicha();
             fila[1] = dato.getCedula();
             fila[2] = dato.getpNombre();
-            fila[3] = dato.getGrupo();
+            Grupo grp = app.grupo(dato.getGrupo());
+            fila[3] = grp.getNombre();
             model.addRow(fila);
         }
+    }
     //tblListado.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
     tblListado.getColumnModel().getColumn(0).setPreferredWidth(60);
     tblListado.getColumnModel().getColumn(1).setPreferredWidth(150);
@@ -1511,6 +1534,10 @@ private void listado(){
     
     tblListado.setModel(model);
     
+}
+
+private static boolean isNumeric(String str) {
+        return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
 }
 
 private void cmbgrupo(){

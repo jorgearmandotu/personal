@@ -285,25 +285,34 @@ public class Appi {
     //Copnsultas listados
    
     public Empleado[] listado(String dato, int op) {
-        String sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
+        String sql = "";
+        //SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| "
+          //      + "snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
         if(dato.equals("")){//si se envian espacios en blanco
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| "
+                    + "snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc NOT LIKE '% %' ORDER BY grupo";
         }else if(op==1) {//nombre
             String[] nom = dato.split(" ");
             if(nom.length == 4) {//inicio loop para nombre completo
-                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
+                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre "
+                        + "|| ' '|| papellido ||' '||sapellido ) as nombre from empleado "
                         + "WHERE pnombre LIKE '%"+nom[0]+"%' OR  snombre LIKE '%"+nom[1]+"%' OR "
                         + "papellido LIKE '%"+nom[2]+"%' OR sapellido LIKE '%"+nom[3]+"%'";
             }else{
-                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado "
-                        + "WHERE (pnombre LIKE '%"+nom[0]+"%' OR snombre LIKE '%"+nom[0]+"%' OR papellido LIKE '%"+nom[0]+"%' OR sapellido LIKE '%"+nom[0]+"%') AND cc NOT LIKE '% %'";
+                sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| "
+                        + "papellido ||' '||sapellido ) as nombre from empleado "
+                        + "WHERE (pnombre LIKE '%"+nom[0]+"%' OR snombre LIKE '%"+nom[0]+"%' OR papellido "
+                        + "LIKE '%"+nom[0]+"%' OR sapellido LIKE '%"+nom[0]+"%') AND cc NOT LIKE '% %'";
             }//fin condicion
         }else if(op==2) {//ficha
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+" AND cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| "
+                    + "papellido ||' '||sapellido ) as nombre from empleado WHERE nficha="+dato+" AND cc NOT LIKE '% %'";
         }else if(op==3) {//cedula
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE cc="+dato+" AND cc NOT LIKE '% %'";
-        }else if(op==4) {//grupo
-            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| "
+                    + "papellido ||' '||sapellido ) as nombre from empleado WHERE cc='"+dato+"' AND cc NOT LIKE '% %'";
+        }else if(op==4) {//grupo            
+            sql = "SELECT  nficha, cc, grupo, ncuenta, cargo, sexo, rh, photo, (pnombre || ' '|| snombre || ' '|| "
+                    + "papellido ||' '||sapellido ) as nombre from empleado WHERE grupo='"+dato+"' AND cc NOT LIKE '% %'";
         }
         ArrayList obj = db.listarEmpleadosNombre(sql);
         
@@ -477,6 +486,12 @@ public class Appi {
          Grupo grupo = db.grupo(sql);
          return grupo;
     }
+    public Grupo grupoNombre(String nom){
+       
+         String sql = "SELECT nombreGrupo, idGrupo, supervisor FROM grupos WHERE nombreGrupo = '"+nom+"'";
+         Grupo grupo = db.grupo(sql);
+         return grupo;
+    }
     
     public ArrayList<String> diasAsistencia(String cc){
         Date fecha = new Date();
@@ -550,7 +565,15 @@ public class Appi {
     
     public ArrayList<AportesBonificaciones> entidades(){
         ArrayList<AportesBonificaciones> entidades = null;
-        String sql = "SELECT * FROM aportesbonificaciones";
+        String sql = "SELECT * FROM aportesbonificaciones WHERE (tipoAporte != 'EPS' AND "
+                + "tipoAporte != 'PENSIONES' AND tipoAporte != 'ARL' AND tipoAporte != 'BONIFICACION')";
+        entidades = db.entidades(sql);
+        return entidades;
+    }
+    
+    public ArrayList<AportesBonificaciones> bonificaciones(){
+        ArrayList<AportesBonificaciones> entidades = null;
+        String sql = "SELECT * FROM aportesbonificaciones WHERE tipoAporte = 'BONIFICACION'";
         entidades = db.entidades(sql);
         return entidades;
     }

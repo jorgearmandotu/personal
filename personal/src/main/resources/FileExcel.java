@@ -301,7 +301,20 @@ public class FileExcel {
         
         ArrayList empleados = app.empleadosTotales();
         AportesBonificaciones ent = app.entidad("SALARIO MINIMO");
+        AportesBonificaciones salud = app.entidad("APORTE SALUD");
+        AportesBonificaciones pensionAporte = app.entidad("APORTE PENSION");
+        AportesBonificaciones saludEmpresa = app.entidad("APORTE SALUD EMPRESA");
+        AportesBonificaciones pensionEmpresa = app.entidad("APORTE PENSION EMPRESA");
+        AportesBonificaciones ccfEmpresa = app.entidad("APORTE C.C.F EMPRESA");
+        AportesBonificaciones arlEmpresa = app.entidad("APORTE ARL EMPRESA");
         float minimo = ent.getValor();
+        float aporteSalud = salud.getValor();
+        float aportePension = pensionAporte.getValor();
+        float sumSaludPension = aporteSalud+aportePension;
+        float vlrSaludEmpresa = saludEmpresa.getValor();
+        float vlrPensionEmpresa = pensionEmpresa.getValor();
+        float vlrCcfEmpresa = ccfEmpresa.getValor();
+        float vlrArlEmpresa = arlEmpresa.getValor();
         ent = app.entidad("AUXILIO TRANSPORTE");
         float auxTransporte = ent.getValor();
         for(int i=0; i<empleados.size(); i++){
@@ -387,27 +400,27 @@ public class FileExcel {
             cellsal.setCellStyle(cellBordes);
             
             Cell cellAuxTrans = rowD.createCell(27);
-            if(emp.getAuxTransporte() == 0) cellAuxTrans.setCellValue("0");
+            if(emp.getAuxTransporte() == 0) cellAuxTrans.setCellValue(0);
             else cellAuxTrans.setCellFormula(auxTransporte+"/30*y"+(i+9));
             cellAuxTrans.setCellStyle(cellBordes);
             
         ArrayList<AportesBonificaciones> aportes = app.deduccionesEmpleado(emp.getCedula());
-        String eps="";
-        String arl="";
-        String pension="";
+//        String eps="";
+//        String arl="";
+//        String pension="";
         String bonificacion="";
         if(aportes != null){
             for (AportesBonificaciones aporte : aportes) {
                 switch (aporte.getTipo()) {
-                    case "EPS":
-                        eps = aporte.getNombre();
-                        break;
-                    case "PENSIONES":
-                        pension = aporte.getNombre();
-                        break;
-                    case "ARL":
-                        arl = aporte.getNombre();
-                        break;
+//                    case "EPS":
+//                        eps = aporte.getNombre();
+//                        break;
+//                    case "PENSIONES":
+//                        pension = aporte.getNombre();
+//                        break;
+//                    case "ARL":
+//                        arl = aporte.getNombre();
+//                        break;
                     case "BONIFICACION":
                         bonificacion = String.valueOf(aporte.getValor());
                         break;
@@ -417,12 +430,12 @@ public class FileExcel {
             
             
             Cell cellBon = rowD.createCell(28);
-            if(bonificacion.equals("")) cellBon.setCellValue("0");
+            if(bonificacion.equals("")) cellBon.setCellValue(0);
             else cellBon.setCellFormula(bonificacion+"/15*Y"+(i+9));
             cellBon.setCellStyle(cellBordes);
             
             Cell cellIss = rowD.createCell(29);
-            cellIss.setCellFormula("("+minimo+"*0.08)/30*15");
+            cellIss.setCellFormula("("+minimo+"*"+sumSaludPension+")/30*15");
             cellIss.setCellStyle(cellBordes);
             
             Cell cellTotalPagar = rowD.createCell(30);
@@ -434,7 +447,9 @@ public class FileExcel {
             cellRedondear.setCellStyle(cellBordes);
             
             Cell cellIss2 = rowD.createCell(32);
-            cellIss2.setCellValue(0);
+            //(644350*0,16)+(644350*0,125)+(644350*0,0696)+(644350*0,04))/30*15
+            cellIss2.setCellFormula("("+minimo+"*"+vlrPensionEmpresa+"+"+minimo+"*"+vlrSaludEmpresa+"+"
+                    + ""+minimo+"*"+vlrArlEmpresa+"+"+minimo+"*"+vlrCcfEmpresa+")/30*15");
             cellIss2.setCellStyle(cellBordes);
             
             Cell cellCesPv = rowD.createCell(33);
