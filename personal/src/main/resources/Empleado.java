@@ -44,7 +44,7 @@ public class Empleado {
     }
     public Empleado(String cedula, String pNombre, String sNombre, String pApellido, 
             String sApellido, int nFicha, long nCuenta, String grupo, String cargo, 
-            String sexo, String rh, int supervisor, int auxTrans) {
+            String sexo, String rh, int supervisor, int auxTrans, String photo) {
         this.cedula = cedula;
         this.pNombre = pNombre;
         this.sNombre = sNombre;
@@ -58,6 +58,7 @@ public class Empleado {
         this.rh = rh;
         this.supervisor = supervisor;
         this.auxTransporte = auxTrans;
+        this.photo = photo;
     }
     
     //constructor empleado con nombre completo en pnombre
@@ -82,6 +83,20 @@ public class Empleado {
         this.sexo = sexo;
         this.rh = rh;
         this.photo = photo;
+    }
+        
+        public Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta,
+                String cargo, String sexo, String rh,String photo, int auxTransporte){
+        this.cedula = cedula;
+        this.pNombre = nombre;
+        this.nFicha = ficha;
+        this.nCuenta = cuenta;
+        this.grupo = grupo;
+        this.cargo = cargo;
+        this.sexo = sexo;
+        this.rh = rh;
+        this.photo = photo;
+        this.auxTransporte = auxTransporte;
     }
 
     public String getCedula() {

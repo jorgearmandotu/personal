@@ -301,12 +301,12 @@ public class FileExcel {
         
         ArrayList empleados = app.empleadosTotales();
         AportesBonificaciones ent = app.entidad("SALARIO MINIMO");
-        AportesBonificaciones salud = app.entidad("APORTE SALUD");
-        AportesBonificaciones pensionAporte = app.entidad("APORTE PENSION");
-        AportesBonificaciones saludEmpresa = app.entidad("APORTE SALUD EMPRESA");
-        AportesBonificaciones pensionEmpresa = app.entidad("APORTE PENSION EMPRESA");
-        AportesBonificaciones ccfEmpresa = app.entidad("APORTE C.C.F EMPRESA");
-        AportesBonificaciones arlEmpresa = app.entidad("APORTE ARL EMPRESA");
+        AportesBonificaciones salud = app.entidad("APORTE SALUD EMPLEADO");
+        AportesBonificaciones pensionAporte = app.entidad("APORTE PENSION EMPLEADO");
+        AportesBonificaciones saludEmpresa = app.entidad("APORTE TOTAL SALUD");
+        AportesBonificaciones pensionEmpresa = app.entidad("APORTE TOTAL PENSION");
+        AportesBonificaciones ccfEmpresa = app.entidad("APORTE C.C.F");
+        AportesBonificaciones arlEmpresa = app.entidad("APORTE ARL");
         float minimo = ent.getValor();
         float aporteSalud = salud.getValor();
         float aportePension = pensionAporte.getValor();

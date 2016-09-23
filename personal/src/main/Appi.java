@@ -253,6 +253,10 @@ public class Appi {
         }
     }
     
+    public void modificarEmpleado(Empleado emp){
+        String sql = "";
+    }
+    
     public String[] definirQuincena(String fecha){
         
         String fechaA;
@@ -400,7 +404,7 @@ public class Appi {
     
     
     public Empleado empleado(String cc){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor, auxTransporte "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor, auxTransporte, photo "
                 + "FROM empleado WHERE cc = '"+cc+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;

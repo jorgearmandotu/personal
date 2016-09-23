@@ -331,8 +331,9 @@ public class Apidb {
                     String rh = res.getString("rh");
                     int supervisor = res.getInt("supervisor");
                     int auxTransporte = res.getInt("auxTransporte");
+                    String photo = res.getString("photo");
                     Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, 
-                            nCuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte);
+                            nCuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte, photo);
                     obj.add(emp);
                 }
             }catch(SQLException ex){
