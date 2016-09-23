@@ -110,9 +110,9 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtsApellido = new javax.swing.JTextField();
         txtNcuenta = new javax.swing.JFormattedTextField();
         txtNficha = new javax.swing.JFormattedTextField();
-        cmbcargo = new javax.swing.JComboBox<>();
+        cmbcargo = new javax.swing.JComboBox<String>();
         txtRh = new javax.swing.JTextField();
-        cmbBonificacion = new javax.swing.JComboBox<>();
+        cmbBonificacion = new javax.swing.JComboBox<String>();
         rbtnMasculino = new javax.swing.JRadioButton();
         rbtnFemenino = new javax.swing.JRadioButton();
         jLabel9 = new javax.swing.JLabel();
@@ -123,12 +123,12 @@ public class VtnPrincipal extends javax.swing.JFrame {
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
-        cmbEps = new javax.swing.JComboBox<>();
-        cmbArl = new javax.swing.JComboBox<>();
-        cmbPension = new javax.swing.JComboBox<>();
+        cmbEps = new javax.swing.JComboBox<String>();
+        cmbArl = new javax.swing.JComboBox<String>();
+        cmbPension = new javax.swing.JComboBox<String>();
         btnIngresarPersona = new javax.swing.JButton();
         jLabel22 = new javax.swing.JLabel();
-        cmbgrupo = new javax.swing.JComboBox<>();
+        cmbgrupo = new javax.swing.JComboBox<String>();
         btnPhoto = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
         lblRutaPhoto = new javax.swing.JLabel();
@@ -152,7 +152,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         scrolltable = new javax.swing.JScrollPane();
         tblListado = new javax.swing.JTable();
         btnDetallesList = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         jPanel13 = new javax.swing.JPanel();
         jPanel14 = new javax.swing.JPanel();
@@ -472,7 +472,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
         txtNficha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
 
         cmbcargo.setEditable(true);
-        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbcargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         txtRh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -480,7 +480,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
-        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         rbtnSexo.add(rbtnMasculino);
         rbtnMasculino.setSelected(true);
@@ -510,11 +510,11 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel19.setText("Pension:");
 
-        cmbEps.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEps.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbArl.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbArl.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        cmbPension.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPension.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -558,7 +558,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
         jLabel22.setText("Foto:");
 
-        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbgrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnPhoto.setText("Seleccionar");
         btnPhoto.addActionListener(new java.awt.event.ActionListener() {
@@ -839,7 +839,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(txtListCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
                     .addComponent(txtListSupervisor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
@@ -902,10 +902,10 @@ public class VtnPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModificarActionPerformed(evt);
             }
         });
 
@@ -927,7 +927,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addGap(123, 123, 123)
                 .addComponent(btnDetallesList)
                 .addGap(39, 39, 39)
-                .addComponent(jButton2)
+                .addComponent(btnModificar)
                 .addGap(38, 38, 38)
                 .addComponent(jButton8)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -942,7 +942,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDetallesList)
-                    .addComponent(jButton2)
+                    .addComponent(btnModificar)
                     .addComponent(jButton8))
                 .addContainerGap(136, Short.MAX_VALUE))
         );
@@ -1211,11 +1211,17 @@ public class VtnPrincipal extends javax.swing.JFrame {
         if(n>-1) detallesSelecionList(n);
     }//GEN-LAST:event_btnDetallesListActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        VtnModificarEmp ModEmp = new VtnModificarEmp(this, rootPaneCheckingEnabled);
-        ModEmp.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+        VtnModificarEmp modEmp = new VtnModificarEmp(this, rootPaneCheckingEnabled);
+        int n = tblListado.getSelectedRow();
+        if(n>-1){
+            String cc = (String) tblListado.getValueAt(n, 1);
+            empleadocc(cc, modEmp );
+        }
+        modEmp.setLocationRelativeTo(btnModificar);
+        modEmp.setVisible(true);
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1261,6 +1267,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnIngIncapacidad;
     private javax.swing.JButton btnIngresarPersona;
     private javax.swing.JButton btnListar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnPhoto;
     private javax.swing.JCheckBox checkMedioDia;
     private javax.swing.JCheckBox chkAuxTrans;
@@ -1276,7 +1283,6 @@ public class VtnPrincipal extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker dateFechaBpermiso;
     private org.jdesktop.swingx.JXDatePicker dateFechaFalta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -1774,6 +1780,11 @@ private void detallesSelecionList(int row){
     }
 }
 
+private void empleadocc(String cc, VtnModificarEmp vtn){
+    Appi app = new Appi();
+    Empleado emp = app.empleado(cc);
+    vtn.listarEmpleado(emp);
+}
 //private void popmenu(){
 //    JPopupMenu menu = new JPopupMenu();
 //    JMenuItem detalles = new JMenuItem("Detalles");

@@ -30,7 +30,7 @@ public class FileWord {
         XWPFTable table = doc.createTable(9, 1);
         table.getRow(0).getCell(0).setText("celda 1");
         
-        table.setWidth(0);
+        table.setWidth(10);
         
         XWPFParagraph p1 = table.getRow(0).getCell(0).getParagraphs().get(0);
         
