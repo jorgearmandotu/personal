@@ -253,8 +253,10 @@ public class Appi {
         }
     }
     
-    public void modificarEmpleado(Empleado emp){
-        String sql = "";
+    public void modificarEmpleado(Empleado emp, AportesBonificaciones eps, AportesBonificaciones arl,
+    AportesBonificaciones pension, AportesBonificaciones bonificacion){
+        String sql = "UPDATE Empleado";
+        String sql2 = "UPDATE deducidosBonificaciones set";
     }
     
     public String[] definirQuincena(String fecha){

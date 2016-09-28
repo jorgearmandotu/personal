@@ -319,8 +319,11 @@ public class VtnModificarEmp extends javax.swing.JDialog {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(verificarCampos()){
-            System.out.println("exito");
-        }else System.out.println("error en cadenas");
+            modificarEmpleado();
+        }else{
+            Alerts msj = new Alerts();
+            msj.errormsj("Verifique información");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
@@ -542,21 +545,35 @@ private boolean isNumeric(String str){
 
 private void modificarEmpleado(){
     String cedula = txtModCedula.getText();
-    String ficha = txtModFicha.getText();
-    String rh = txtModRh.getText();
+    String nombre = txtModNom.getText();
+    int ficha = Integer.parseInt(txtModFicha.getText().trim());
+    String rh = txtModRh.getText().trim();
     String grupo = (String) cmbModGrupo.getSelectedItem();
-    String cargo = (String) cmbModCargo.getSelectedItem();
+    String cargo = cmbModCargo.getSelectedItem().toString().trim();
     String eps = (String) cmbModEps.getSelectedItem();
     String arl = (String) cmbModArl.getSelectedItem();
     String pension = (String) cmbModPension.getSelectedItem();
-    String nCuenta = txtModNcuenta.getText();
+    long nCuenta = Long.parseLong(txtModNcuenta.getText().trim());
     String sexo = (String) cmbModSexo.getSelectedItem();
-    String bonifiString = (String) cmbModBonificacion.getSelectedItem();
+    String bonificacionEmpleado = (String) cmbModBonificacion.getSelectedItem();
     int auxTransporte = 0;
     if(chkModAuxTransporte.isSelected()) auxTransporte = 1;
-    String photo = lblModRutaPhoto.getText();
+    String photo = lblModRutaPhoto.getText().trim();
+    
+    //Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta,
+                //String cargo, String sexo, String rh,String photo, int auxTransporte)
+    Empleado emp = new Empleado(ficha, cedula, nombre, grupo, nCuenta, cargo, sexo, rh, photo, auxTransporte);
+    Appi app = new Appi();
+    AportesBonificaciones empEps = app.aporte(eps);
+    AportesBonificaciones empArl = app.aporte(arl);
+    AportesBonificaciones empPension = app.aporte(pension);
+    AportesBonificaciones bonificacion = app.aporte(bonificacionEmpleado);
+    
+    //aportes bonificaciones actuales del empleado
     
     
+    //actuaizar deducidosBonificaciones donde cedula sea igual y aporte
+    app.modificarEmpleado(emp, empEps, empArl, empPension, bonificacion);
 }
 
 }
