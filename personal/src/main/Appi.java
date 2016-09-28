@@ -461,7 +461,8 @@ public class Appi {
         //SELECT cc, nficha, pnombre, papelldo, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor FROM asistencia 
         //JOIN empleado WHERE fechaFalta = '2016-09-01' AND ccEmpleado = cc  ORDER BY grupo
         //String sql = "SELECT ccEmpleado FROM asistencia where fechafalta= '"+fecha+"';";
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, "
+                + "auxTransporte, photo "
                 + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc  ORDER BY grupo";
         ArrayList<Empleado> emp = db.empleados(sql);
         
@@ -469,7 +470,8 @@ public class Appi {
     }
     
     public Empleado faltaEmpleado(String fecha, String cc){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, auxTransporte "
+        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, "
+                + "auxTransporte, photo "
                 + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc AND cc='"+cc+"'";
         
         ArrayList<Empleado> emp = db.empleados(sql);

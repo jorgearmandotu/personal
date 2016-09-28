@@ -24,7 +24,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
 /**
  *
@@ -38,9 +37,7 @@ public class FileExcel {
          
         //nombre del archivo de Excel
         String nombreArchivo = "quincena.xlsx";
- 
-        
- 
+  
         Workbook libroTrabajo = new XSSFWorkbook();
         
         String nombreHoja1 = "fecha";//nombre de la hoja1
@@ -92,13 +89,11 @@ public class FileExcel {
         String nomObra = "SANTA MARIA DE FATIMA";
         
         Workbook libro = new XSSFWorkbook();
-        
         Appi app = new Appi();
         Date Fecha = new Date();
         DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         String fechaActual = formato.format(Fecha);
         String[] quincena = app.definirQuincena(fechaActual);
-        
         String nombreHoja = fechaActual;
                         
         Sheet hojaMadre = libro.createSheet("periodo "+quincena[0]+" a "+quincena[1]);

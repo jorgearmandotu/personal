@@ -417,27 +417,27 @@ public void listarEmpleado(Empleado emp){
     cmbModCargo.setSelectedItem(emp.getCargo());
     
     ArrayList<AportesBonificaciones> aportes = app.deduccionesEmpleado(emp.getCedula());
-        String eps="";
-        String arl="";
-        String pension="";
-        String bonificacion="";
+        //String eps="";
+        //String arl="";
+        //String pension="";
+        //String bonificacion="";
         if(aportes != null){
             for (AportesBonificaciones aporte : aportes) {
                 switch (aporte.getTipo()) {
                     case "EPS":
-                        eps = aporte.getNombre();
+                        String eps = aporte.getNombre();
                         cmbModEps.setSelectedItem(eps);
                         break;
                     case "PENSIONES":
-                        pension = aporte.getNombre();
+                        String pension = aporte.getNombre();
                         cmbModPension.setSelectedItem(pension);
                         break;
                     case "ARL":
-                        arl = aporte.getNombre();
+                        String arl = aporte.getNombre();
                         cmbModArl.setSelectedItem(arl);
                         break;
                     case "BONIFICACION":
-                        bonificacion = String.valueOf(aporte.getNombre());
+                        String bonificacion = String.valueOf(aporte.getNombre());
                         cmbModBonificacion.setSelectedItem(bonificacion);
                         break;
                 
@@ -529,7 +529,8 @@ private void modificar(){
 private boolean verificarCampos(){
     boolean res = true;
     if(txtModFicha.getText().isEmpty() || txtModCedula.getText().trim().isEmpty() || txtModCedula.getText().trim().isEmpty()
-            || txtModRh.getText().trim().isEmpty() || txtModNcuenta.getText().trim().isEmpty()) res = false;
+            || txtModRh.getText().trim().isEmpty() || txtModNcuenta.getText().trim().isEmpty() 
+            || cmbModCargo.getSelectedItem().toString().trim().isEmpty()) res = false;
     if(!isNumeric(txtModNcuenta.getText().trim()) || !isNumeric(txtModFicha.getText().trim())) res = false;
     
     return res;
@@ -537,6 +538,25 @@ private boolean verificarCampos(){
 
 private boolean isNumeric(String str){
     return (str.matches("[+-]?\\d*(\\.\\d+)?") && str.equals("")==false);
+}
+
+private void modificarEmpleado(){
+    String cedula = txtModCedula.getText();
+    String ficha = txtModFicha.getText();
+    String rh = txtModRh.getText();
+    String grupo = (String) cmbModGrupo.getSelectedItem();
+    String cargo = (String) cmbModCargo.getSelectedItem();
+    String eps = (String) cmbModEps.getSelectedItem();
+    String arl = (String) cmbModArl.getSelectedItem();
+    String pension = (String) cmbModPension.getSelectedItem();
+    String nCuenta = txtModNcuenta.getText();
+    String sexo = (String) cmbModSexo.getSelectedItem();
+    String bonifiString = (String) cmbModBonificacion.getSelectedItem();
+    int auxTransporte = 0;
+    if(chkModAuxTransporte.isSelected()) auxTransporte = 1;
+    String photo = lblModRutaPhoto.getText();
+    
+    
 }
 
 }
