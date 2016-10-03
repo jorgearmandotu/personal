@@ -400,22 +400,12 @@ public class FileExcel {
             cellAuxTrans.setCellStyle(cellBordes);
             
         ArrayList<AportesBonificaciones> aportes = app.deduccionesEmpleado(emp.getCedula());
-//        String eps="";
-//        String arl="";
-//        String pension="";
+        
         String bonificacion="";
         if(aportes != null){
             for (AportesBonificaciones aporte : aportes) {
                 switch (aporte.getTipo()) {
-//                    case "EPS":
-//                        eps = aporte.getNombre();
-//                        break;
-//                    case "PENSIONES":
-//                        pension = aporte.getNombre();
-//                        break;
-//                    case "ARL":
-//                        arl = aporte.getNombre();
-//                        break;
+                    
                     case "BONIFICACION":
                         bonificacion = String.valueOf(aporte.getValor());
                         break;

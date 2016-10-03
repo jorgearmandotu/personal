@@ -35,10 +35,10 @@ public class Appi {
         Alerts msj = new Alerts();
          
         String sql = "INSERT INTO `empleado`('cc','nficha','pnombre','snombre','papellido','sapellido',"
-                + "'ncuenta','grupo', 'cargo', 'sexo', 'rh', 'supervisor', 'auxTransporte') "
+                + "'ncuenta','grupo', 'cargo', 'sexo', 'rh', 'supervisor', 'auxTransporte', 'fechaIngreso') "
                 + "VALUES('"+emp.getCedula()+"',"+emp.getnFicha()+",'"+emp.getpNombre()+"','"+emp.getsNombre()+"','"+emp.getpApellido()
                 +"','"+emp.getsApellido()+"',"+emp.getnCuenta()+",'"+emp.getGrupo()+"', '"+emp.getCargo()+"', '"+emp.getSexo()+"',"
-                + " '"+emp.getRh()+"', "+emp.getSupervisor()+", "+emp.getAuxTransporte()+");";
+                + " '"+emp.getRh()+"', "+emp.getSupervisor()+", "+emp.getAuxTransporte()+", '"+emp.getFechaIngreso()+"');";
         if(db.operacion(sql)){
             msj.aviso("Ingreso exitoso");
             res = true;
@@ -417,7 +417,7 @@ public class Appi {
     }
     
     public Empleado empleadoFicha(String ficha){
-        String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo , sexo, rh, supervisor, auxTransporte "
+        String sql = "SELECT * "
                 + "FROM empleado WHERE nficha = '"+ficha+"'";
         ArrayList list = db.empleados(sql);
         Empleado emp = null;
@@ -473,10 +473,10 @@ public class Appi {
     
     public Empleado faltaEmpleado(String fecha, String cc){
         String sql = "SELECT cc, nficha, pnombre, snombre, papellido, sapellido, ncuenta, grupo, cargo, sexo, rh, supervisor, "
-                + "auxTransporte, photo "
+                + "auxTransporte, photo , fechaIngreso "
                 + "FROM asistencia JOIN empleado WHERE fechaFalta = '"+fecha+"' AND ccEmpleado = cc AND cc='"+cc+"'";
         
-        ArrayList<Empleado> emp = db.empleados(sql);
+        ArrayList<Empleado> emp = db.empleadosFecIng(sql);
         Empleado empleado = null;
         if(!emp.isEmpty()) empleado = emp.get(0);
         return empleado;
@@ -512,12 +512,13 @@ public class Appi {
         int dias=0;
         while(loop){
         if(fechaActual.compareTo(fechaAux)>=0){
-            //System.out.println(fechaAux);
+            
             String[] fec = fechaAux.split("-");
             int dia = Integer.parseInt(fec[2]);
             dia++;
             Empleado emp = faltaEmpleado(fechaAux, cc);
             if(emp==null){
+                
                 IncapacidadesPermisos inc = consultaIncPermiso(cc, fechaAux);
                 if(inc != null){
                     switch (inc.getTipo()) {
@@ -535,7 +536,14 @@ public class Appi {
                             break;
                     }
                 }else{
-                    asist.add("X");
+                    Empleado empleado = empFechaIngreso(cc);
+                    System.out.println(empleado.getFechaIngreso());
+                    if(empleado.getFechaIngreso() == null)
+                        asist.add("X");
+                    else {
+                        if(empleado.getFechaIngreso().compareTo(fechaAux) <= 0)asist.add("X");
+                                else asist.add("");
+                    }
                 }
                 
             }else{
@@ -569,6 +577,12 @@ public class Appi {
         
     }
         return asist;
+    }
+    
+    public Empleado empFechaIngreso(String cc){
+        String sql = "SELECT * FROM empleado WHERE cc = '"+cc+"';";
+        Empleado emp = db.empleadoFecIngreso(sql);
+        return emp;
     }
     
     public ArrayList<AportesBonificaciones> entidades(){

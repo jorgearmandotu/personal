@@ -346,6 +346,86 @@ public class Apidb {
         }
         return obj;
     }
+    public ArrayList<Empleado> empleadosFecIng(String sql) {//retorna un listado de empleados
+        ArrayList<Empleado> obj = new ArrayList<Empleado>();
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String cedula = res.getString("cc");
+                    String pNombre = res.getString("pnombre");
+                    String sNombre = res.getString("snombre");
+                    String pApellido = res.getString("papellido");
+                    String sApellido = res.getString("sapellido");
+                    int nFicha = res.getInt("nficha");
+                    long nCuenta = res.getLong("ncuenta");
+                    String grupo = res.getString("grupo");
+                    String cargo = res.getString("cargo");
+                    String sexo = res.getString("sexo");
+                    String rh = res.getString("rh");
+                    int supervisor = res.getInt("supervisor");
+                    int auxTransporte = res.getInt("auxTransporte");
+                    String photo = res.getString("photo");
+                    String fechaIng = res.getString("fechaIngreso");
+                    //if(photo == null) photo = "";
+                    /*String cedula, String pNombre, String sNombre, String pApellido, String sApellido, 
+            int nFicha, long nCuenta, String grupo, String cargo, String sexo, String rh, int auxTransporte, 
+            int supervisor, String photo, String fechaIngreso*/
+                    Empleado emp = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, 
+                            nCuenta, grupo, cargo, sexo, rh, auxTransporte, supervisor, photo, fechaIng);
+                    obj.add(emp);
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+                
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
+    public Empleado empleadoFecIngreso(String sql) {//retorna un empleado
+        Empleado obj = null;
+        Connection con = connect();
+        if(con != null){
+            try (Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String cedula = res.getString("cc");
+                    String pNombre = res.getString("pnombre");
+                    String sNombre = res.getString("snombre");
+                    String pApellido = res.getString("papellido");
+                    String sApellido = res.getString("sapellido");
+                    int nFicha = res.getInt("nficha");
+                    long nCuenta = res.getLong("ncuenta");
+                    String grupo = res.getString("grupo");
+                    String cargo = res.getString("cargo");
+                    String sexo = res.getString("sexo");
+                    String rh = res.getString("rh");
+                    int supervisor = res.getInt("supervisor");
+                    int auxTransporte = res.getInt("auxTransporte");
+                    String photo = res.getString("photo");
+                    String fechaIng = res.getString("fechaIngreso");
+                    //if(photo == null) photo = "";
+                    /*String cedula, String pNombre, String sNombre, String pApellido, String sApellido, 
+            int nFicha, long nCuenta, String grupo, String cargo, String sexo, String rh, int auxTransporte, 
+            int supervisor, String photo, String fechaIngreso*/
+                    obj = new Empleado(cedula, pNombre, sNombre, pApellido, sApellido, nFicha, 
+                            nCuenta, grupo, cargo, sexo, rh, auxTransporte, supervisor, photo, fechaIng);
+                    
+                }
+            }catch(SQLException ex){
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("Ocurrio un error al consultar los datos");
+                
+            }
+            if(close(con)) System.out.println("conexion cerrada");
+        }
+        return obj;
+    }
     
     public IncapacidadesPermisos permisoExistente(String sql) {
         IncapacidadesPermisos obj = null;
