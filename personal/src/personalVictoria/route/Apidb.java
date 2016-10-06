@@ -588,4 +588,29 @@ public class Apidb {
         return result;
     }
     
+    public String[] deducidosEmp(String sql){
+        String[] result = new String[3];
+        Connection con = connect();
+        if(con != null){
+            try(Statement st = con.createStatement()){
+                ResultSet res = st.executeQuery(sql);
+                while(res.next()){
+                    String cc = res.getString("cedulaEmp");
+                    result[0] = cc;
+                    String id = res.getString("iddeduccion");
+                    result[1] = id;
+                    String tipo = res.getString("tipoDeduccion");
+                    result[2] = tipo;
+                }
+            }catch(SQLException ex) {
+                System.err.println(ex.getMessage());
+                Alerts msj = new Alerts();
+                msj.errormsj("error en db data deducidos empleado");
+            }
+            close(con);
+        }
+        
+        return result;
+    }
+    
 }

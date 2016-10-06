@@ -95,11 +95,11 @@ public class Appi {
         return res;
     }
     
-    public boolean ingresoDeduccionesBonificaciones(String idemp, int idded){
+    public boolean ingresoDeduccionesBonificaciones(String idemp, int idded, String tipo){
         boolean res ;
         Alerts msj = new Alerts();
-        String sql = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion)"
-                + "VALUES ('"+idemp+"', "+idded+")";
+        String sql = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion, tipoDeduccion)"
+                + "VALUES ('"+idemp+"', "+idded+", '"+tipo+"')";
         if(db.operacion(sql)){
             //msj.aviso("Ingreso Exitoso");
             res = true;
@@ -255,8 +255,60 @@ public class Appi {
     
     public void modificarEmpleado(Empleado emp, AportesBonificaciones eps, AportesBonificaciones arl,
     AportesBonificaciones pension, AportesBonificaciones bonificacion){
+        // verificar si eps, arl, pension, bonificacion son nulos
+        //veificaar si empleado no tiene insertar deducidos
+        //0cc, 1 id, 2 tipodeduccion
+        String sqlAux = "";
+        if(eps == null) {
+            sqlAux = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'EPS'";
+            db.operacion(sqlAux);
+        }else{
+            if(deducidoEmpleado(emp.getCedula(), "EPS")){
+                sqlAux = "UPDATE deducidosBonificaciones SET iddeduccion = "+eps.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'EPS'";
+            }else{
+                String sqlEps = "";
+            }
+            
+            db.operacion(sqlAux);
+        }
+        if(arl == null) {
+            String sqlArl = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'ARL'";
+            db.operacion(sqlArl);
+        }else{
+            String sqlArl = "UPDATE deducidosBonificaciones SET iddeduccion = "+arl.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'ARL'";
+        }
+        if(pension == null) {
+            String sqlPension = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'PENSIONES'";
+            db.operacion(sqlPension);
+        }else{
+            String sqlPension = "UPDATE deducidosBonificaciones SET iddeduccion = "+pension.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'PENSIONES'";
+        }
+        if(bonificacion == null) {
+            String sqlBonificacion = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'BONIFICACION'";
+            db.operacion(sqlBonificacion);
+        }else{
+            String sqlBonificacion = "UPDATE deducidosBonificaciones SET iddeduccion = "+bonificacion.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+                    + "AND tipoDeduccion = 'BONIFICACION'";
+        }
         String sql = "UPDATE Empleado";
         String sql2 = "UPDATE deducidosBonificaciones set";
+    }
+    
+    public boolean deducidoEmpleado(String cc, String tipo){
+        boolean result = false;
+        String sql = "SELECT * FROM deducidosBonificaciones WHERE cedulaEmp = '"+cc+"' AND tipoDeduccion = '"+tipo+"';";
+        String[] res = db.deducidosEmp(sql);
+        if(res[0] != null){
+            result = true;
+        }
+        return result;
     }
     
     public String[] definirQuincena(String fecha){

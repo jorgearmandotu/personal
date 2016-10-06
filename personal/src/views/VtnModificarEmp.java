@@ -564,13 +564,17 @@ private void modificarEmpleado(){
                 //String cargo, String sexo, String rh,String photo, int auxTransporte)
     Empleado emp = new Empleado(ficha, cedula, nombre, grupo, nCuenta, cargo, sexo, rh, photo, auxTransporte);
     Appi app = new Appi();
-    AportesBonificaciones empEps = app.aporte(eps);
-    AportesBonificaciones empArl = app.aporte(arl);
-    AportesBonificaciones empPension = app.aporte(pension);
-    AportesBonificaciones bonificacion = app.aporte(bonificacionEmpleado);
-    
+    AportesBonificaciones empEps = null;
+    AportesBonificaciones empArl = null;
+    AportesBonificaciones empPension = null;
+    AportesBonificaciones bonificacion = null;
+    if(!eps.equals("N")) empEps = app.aporte(eps);
+    if(!arl.equals("N")) empArl = app.aporte(arl);
+    if(!pension.equals("N")) empPension = app.aporte(pension);
+    if(!bonificacionEmpleado.equals("N")) bonificacion = app.aporte(bonificacionEmpleado);
     //aportes bonificaciones actuales del empleado
     
+    System.out.println(empEps+" --- "+empArl+" --- "+empPension+" --- "+bonificacion+" --- "+emp.getpNombre());
     
     //actuaizar deducidosBonificaciones donde cedula sea igual y aporte
     app.modificarEmpleado(emp, empEps, empArl, empPension, bonificacion);

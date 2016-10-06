@@ -1426,7 +1426,8 @@ private void insercionPersona(){//12 campos
             if(!bonificacion.equals("N")){
                 obj = app.aporte(bonificacion);
                 int iddeduccion = obj.getId();
-                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion)){
+                String tipo = obj.getTipo();
+                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion, tipo)){
                     Alerts msj = new Alerts();
                     msj.errormsj("error ingresando bonificacion");
                 }
@@ -1434,7 +1435,8 @@ private void insercionPersona(){//12 campos
             if(!eps.equals("N")){
                 obj = app.aporte(eps);
                 int iddeduccion = obj.getId();
-                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion)){
+                String tipo = obj.getTipo();
+                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion, tipo)){
                     Alerts msj = new Alerts();
                     msj.errormsj("error ingresando eps");
                 }
@@ -1442,7 +1444,8 @@ private void insercionPersona(){//12 campos
             if(!arl.equals("N")){
                 obj = app.aporte(arl);
                 int iddeduccion = obj.getId();
-                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion)){
+                String tipo = obj.getTipo();
+                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion, tipo)){
                     Alerts msj = new Alerts();
                     msj.errormsj("error ingresando arl");
                 }
@@ -1450,7 +1453,7 @@ private void insercionPersona(){//12 campos
             if(!pension.equals("N")){
                 obj = app.aporte(pension);
                 int iddeduccion = obj.getId();
-                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion)){
+                if(!app.ingresoDeduccionesBonificaciones(cedula, iddeduccion, obj.getTipo())){
                     Alerts msj = new Alerts();
                     msj.errormsj("error ingresando pension");
                 }
