@@ -68,7 +68,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
         lblModPhoto = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         lblModRutaPhoto = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btnModificarEmp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -139,10 +139,10 @@ public class VtnModificarEmp extends javax.swing.JDialog {
 
         lblModRutaPhoto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jButton2.setText("Modificar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnModificarEmp.setText("Modificar");
+        btnModificarEmp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnModificarEmpActionPerformed(evt);
             }
         });
 
@@ -210,7 +210,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
                             .addComponent(lblModRutaPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(237, 237, 237)
-                        .addComponent(jButton2)))
+                        .addComponent(btnModificarEmp)))
                 .addContainerGap(94, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -262,7 +262,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
                         .addGap(18, 18, 18)
                         .addComponent(lblModRutaPhoto, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
-                .addComponent(jButton2)
+                .addComponent(btnModificarEmp)
                 .addGap(17, 17, 17))
         );
 
@@ -316,7 +316,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnModificarEmpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarEmpActionPerformed
         // TODO add your handling code here:
         if(verificarCampos()){
             modificarEmpleado();
@@ -324,7 +324,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
             Alerts msj = new Alerts();
             msj.errormsj("Verifique información");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnModificarEmpActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,6 +370,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnModificarEmp;
     private javax.swing.JCheckBox chkModAuxTransporte;
     private javax.swing.JComboBox<String> cmbModArl;
     private javax.swing.JComboBox<String> cmbModBonificacion;
@@ -379,7 +380,6 @@ public class VtnModificarEmp extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> cmbModPension;
     private javax.swing.JComboBox<String> cmbModSexo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -559,11 +559,11 @@ private void modificarEmpleado(){
     int auxTransporte = 0;
     if(chkModAuxTransporte.isSelected()) auxTransporte = 1;
     String photo = lblModRutaPhoto.getText().trim();
-    
     //Empleado(int ficha, String cedula, String nombre, String grupo, long cuenta,
                 //String cargo, String sexo, String rh,String photo, int auxTransporte)
-    Empleado emp = new Empleado(ficha, cedula, nombre, grupo, nCuenta, cargo, sexo, rh, photo, auxTransporte);
     Appi app = new Appi();
+    grupo = app.idGrupo(grupo);
+    Empleado emp = new Empleado(ficha, cedula, nombre, grupo, nCuenta, cargo, sexo, rh, photo, auxTransporte);
     AportesBonificaciones empEps = null;
     AportesBonificaciones empArl = null;
     AportesBonificaciones empPension = null;

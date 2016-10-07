@@ -258,47 +258,82 @@ public class Appi {
         // verificar si eps, arl, pension, bonificacion son nulos
         //veificaar si empleado no tiene insertar deducidos
         //0cc, 1 id, 2 tipodeduccion
-        String sqlAux = "";
+        String sqlAux;
         if(eps == null) {
             sqlAux = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'EPS'";
-            db.operacion(sqlAux);
         }else{
             if(deducidoEmpleado(emp.getCedula(), "EPS")){
                 sqlAux = "UPDATE deducidosBonificaciones SET iddeduccion = "+eps.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'EPS'";
             }else{
-                String sqlEps = "";
+                sqlAux = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion, tipoDeduccion)"
+                        + "VALUES ('"+emp.getCedula()+"', "+eps.getId()+", 'EPS')";
             }
-            
-            db.operacion(sqlAux);
         }
+        System.out.println(sqlAux);
+        if(!db.operacion(sqlAux)){
+                    Alerts msj = new Alerts();
+                    msj.errormsj("ocurrio un error actualizando EPS");
+                }
+        
         if(arl == null) {
-            String sqlArl = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+            sqlAux = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'ARL'";
-            db.operacion(sqlArl);
         }else{
-            String sqlArl = "UPDATE deducidosBonificaciones SET iddeduccion = "+arl.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+            if(deducidoEmpleado(emp.getCedula(), "Arl")){
+                sqlAux = "UPDATE deducidosBonificaciones SET iddeduccion = "+arl.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'ARL'";
+            }else{
+                sqlAux = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion, tipoDeduccion)"
+                        + "VALUES ('"+emp.getCedula()+"', "+arl.getId()+", 'ARL')";
+            }
         }
+        if(!db.operacion(sqlAux)){
+                    Alerts msj = new Alerts();
+                    msj.errormsj("ocurrio un error actualizando ARL");
+                }
         if(pension == null) {
-            String sqlPension = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+            sqlAux = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'PENSIONES'";
-            db.operacion(sqlPension);
         }else{
-            String sqlPension = "UPDATE deducidosBonificaciones SET iddeduccion = "+pension.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+            if(deducidoEmpleado(emp.getCedula(), "PENSIONES")){
+                sqlAux = "UPDATE deducidosBonificaciones SET iddeduccion = "+pension.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'PENSIONES'";
+            }else{
+                sqlAux = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion, tipoDeduccion)"
+                        + "VALUES ('"+emp.getCedula()+"', "+pension.getId()+", 'PENSIONES')";
+            } 
         }
+        if(!db.operacion(sqlAux)){
+                    Alerts msj = new Alerts();
+                    msj.errormsj("ocurrio un error actualizando pension");
+                }
         if(bonificacion == null) {
-            String sqlBonificacion = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
+            sqlAux = "DELETE FROM deducidosBonificaciones WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'BONIFICACION'";
-            db.operacion(sqlBonificacion);
         }else{
-            String sqlBonificacion = "UPDATE deducidosBonificaciones SET iddeduccion = "+bonificacion.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
+            if(deducidoEmpleado(emp.getCedula(), "BONIFICACION")){
+                sqlAux = "UPDATE deducidosBonificaciones SET iddeduccion = "+bonificacion.getId()+" WHERE cedulaEmp = '"+emp.getCedula()+"' "
                     + "AND tipoDeduccion = 'BONIFICACION'";
+            }else{
+                sqlAux = "INSERT INTO deducidosBonificaciones (cedulaEmp, iddeduccion, tipoDeduccion)"
+                        + "VALUES ('"+emp.getCedula()+"', "+bonificacion.getId()+", 'BONIFICACION')";
+            }
         }
-        String sql = "UPDATE Empleado";
-        String sql2 = "UPDATE deducidosBonificaciones set";
+        if(!db.operacion(sqlAux)){
+                    Alerts msj = new Alerts();
+                    msj.errormsj("ocurrio un error actualizando bonificacion");
+                }
+        //ficha, rh, grupo, cargo, cuenta, sexo, auxTrans, photo
+        
+        String sql = "UPDATE Empleado SET nficha = "+emp.getnFicha()+", rh = '"+emp.getRh()+"', cargo = '"+emp.getCargo()+"', "
+                + "ncuenta = "+emp.getnCuenta()+", sexo = '"+emp.getSexo()+"', auxTransporte = "+emp.getAuxTransporte()+", "
+                + "grupo = '"+emp.getGrupo()+"' WHERE cc = '"+emp.getCedula()+"'";
+        if(!db.operacion(sql)){
+                    Alerts msj = new Alerts();
+                    msj.errormsj("ocurrio un error actualizando datos empleado");
+                }
     }
     
     public boolean deducidoEmpleado(String cc, String tipo){
