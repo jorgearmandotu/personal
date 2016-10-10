@@ -7,11 +7,19 @@ package main;
  */
 
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import main.resources.Alerts;
 import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
@@ -19,6 +27,7 @@ import main.resources.Grupo;
 import main.resources.IncapacidadesPermisos;
 import main.resources.Supervisor;
 import personalVictoria.route.Apidb;
+import views.VtnPrincipal;
 
 /**
  *
@@ -334,7 +343,42 @@ public class Appi {
                     Alerts msj = new Alerts();
                     msj.errormsj("ocurrio un error actualizando datos empleado");
                 }
+        
+        String origin = emp.getPhoto();
+        String separadorOS = System.getProperty("file.separator");
+        File rutadestino = new File("images"+separadorOS+emp.getCedula()+".jpg");
+        String destino = String.valueOf(rutadestino);
+        if(!copyPhoto(origin, destino)) {
+            Alerts msj = new Alerts();
+            msj.errormsj("error al modificar fotografía");
+        }else {
+            ingresoPhoto(emp.getCedula(), emp.getCedula()+".jpg");
+        }
+        
     }
+    
+    public boolean copyPhoto(String photoOrigin, String destino) {
+    boolean res = false;
+    File origin = new File(photoOrigin);
+    if(origin.exists()){
+        try {
+            InputStream in = new FileInputStream(origin);
+            OutputStream out = new FileOutputStream(destino);
+            byte[] buffer = new byte[1024];
+            int len;
+            while((len = in.read(buffer))>0) {
+                out.write(buffer, 0, len);
+            }
+            in.close();
+            out.close();
+            res = true;
+            
+        } catch (IOException ex) {
+            Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    return res;
+}
     
     public boolean deducidoEmpleado(String cc, String tipo){
         boolean result = false;
@@ -534,7 +578,7 @@ public class Appi {
     public Empleado[] tomarAsistencia(){
         //String nombre completo, String cedula, int nFicha, String grupo, long ncuenta, String sexo, String rh, String cargo
         String sql = "SELECT cc, nficha, grupo, cargo, sexo, ncuenta, rh, photo, (pnombre || ' '|| snombre || ' '|| papellido ||' '||sapellido ) "
-                + "as nombre FROM empleado WHERE nficha > 10 ORDER BY grupo, nficha";
+                + "as nombre FROM empleado WHERE nficha > -1000 ORDER BY grupo, nficha";
         
         ArrayList obj = db.listarEmpleadosNombre(sql);
         Empleado[] empleados = new Empleado[obj.size()];

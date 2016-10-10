@@ -578,6 +578,18 @@ private void modificarEmpleado(){
     
     //actuaizar deducidosBonificaciones donde cedula sea igual y aporte
     app.modificarEmpleado(emp, empEps, empArl, empPension, bonificacion);
+    
+    Empleado aux = app.empleado(emp.getCedula());
+    System.out.println(aux.getPhoto());
+    String separadorOS = System.getProperty("file.separator");
+    File miDirPhoto = new File ("images"+separadorOS+aux.getPhoto());
+    System.out.println(miDirPhoto);
+    String urlphoto = miDirPhoto.getAbsolutePath();
+    ImageIcon photoico = new ImageIcon(urlphoto);
+    lblModPhoto.setIcon(null);
+    lblModPhoto.setIcon(photoico);
+    repaint();
+    
 }
 
 }

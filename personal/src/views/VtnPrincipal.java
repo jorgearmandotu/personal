@@ -1089,7 +1089,7 @@ public class VtnPrincipal extends javax.swing.JFrame {
 
     private void btnGenAsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenAsisActionPerformed
         // TODO add your handling code here:
-
+        
         VtnAsistencia vtnasis = new VtnAsistencia(this, rootPaneCheckingEnabled);//puede ir tture en lugar del  rootPanecheckgenabled
         vtnasis.setLocationRelativeTo(btnIngIncapacidad);
         
@@ -1462,7 +1462,7 @@ private void insercionPersona(){//12 campos
             String separadorOS = System.getProperty("file.separator");
             File rutadestino = new File("images"+separadorOS+cedula+".jpg");
             String destino = String.valueOf(rutadestino);
-            if(!copyPhoto(origin, destino)) {
+            if(!app.copyPhoto(origin, destino)) {
                 Alerts msj = new Alerts();
                 msj.errormsj("error ingresando fotografía");
             }else {
@@ -1725,28 +1725,28 @@ private void insertarAsistencia(){
     }
     
 }
-private boolean copyPhoto(String photoOrigin, String destino) {
-    boolean res = false;
-    File origin = new File(photoOrigin);
-    if(origin.exists()){
-        try {
-            InputStream in = new FileInputStream(origin);
-            OutputStream out = new FileOutputStream(destino);
-            byte[] buffer = new byte[1024];
-            int len;
-            while((len = in.read(buffer))>0) {
-                out.write(buffer, 0, len);
-            }
-            in.close();
-            out.close();
-            res = true;
-            
-        } catch (IOException ex) {
-            Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    return res;
-}
+//private boolean copyPhoto(String photoOrigin, String destino) {
+//    boolean res = false;
+//    File origin = new File(photoOrigin);
+//    if(origin.exists()){
+//        try {
+//            InputStream in = new FileInputStream(origin);
+//            OutputStream out = new FileOutputStream(destino);
+//            byte[] buffer = new byte[1024];
+//            int len;
+//            while((len = in.read(buffer))>0) {
+//                out.write(buffer, 0, len);
+//            }
+//            in.close();
+//            out.close();
+//            res = true;
+//            
+//        } catch (IOException ex) {
+//            Logger.getLogger(VtnPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
+//    return res;
+//}
 
 private void detallesSelecionList(int row){
     Alerts msj = new Alerts();
