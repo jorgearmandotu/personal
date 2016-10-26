@@ -5,8 +5,10 @@
  */
 package views;
 
+import java.util.ArrayList;
 import main.Appi;
 import main.resources.Alerts;
+import main.resources.AportesBonificaciones;
 import main.resources.Empleado;
 import main.resources.Grupo;
 import main.resources.Supervisor;
@@ -40,25 +42,35 @@ public class VtnDefVal extends javax.swing.JDialog {
         jLabel5 = new javax.swing.JLabel();
         txtNomEmpPres = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        cmbTipEmpPres = new javax.swing.JComboBox<String>();
+        cmbTipEmpPres = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         btnIngEmpPres = new javax.swing.JButton();
         txtVlrEmpPres = new javax.swing.JFormattedTextField();
         jPanel5 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtVlrEntidad = new javax.swing.JTextField();
         jButton4 = new javax.swing.JButton();
+        cmbEntidad = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        cmbBonificacion = new javax.swing.JComboBox<>();
+        jLabel3 = new javax.swing.JLabel();
+        txtVlrBonificacion = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         txtNomGrupo = new javax.swing.JTextField();
         btnIngGrupo = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        cmbIngGrupo = new javax.swing.JComboBox<Supervisor>();
+        cmbIngGrupo = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        cmbDefSup = new javax.swing.JComboBox<Supervisor>();
-        cmbGrupDefSup = new javax.swing.JComboBox<String>();
+        cmbDefSup = new javax.swing.JComboBox<>();
+        cmbGrupDefSup = new javax.swing.JComboBox<>();
         btnDefSup = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -70,7 +82,7 @@ public class VtnDefVal extends javax.swing.JDialog {
 
         jLabel6.setText("Tipo:");
 
-        cmbTipEmpPres.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "BONIFICACION", "EPS", "ARL", "PENSIONES" }));
+        cmbTipEmpPres.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "BONIFICACION", "EPS", "ARL", "PENSIONES" }));
 
         jLabel7.setText("Vlr %:");
 
@@ -124,11 +136,42 @@ public class VtnDefVal extends javax.swing.JDialog {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Definir valores"));
 
-        jLabel8.setText("Salario Minimo:");
-
-        jTextField5.setText("jTextField5");
+        jLabel8.setText("Recurso:");
 
         jButton4.setText("Definir");
+
+        cmbEntidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbEntidad.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbEntidadItemStateChanged(evt);
+            }
+        });
+        cmbEntidad.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbEntidadActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Valor:");
+
+        jLabel2.setText("Bonificacion:");
+
+        cmbBonificacion.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbBonificacion.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cmbBonificacionItemStateChanged(evt);
+            }
+        });
+
+        jLabel3.setText("Valor:");
+
+        jButton1.setText("Definir");
+
+        jLabel4.setText("Salud:");
+
+        jLabel13.setText("Pension:");
+
+        jLabel14.setText("Confamiliar:");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -136,11 +179,37 @@ public class VtnDefVal extends javax.swing.JDialog {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(85, 85, 85)
-                .addComponent(jButton4)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbBonificacion, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtVlrEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel14)
+                                    .addComponent(txtVlrBonificacion))))
+                        .addGap(29, 29, 29)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton4)
+                            .addComponent(jButton1)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel13)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -150,9 +219,24 @@ public class VtnDefVal extends javax.swing.JDialog {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButton4))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cmbEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton4)
+                        .addComponent(txtVlrEntidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(cmbBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txtVlrBonificacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel14))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("ingreso grupos"));
@@ -171,8 +255,6 @@ public class VtnDefVal extends javax.swing.JDialog {
         });
 
         jLabel11.setText("Supervisor:");
-
-        cmbIngGrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel12.setText("Nombre:");
 
@@ -218,9 +300,7 @@ public class VtnDefVal extends javax.swing.JDialog {
 
         jLabel10.setText("Supervisor:");
 
-        cmbDefSup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cmbGrupDefSup.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbGrupDefSup.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cmbGrupDefSup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbGrupDefSupActionPerformed(evt);
@@ -292,11 +372,11 @@ public class VtnDefVal extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(46, 46, 46)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -340,6 +420,32 @@ public class VtnDefVal extends javax.swing.JDialog {
         // TODO add your handling code here:
         ingresoEmpPresBonifi();
     }//GEN-LAST:event_btnIngEmpPresActionPerformed
+
+    private void cmbEntidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbEntidadActionPerformed
+        // TODO add your handling code here:
+        if(cmbEntidad.getSelectedItem()!= null && cmbEntidad.getSelectedItem() != "Seleccione"){
+            Appi app = new Appi();
+            String nombre = (String) cmbEntidad.getSelectedItem();
+            AportesBonificaciones entidad = app.entidad(nombre);
+            txtVlrEntidad.setText(String.valueOf(entidad.getValor()));
+            
+        }else txtVlrEntidad.setText("");
+    }//GEN-LAST:event_cmbEntidadActionPerformed
+
+    private void cmbEntidadItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbEntidadItemStateChanged
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_cmbEntidadItemStateChanged
+
+    private void cmbBonificacionItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cmbBonificacionItemStateChanged
+        // TODO add your handling code here:
+        if(cmbBonificacion.getSelectedItem() != null && cmbBonificacion.getSelectedItem() != "Seleccione"){
+            Appi app = new Appi();
+            String nombre = (String) cmbBonificacion.getSelectedItem();
+            AportesBonificaciones bonificacion = app.entidad(nombre);
+            txtVlrBonificacion.setText(String.valueOf(bonificacion.getValor()));
+        }else txtVlrBonificacion.setText("");
+    }//GEN-LAST:event_cmbBonificacionItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -387,14 +493,23 @@ public class VtnDefVal extends javax.swing.JDialog {
     private javax.swing.JButton btnDefSup;
     private javax.swing.JButton btnIngEmpPres;
     private javax.swing.JButton btnIngGrupo;
+    private javax.swing.JComboBox<String> cmbBonificacion;
     private javax.swing.JComboBox<Supervisor> cmbDefSup;
+    private javax.swing.JComboBox<String> cmbEntidad;
     private javax.swing.JComboBox<String> cmbGrupDefSup;
     private javax.swing.JComboBox<Supervisor> cmbIngGrupo;
     private javax.swing.JComboBox<String> cmbTipEmpPres;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -405,10 +520,11 @@ public class VtnDefVal extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField txtNomEmpPres;
     private javax.swing.JTextField txtNomGrupo;
+    private javax.swing.JTextField txtVlrBonificacion;
     private javax.swing.JFormattedTextField txtVlrEmpPres;
+    private javax.swing.JTextField txtVlrEntidad;
     // End of variables declaration//GEN-END:variables
 
 
@@ -431,6 +547,22 @@ public class VtnDefVal extends javax.swing.JDialog {
         for (Grupo dat : data) {
             cmbGrupDefSup.addItem(dat.getNombre());
         }
+        
+        //llenar entidades
+        cmbEntidad.removeAllItems();
+        cmbEntidad.addItem("Seleccione");
+        ArrayList<AportesBonificaciones> entidades = app.entidades();
+        for(AportesBonificaciones ent : entidades){
+            cmbEntidad.addItem(ent.getNombre());
+        }
+        //llenar Bonificaciones
+        cmbBonificacion.removeAllItems();
+        cmbBonificacion.addItem("Seleccione");
+        ArrayList<AportesBonificaciones> bonificaciones = app.bonificaciones();
+        for(AportesBonificaciones bon : bonificaciones){
+            cmbBonificacion.addItem(bon.getNombre());
+        }
+                
     }
     
     private void ingresoGrupo(){
