@@ -320,6 +320,7 @@ public class VtnModificarEmp extends javax.swing.JDialog {
         // TODO add your handling code here:
         if(verificarCampos()){
             modificarEmpleado();
+            //lblModPhoto
         }else{
             Alerts msj = new Alerts();
             msj.errormsj("Verifique información");

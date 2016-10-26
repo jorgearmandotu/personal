@@ -753,4 +753,11 @@ public class Appi {
         }
         return aportes;
     }
+    
+    public String getPhoto(String cedula){
+        String photho = "";
+        String sql = "SELECT photo FROM empleado WHERE cc = '"+cedula+"'";
+        
+        return photho;
+    }
 }
