@@ -13,20 +13,16 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import main.Appi;
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.util.CellReference;
+import static org.apache.poi.ss.formula.WorkbookEvaluator.getSupportedFunctionNames;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.DataFormat;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.CellRangeAddress;
-import org.apache.poi.ss.util.CellUtil;
-import org.apache.poi.xssf.usermodel.XSSFCell;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
@@ -41,10 +37,10 @@ public class FileExcel {
          
         //nombre del archivo de Excel
         String nombreArchivo = "quincena.xlsx";
- 
-        String nombreHoja1 = "fecha";//nombre de la hoja1
- 
+  
         Workbook libroTrabajo = new XSSFWorkbook();
+        
+        String nombreHoja1 = "fecha";//nombre de la hoja1
         Sheet hoja1 = libroTrabajo.createSheet(nombreHoja1) ;
         
         Row row = hoja1.createRow((short)1);
@@ -90,16 +86,396 @@ public class FileExcel {
    
     public void  excelDia() throws FileNotFoundException, IOException{
         String nombreFile = "quincena.xlsx";
-        String nombreHoja = "dia x mes x año x";
+        String nomObra = "SANTA MARIA DE FATIMA";
         
         Workbook libro = new XSSFWorkbook();
-        Sheet hoja = libro.createSheet(nombreHoja);
+        Appi app = new Appi();
+        Date Fecha = new Date();
+        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
+        String fechaActual = formato.format(Fecha);
+        String[] quincena = app.definirQuincena(fechaActual);
+        String nombreHoja = fechaActual;
+                        
+        Sheet hojaMadre = libro.createSheet("periodo "+quincena[0]+" a "+quincena[1]);
         
+        Row row1 = hojaMadre.createRow(1);
+        Sheet hoja = libro.createSheet(nombreHoja);
+
+        paginaDiaria(libro, hoja, fechaActual);
+        
+//        estlilos pagMadre
+        //estilo convecciones
         Font negrita = libro.createFont();
         negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
         
         
         
+        Font negritaGrande = libro.createFont();
+        negritaGrande .setBoldweight(Font.BOLDWEIGHT_BOLD);
+        negritaGrande.setFontHeightInPoints((short)14);
+        
+        Font normal = libro.createFont();
+        normal.setFontHeightInPoints((short)12);
+        
+        DataFormat numeric = libro.createDataFormat();
+        
+        
+        CellStyle convecciones = libro.createCellStyle();
+        convecciones.setAlignment(CellStyle.ALIGN_CENTER);
+        convecciones.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        convecciones.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
+        convecciones.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        convecciones.setBorderBottom(CellStyle.BORDER_THIN);
+        convecciones.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        convecciones.setBorderTop(CellStyle.BORDER_THIN);
+        convecciones.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        convecciones.setBorderLeft(CellStyle.BORDER_THIN);
+        convecciones.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        convecciones.setBorderRight(CellStyle.BORDER_THIN);
+        convecciones.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        convecciones.setFont(negrita);
+        
+        
+        //estilos conecciones celdas
+        CellStyle cellRoja = libro.createCellStyle();
+        cellRoja.setFillForegroundColor(IndexedColors.RED.getIndex());
+        cellRoja.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cellRoja.setFillBackgroundColor(IndexedColors.RED.getIndex());
+        cellRoja.setFillBackgroundColor(CellStyle.SOLID_FOREGROUND);
+        cellRoja.setBorderBottom(CellStyle.BORDER_THIN);
+        cellRoja.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellRoja.setBorderTop(CellStyle.BORDER_THIN);
+        cellRoja.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellRoja.setBorderLeft(CellStyle.BORDER_THIN);
+        cellRoja.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellRoja.setBorderRight(CellStyle.BORDER_THIN);
+        cellRoja.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        
+        CellStyle cellAmarilla = libro.createCellStyle();
+        cellAmarilla.setFillForegroundColor(IndexedColors.YELLOW.getIndex());
+        cellAmarilla.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cellAmarilla.setBorderBottom(CellStyle.BORDER_THIN);
+        cellAmarilla.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAmarilla.setBorderTop(CellStyle.BORDER_THIN);
+        cellAmarilla.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAmarilla.setBorderLeft(CellStyle.BORDER_THIN);
+        cellAmarilla.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAmarilla.setBorderRight(CellStyle.BORDER_THIN);
+        cellAmarilla.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAmarilla.setFont(normal);
+        
+        CellStyle cellAzul = libro.createCellStyle();
+        cellAzul.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cellAzul.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+        cellAzul.setBorderBottom(CellStyle.BORDER_THIN);
+        cellAzul.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAzul.setBorderTop(CellStyle.BORDER_THIN);
+        cellAzul.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAzul.setBorderLeft(CellStyle.BORDER_THIN);
+        cellAzul.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAzul.setBorderRight(CellStyle.BORDER_THIN);
+        cellAzul.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        
+        CellStyle cellAzul2 = libro.createCellStyle();
+        cellAzul2.setFillPattern(CellStyle.SOLID_FOREGROUND);
+        cellAzul2.setFillForegroundColor(IndexedColors.AQUA.getIndex());
+        cellAzul2.setBorderBottom(CellStyle.BORDER_THIN);
+        cellAzul2.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAzul2.setBorderTop(CellStyle.BORDER_THIN);
+        cellAzul2.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAzul2.setBorderLeft(CellStyle.BORDER_THIN);
+        cellAzul2.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellAzul2.setBorderRight(CellStyle.BORDER_THIN);
+        cellAzul2.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        
+        CellStyle cellBordes = libro.createCellStyle();
+        cellBordes.setBorderBottom(CellStyle.BORDER_THIN);
+        cellBordes.setBorderTop(CellStyle.BORDER_THIN);
+        cellBordes.setBorderLeft(CellStyle.BORDER_THIN);
+        cellBordes.setBorderRight(CellStyle.BORDER_THIN);
+        cellBordes.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordes.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordes.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordes.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordes.setFont(normal);
+        //cellBordes.setDataFormat(numeric.getFormat("_(* #.##0_);_(* (#.##0);_(* -??_);_(@_)"));
+        
+        CellStyle cellBordesNeg = libro.createCellStyle();
+        cellBordesNeg.setBorderBottom(CellStyle.BORDER_THIN);
+        cellBordesNeg.setBorderTop(CellStyle.BORDER_THIN);
+        cellBordesNeg.setBorderLeft(CellStyle.BORDER_THIN);
+        cellBordesNeg.setBorderRight(CellStyle.BORDER_THIN);
+        cellBordesNeg.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordesNeg.setTopBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordesNeg.setLeftBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordesNeg.setRightBorderColor(IndexedColors.AUTOMATIC.getIndex());
+        cellBordesNeg.setFont(negrita);
+        
+        CellStyle cellTitulo = libro.createCellStyle();
+        cellTitulo.setAlignment(CellStyle.ALIGN_CENTER);
+        cellTitulo.setVerticalAlignment(CellStyle.VERTICAL_CENTER);
+        cellTitulo.setFont(negritaGrande);
+        
+        
+        Cell cellConvec = row1.createCell(7);
+        cellConvec.setCellStyle(convecciones);
+        cellConvec.setCellValue("Convecciones");
+        combinarceldas(hojaMadre, 1, 4, 7, 7);
+        
+        Cell cellR = row1.createCell(9);
+        cellR.setCellStyle(cellRoja);
+        
+        Row row2 = hojaMadre.createRow(2);
+        Row row3 = hojaMadre.createRow(3);
+        Row row4 = hojaMadre.createRow(4);
+        
+        Cell cellA = row2.createCell(9);
+        cellA.setCellStyle(cellAmarilla);
+        
+        Cell cellAz = row3.createCell(9);
+        cellAz.setCellStyle(cellAzul);
+        
+        Cell cellAz2 = row4.createCell(9);
+        cellAz2.setCellStyle(cellAzul2);
+        
+        Cell cellConvA = row1.createCell(10);
+        cellConvA.setCellStyle(cellBordes);
+        cellConvA.setCellValue("Faltas");
+        combinarceldas(hojaMadre, 2, 2, 10, 14);
+        Cell cellConvb = row2.createCell(10);
+        cellConvb.setCellStyle(cellBordes);
+        cellConvb.setCellValue("ContraMaestros");
+        combinarceldas(hojaMadre, 3, 3, 10, 14);
+        Cell cellConvc = row3.createCell(10);
+        cellConvc.setCellStyle(cellBordes);
+        cellConvc.setCellValue("Incapacidades");
+        combinarceldas(hojaMadre, 4, 4, 10, 14);
+        Cell cellConvd = row4.createCell(10);
+        cellConvd.setCellStyle(cellBordes);
+        cellConvd.setCellValue("Permisos");
+        combinarceldas(hojaMadre, 1, 1, 10, 14);
+        
+        Cell cellObra = row2.createCell(1);
+        cellObra.setCellStyle(cellTitulo);
+        cellObra.setCellValue(nomObra);
+        combinarceldas(hojaMadre, 2, 2, 1, 4);
+        
+        Cell cellQuincena = row3.createCell(1);
+        cellQuincena.setCellStyle(cellTitulo);
+        cellQuincena.setCellValue("quincena N° #");
+        combinarceldas(hojaMadre, 3, 3, 1, 4);
+        
+        Cell cellQuinrango = row4.createCell(1);
+        cellQuinrango.setCellStyle(cellTitulo);
+        cellQuinrango.setCellValue("día1 a día2 de mes");
+        combinarceldas(hojaMadre, 4, 4, 1, 4);
+        
+        Row row6 = hojaMadre.createRow(6);
+        Cell cellP = row6.createCell(2);
+        cellP.setCellValue("grupo 1");
+                
+        //int dianum = 1;
+        for(int i = 0; i<15;i++) {
+            Cell celldia1 = row6.createCell(i+9);
+            celldia1.setCellStyle(cellBordes);
+            celldia1.setCellValue(i+1);
+        }
+        
+        Row row7 = hojaMadre.createRow(7);
+        
+        String[] titles = {"N°", "Ficha", "1ER.Apellido", "2DO.Apellido", "1ER.Nombre", "2DO.Nombre", "concatenar", "IDENTIFICACION",
+        "#Cuenta", "S", "D", "L", "M", "M", "J", "V", "S", "D", "L", "M", "M", "J", "V", "S", "D/W", "V/ DIARIO", "SALARIO", "AUX. TRANS",
+        "BONIFICACION", "ISS", "TOTAL A PAGAR", "REDONDEAR", "ISS", "CES-%CES -P-V", "Total Costo Empresa", "CARGO", "MAESTRO/CUADRILLA"};
+        for(int i=0; i<titles.length; i++){
+            Cell cellT0 = row7.createCell(i);
+            cellT0.setCellValue(titles[i]);
+            cellT0.setCellStyle(cellBordesNeg);
+        }
+        //array de empleados ordenados porgrupo, supervisor, ficha
+        //SELECT * FROM empleado ORDER BY grupo, supervisor DESC, nficha
+        
+        ArrayList empleados = app.empleadosTotales();
+        AportesBonificaciones ent = app.entidad("SALARIO MINIMO");
+        AportesBonificaciones salud = app.entidad("APORTE SALUD EMPLEADO");
+        AportesBonificaciones pensionAporte = app.entidad("APORTE PENSION EMPLEADO");
+        AportesBonificaciones saludEmpresa = app.entidad("APORTE TOTAL SALUD");
+        AportesBonificaciones pensionEmpresa = app.entidad("APORTE TOTAL PENSION");
+        AportesBonificaciones ccfEmpresa = app.entidad("APORTE C.C.F");
+        AportesBonificaciones arlEmpresa = app.entidad("APORTE ARL");
+        float minimo = ent.getValor();
+        float aporteSalud = salud.getValor();
+        float aportePension = pensionAporte.getValor();
+        float sumSaludPension = aporteSalud+aportePension;
+        float vlrSaludEmpresa = saludEmpresa.getValor();
+        float vlrPensionEmpresa = pensionEmpresa.getValor();
+        float vlrCcfEmpresa = ccfEmpresa.getValor();
+        float vlrArlEmpresa = arlEmpresa.getValor();
+        ent = app.entidad("AUXILIO TRANSPORTE");
+        float auxTransporte = ent.getValor();
+        for(int i=0; i<empleados.size(); i++){
+            Row rowD = hojaMadre.createRow(i+8);
+            
+            Cell cellD = rowD.createCell(0);
+            cellD.setCellValue(i+1);
+            cellD.setCellStyle(cellBordes);
+            
+            Empleado emp = (Empleado) empleados.get(i);
+            Cell cellD1 = rowD.createCell(1);
+            cellD1.setCellValue(emp.getnFicha());
+            cellD1.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD1.setCellStyle(cellAmarilla);
+            
+            Cell cellD2 = rowD.createCell(2);
+            cellD2.setCellValue(emp.getpApellido());
+            cellD2.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD2.setCellStyle(cellAmarilla);
+            
+            Cell cellD3 = rowD.createCell(3);
+            cellD3.setCellValue(emp.getsApellido());
+            cellD3.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD3.setCellStyle(cellAmarilla);
+            
+            Cell cellD4 = rowD.createCell(4);
+            cellD4.setCellValue(emp.getpNombre());
+            cellD4.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD4.setCellStyle(cellAmarilla);
+            
+            Cell cellD5 = rowD.createCell(5);
+            cellD5.setCellValue(emp.getsNombre());
+            cellD5.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD5.setCellStyle(cellAmarilla);
+            
+            Cell cellD6 = rowD.createCell(6);
+            cellD6.setCellFormula("concatenate(c"+(i+9)+",d"+(i+9)+",e"+(i+9)+",f"+(i+9)+")");
+            cellD6.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD6.setCellStyle(cellAmarilla);
+            
+            Cell cellD7 = rowD.createCell(7);
+            cellD7.setCellValue(emp.getCedula());
+            cellD7.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD7.setCellStyle(cellAmarilla);
+            
+            Cell cellD8 = rowD.createCell(8);
+            cellD8.setCellValue(emp.getnCuenta());
+            cellD8.setCellStyle(cellBordes);
+            if(emp.getSupervisor() == 1) cellD7.setCellStyle(cellAmarilla);
+            
+            //celdas con asistencia
+            ArrayList<String> dias = app.diasAsistencia(emp.getCedula());
+            float diasW = 0;
+            for(int j=0; j<dias.size();j++){
+                Cell cellDias = rowD.createCell(j+9);
+                cellDias.setCellValue(dias.get(j));
+                if(dias.get(j).equals("N")){
+                    cellDias.setCellStyle(cellRoja);
+                }else if(dias.get(j).equals("I")){
+                    cellDias.setCellStyle(cellAzul);
+                }else if(dias.get(j).equals("P")){
+                    cellDias.setCellStyle(cellAzul2);
+                    diasW++;
+                }else if(dias.get(j).equals("%")){
+                    cellDias.setCellStyle(cellAzul2);
+                    diasW = (float) (diasW+0.5);
+                }
+                else {
+                    cellDias.setCellStyle(cellBordes);
+                    diasW++;
+                }
+            }
+            Cell cellDW = rowD.createCell(24);
+            cellDW.setCellValue(diasW);
+            cellDW.setCellStyle(cellBordes);
+            
+            Cell cellVD = rowD.createCell(25);
+            cellVD.setCellFormula("("+minimo+"/30)");
+            cellVD.setCellStyle(cellBordes);
+            
+            Cell cellsal = rowD.createCell(26);
+            cellsal.setCellFormula("(z"+(i+9)+" * y"+(i+9)+")");
+            cellsal.setCellStyle(cellBordes);
+            
+            Cell cellAuxTrans = rowD.createCell(27);
+            if(emp.getAuxTransporte() == 0) cellAuxTrans.setCellValue(0);
+            else cellAuxTrans.setCellFormula(auxTransporte+"/30*y"+(i+9));
+            cellAuxTrans.setCellStyle(cellBordes);
+            
+        ArrayList<AportesBonificaciones> aportes = app.deduccionesEmpleado(emp.getCedula());
+        
+        String bonificacion="";
+        if(aportes != null){
+            for (AportesBonificaciones aporte : aportes) {
+                switch (aporte.getTipo()) {
+                    
+                    case "BONIFICACION":
+                        bonificacion = String.valueOf(aporte.getValor());
+                        break;
+                }
+            }
+        }
+            
+            
+            Cell cellBon = rowD.createCell(28);
+            if(bonificacion.equals("")) cellBon.setCellValue(0);
+            else cellBon.setCellFormula(bonificacion+"/15*Y"+(i+9));
+            cellBon.setCellStyle(cellBordes);
+            
+            Cell cellIss = rowD.createCell(29);
+            cellIss.setCellFormula("("+minimo+"*"+sumSaludPension+")/30*15");
+            cellIss.setCellStyle(cellBordes);
+            
+            Cell cellTotalPagar = rowD.createCell(30);
+            cellTotalPagar.setCellFormula("AA"+(i+9)+"+AB"+(i+9)+"+AC"+(i+9)+"+AD"+(i+9));
+            cellTotalPagar.setCellStyle(cellBordes);
+            
+            Cell cellRedondear = rowD.createCell(31);
+            cellRedondear.setCellFormula("ROUND(AE"+(i+9)+",0)");
+            cellRedondear.setCellStyle(cellBordes);
+            
+            Cell cellIss2 = rowD.createCell(32);
+            //(644350*0,16)+(644350*0,125)+(644350*0,0696)+(644350*0,04))/30*15
+            cellIss2.setCellFormula("("+minimo+"*"+vlrPensionEmpresa+"+"+minimo+"*"+vlrSaludEmpresa+"+"
+                    + ""+minimo+"*"+vlrArlEmpresa+"+"+minimo+"*"+vlrCcfEmpresa+")/30*15");
+            cellIss2.setCellStyle(cellBordes);
+            
+            Cell cellCesPv = rowD.createCell(33);
+            cellCesPv.setCellValue(0);
+            cellCesPv.setCellStyle(cellBordes);
+            
+            Cell cellCostoEmp = rowD.createCell(34);
+            cellCostoEmp.setCellFormula("AA"+(i+9)+"+AB"+(i+9)+"+AC"+(i+9)+"+AD"+(i+9)+"+AG"+(i+9)+"+AH"+(i+9));
+            cellCostoEmp.setCellStyle(cellBordes);
+            
+            Cell cellCargo = rowD.createCell(35);
+            cellCargo.setCellValue(emp.getCargo());
+            cellCargo.setCellStyle(cellBordes);
+            
+            Grupo grp = app.grupo(emp.getGrupo());
+            
+            Cell cellMaestro = rowD.createCell(36);
+            cellMaestro.setCellValue(grp.getNombre());
+            cellMaestro.setCellStyle(cellBordes);
+            
+        }
+        System.out.println(getSupportedFunctionNames ());
+        for(int column=0; column<36; column++){
+            hojaMadre.autoSizeColumn(column, true);
+        }
+        
+        try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
+            //escribir este libro en un OutputStream.
+            libro.write(fileOut);
+            fileOut.flush();
+        }
+    }
+    private void combinarceldas(Sheet hoja, int pFila, int uFila, int nColumna, int nColumnaFinal){
+        hoja.addMergedRegion(new CellRangeAddress(pFila,uFila,nColumna,nColumnaFinal));
+    }
+    
+    private void paginaDiaria(Workbook libro, Sheet hoja, String fechaActual){
+        //estilos
+        Font negrita = libro.createFont();
+        negrita.setBoldweight(Font.BOLDWEIGHT_BOLD);
+                
         CellStyle estilo = libro.createCellStyle();
         estilo.setAlignment(CellStyle.ALIGN_CENTER);
         estilo.setFillForegroundColor(IndexedColors.GREEN.getIndex());
@@ -145,23 +521,15 @@ public class FileExcel {
         borderBot.setBorderBottom(CellStyle.BORDER_THIN);
         borderBot.setBottomBorderColor(IndexedColors.AUTOMATIC.getIndex());
         
-        
-        Row row = hoja.createRow(1);
-        
-        
-        
-        //Row row1 = hoja.createRow(2);
-        
-        //empleados faltas
+        //escribiendo hoja
         Appi app = new Appi();
-        Date Fecha = new Date();
-        DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
-        String fechaActual = formato.format(Fecha);
+        
         ArrayList<Empleado> faltas = app.faltas(fechaActual);//obtengo listado de empleados
         String grupoBandera = "";
         String maestro = "";
         int pRow = 3;
         if(!faltas.isEmpty()){
+            Row row = hoja.createRow(1);
             Cell celda = row.createCell(3);
             Cell celda2 = row.createCell(4);
             Cell celda3 = row.createCell(5);
@@ -215,12 +583,10 @@ public class FileExcel {
             cell8.setCellStyle(estilo2);
         }
         Empleado emp = null;
-        for(int i=0; i<faltas.size(); i++){
-           
+        for (Empleado falta : faltas) {
             //datos
-            emp = (Empleado) faltas.get(i);
+            emp = (Empleado) falta;
             Grupo grupo = app.grupo(emp.getGrupo());
-            
             if(!grupoBandera.equals(emp.getGrupo())){
                 grupoBandera = emp.getGrupo();
                 pRow = pRow+2;
@@ -291,7 +657,6 @@ public class FileExcel {
                 cell8.setCellValue("Grupo");
                 cell8.setCellStyle(estilo2);
             }
-            
             Row row5 = hoja.createRow(pRow+1);
             Cell celda51 = row5.createCell(1);
             celda51.setCellStyle(bordes);
@@ -323,7 +688,7 @@ public class FileExcel {
             pRow++;
             Empleado supervisor = app.empleado(grupo.getSupervisor());
             if(supervisor != null){
-                 maestro = supervisor.getpNombre()+" "+supervisor.getsNombre()+" "+supervisor.getpApellido()+" "+supervisor.getsApellido();
+                maestro = supervisor.getpNombre()+" "+supervisor.getsNombre()+" "+supervisor.getpApellido()+" "+supervisor.getsApellido();
             }else{
                 maestro = String.valueOf(grupo.getSupervisor());
             }
@@ -331,11 +696,6 @@ public class FileExcel {
             //
             //String cedula = (String) e;
             //Empleado emp = app.empleado(cedula);
-            
-           
-            System.out.println(emp.getCedula());
-            
-            
         }
         if(emp != null){
             pRow = pRow+2;
@@ -366,33 +726,7 @@ public class FileExcel {
             Cell celda64 = row6.createCell(4);
             combinarceldas(hoja, pRow, pRow, 4, 8);
             celda64.setCellValue(maestro);
-        }
-        
-        //enmcabezados
-        
-        
-        //Row row3 = hoja.createRow(1);
-        // debe ejcutarse un loop de acuerdoa consaulta
-        //datos
-       
-        
-        //datos responsable firma
-       
-        
-        //CellS
-        //celda64.setCellStyle();
-        
-        
-        try (FileOutputStream fileOut = new FileOutputStream(nombreFile)) {
-            //escribir este libro en un OutputStream.
-            libro.write(fileOut);
-            fileOut.flush();
-        }
-        
-        
-    }
-    private void combinarceldas(Sheet hoja, int pFila, int uFila, int nColumna, int nColumnaFinal){
-        hoja.addMergedRegion(new CellRangeAddress(pFila,uFila,nColumna,nColumnaFinal));
+        }  
     }
         
 }
